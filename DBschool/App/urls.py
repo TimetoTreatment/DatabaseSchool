@@ -5,7 +5,8 @@ from . import views
 urlpatterns = [
     #정원
     path('join', views.join),
-
+    path('test', views.test),
+    
     #건호
     path('', views.home),
 

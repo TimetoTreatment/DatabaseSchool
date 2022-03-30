@@ -8,6 +8,9 @@ from django.http import HttpResponseRedirect
 def join(request):
     return render(request,"App/join.html")
 
+def test(request):
+    return render(request,"App/test.html")
+
 
 #건호
 def home(request):
