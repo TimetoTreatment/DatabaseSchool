@@ -1,0 +1,63 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>DB School - Home</title>
+
+    <!-- Vendor CSS Files -->
+    <link href="{% static 'vendor/aos/aos.css' %}" rel="stylesheet">
+    <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'vendor/bootstrap-icons/bootstrap-icons.css' %}" rel="stylesheet">
+    <link href="{% static 'vendor/boxicons/css/boxicons.min.css' %}" rel="stylesheet">
+    <link href="{% static 'vendor/glightbox/css/glightbox.min.css' %}" rel="stylesheet">
+    <link href="{% static 'vendor/swiper/swiper-bundle.min.css' %}" rel="stylesheet">
+
+    <!-- Project CSS File -->
+    <link href="{% static 'css/common.css ' %}" rel="stylesheet">
+    <link href="{% static 'css/header.css ' %}" rel="stylesheet">
+    <link href="{% static 'css/footer.css ' %}" rel="stylesheet">
+</head>
+
+<body>
+    <!-- ======= Header ======= -->
+    <header class="fixed-top">
+        <nav class="nav-top-1">
+            <div class="logo">
+                <a href={% url 'App:Home' %}><span class="text-the">디</span><span class="text-school"> 스쿨</span></a>
+            </div>
+            <div class="function">
+                <a href={% url 'App:Practice' %}><img src="{% static 'img/nav-top-1-img1.png' %}" /></a>
+                <a href={% url 'App:Exam' %}><img src="{% static 'img/nav-top-1-img2.png' %}" /></a>
+                <a href={% url 'App:QuizReg' %}><img src="{% static 'img/nav-top-1-img3.png' %}" /></a>
+                <a href={% url 'App:Grade' %}><img src="{% static 'img/nav-top-1-img4.png' %}" /></a>
+            </div>
+            <div class="user">
+                <a href="#"><u>윤은일</u></a> 님
+            </div>
+        </nav>
+        <nav class="nav-top-2" style="padding-left:20px">
+            <a class="navbar-nav" href="#">카테고리1</a>
+            <a class="navbar-nav" href="#">카테고리2</a>
+            <a class="navbar-nav" href="#">카테고리3</a>
+        </nav>
+    </header>
+
+    <!-- ======= Main ======= -->
+    <main>
+
+
+
+
+
+    </main>
+
+    <!-- ====== Footer ====== -->
+    <footer id="footer" class="fixed-bottom">
+        <div class="container">
+            <h3>세종대학교</h3>
+            <p>캡스톤디자인: 8조</p>
+        </div>
+    </footer><!-- End Footer -->
+</body>
+</html>

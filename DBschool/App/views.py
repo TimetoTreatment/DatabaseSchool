@@ -16,6 +16,17 @@ def test(request):
 def home(request):
     return render(request, "App/home.html")
 
+def Practice(request):
+    return render(request, "App/Practice.html")
+
+def Exam(request):
+    return render(request, "App/Exam.html")
+    
+def QuizReg(request):
+    return render(request, "App/QuizReg.html")
+
+def Grade(request):
+    return render(request, "App/Grade.html")
 
 
 #준엽
@@ -38,6 +49,5 @@ def signup(request):
             print("인증 실패")
             return render(request, 'App/signup.html')
     return render(request, 'App/signup.html')
-
 
 #부건
