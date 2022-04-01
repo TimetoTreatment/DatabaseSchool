@@ -10,7 +10,7 @@ urlpatterns = [
     path('test', views.test),
     
     #건호
-    path('Home', views.home, name="Home"),
+    path('', views.home, name="Home"),
     path('Practice', views.Practice, name="Practice"),
     path('Exam', views.Exam, name="Exam"),
     path('QuizReg', views.QuizReg, name="QuizReg"),
