@@ -1,8 +1,4 @@
-from tkinter import CASCADE
 from django.db import models
-from django.forms import BooleanField, IntegerField
-from numpy import integer
-from pandas import notnull
 
 # Create your models here.
 
