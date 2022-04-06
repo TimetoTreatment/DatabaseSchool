@@ -1,0 +1,92 @@
+/*--------------------------------------------------------------
+# Select Class and Quiz
+--------------------------------------------------------------*/
+
+
+#select-quiz {
+    width: 50%;
+    height: 100%;
+    margin: 0 auto;
+    padding: 15vh 0;
+}
+
+#select-quiz {
+    font-family: GmarketSansMedium;
+}
+
+    #select-quiz .class-list {
+    }
+
+        #select-quiz .class-list .class-item {
+            margin-bottom: 20px;
+        }
+
+            #select-quiz .class-list .class-item a {
+                color: black;
+            }
+
+    #select-quiz .quiz-list .quiz-item {
+        margin-bottom: 20px;
+        color: #4472C4;
+        height: auto;
+    }
+
+        #select-quiz .quiz-list .quiz-item a {
+            color: #4472C4;
+        }
+
+        #select-quiz .quiz-list .quiz-item.validate a {
+            color: black;
+        }
+
+        #select-quiz .quiz-list .quiz-item .datetime {
+            vertical-align: middle;
+            float: right;
+            margin: 1px 10px 0 10px;
+            height: 25px;
+            width: 70%;
+            border-radius: 10px;
+            border: 3px solid #4472C4;
+            font-size:10pt;
+            text-align:center;
+            padding:2px 0 0 0;
+        }
+
+        #select-quiz .quiz-list .quiz-item.validate .datetime {
+            border: 2px solid black;
+            color:black;
+        }
+
+
+    #select-quiz .quiz-list .quiz-add {
+        margin-top: 30px;
+    }
+
+        #select-quiz .quiz-list .quiz-add a {
+            color: black;
+            font-size: 22px;
+            font-family: GmarketSansBold;
+        }
+
+    #select-quiz .contents {
+        height: 500px;
+        width: 70%;
+        margin: 0 auto;
+        background-color: #FAFAFA;
+        padding: 50px;
+        font-size: 20px;
+        border: 1px solid #EEEEEE;
+        border-radius: 30px;
+    }
+
+    #select-quiz .caption {
+    }
+
+        #select-quiz .caption h5 {
+            font-family: GmarketSansBold;
+            font-size: 24px;
+        }
+
+        #select-quiz .caption p {
+            font-size: 16px;
+        }

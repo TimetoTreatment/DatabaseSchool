@@ -5,23 +5,23 @@
 <head>
     <title>DB School - Home</title>
 
-    <!-- Vendor CSS Files -->
-    <link href="{% static 'vendor/aos/aos.css' %}" rel="stylesheet">
-    <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
-    <link href="{% static 'vendor/bootstrap-icons/bootstrap-icons.css' %}" rel="stylesheet">
-    <link href="{% static 'vendor/boxicons/css/boxicons.min.css' %}" rel="stylesheet">
-    <link href="{% static 'vendor/glightbox/css/glightbox.min.css' %}" rel="stylesheet">
-    <link href="{% static 'vendor/swiper/swiper-bundle.min.css' %}" rel="stylesheet">
+    <!-- Bootstrap CSS File -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 
-    <!-- Project CSS File -->
+    <!-- Project CSS Files -->
     <link href="{% static 'css/common.css ' %}" rel="stylesheet">
     <link href="{% static 'css/header.css ' %}" rel="stylesheet">
     <link href="{% static 'css/footer.css ' %}" rel="stylesheet">
+    <link href="{% static 'css/online_judge.css ' %}" rel="stylesheet">
+    <link href="{% static 'css/select_class_quiz.css ' %}" rel="stylesheet">
+
+    <link href="{% static 'css/test.css ' %}" rel="stylesheet">
 </head>
 
 <body>
     <!-- ======= Header ======= -->
-    <header class="fixed-top">
+    <header>
+        <!-- Nav 1: 최상단 로고 및 아이콘 -->
         <nav class="nav-top-1">
             <div class="logo">
                 <a href={% url 'App:Home' %}><span class="text-the">디</span><span class="text-school"> 스쿨</span></a>
@@ -36,6 +36,7 @@
                 <a href="#"><u>윤은일</u></a> 님
             </div>
         </nav>
+        <!-- Nav 2: 카테고리 경로 (파란줄) -->
         <nav class="nav-top-2" style="padding-left:20px">
             <a class="navbar-nav" href="#">카테고리1</a>
             <a class="navbar-nav" href="#">카테고리2</a>
@@ -44,20 +45,20 @@
     </header>
 
     <!-- ======= Main ======= -->
-    <main>
-
-
-
-
-
+    <main style="height: 76.8vh">
+        {% block content %}
+        {% endblock %}
     </main>
 
     <!-- ====== Footer ====== -->
-    <footer id="footer" class="fixed-bottom">
+    <footer id="footer">
         <div class="container">
             <h3>세종대학교</h3>
-            <p>캡스톤디자인: 8조</p>
+            <p>캡스톤디자인: "아니이게외않되" 팀</p>
         </div>
-    </footer><!-- End Footer -->
+    </footer>
+
+    <!-- Bootstrap JS File -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 </body>
 </html>

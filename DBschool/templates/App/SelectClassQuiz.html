@@ -1,0 +1,65 @@
+{% extends 'templates/App/_template_frame.html' %}
+{% block content %}
+
+<div id="select-quiz">
+    <div id="carouselExampleDark" class="carousel carousel-dark slide" data-bs-ride="carousel">
+        <div class="carousel-indicators">
+            <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+            <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="1" aria-label="Slide 2"></button>
+        </div>
+        <div class="carousel-inner">
+            <!-- 페이지 1: 수업 선택 -->
+            <div class="carousel-item class-list active" data-bs-interval="100000000">
+                <div class="contents">
+                    <!-- 내 수업 목록, href -->
+                    <div class="class-item"><a href="">데이터베이스001 (윤은일)</a></div>
+                    <div class="class-item"><a href="">데이터베이스002 (윤은일)</a></div>
+                </div>
+                <div class="carousel-caption caption d-none d-md-block">
+                    <h5>내 수업</h5>
+                    <p>수업을 선택해 주세요.</p>
+                </div>
+            </div>
+            <!-- 페이지 2: 퀴즈 선택 -->
+            <div class="carousel-item quiz-list" data-bs-interval="100000000">
+                <div class="contents">
+                    <div class="list" style="width: 40%; display: inline-block; margin-right: 60px;">
+                        <!-- 퀴즈 목록 -->
+                        <div class="quiz-item">
+                            <a href="">퀴즈 1</a><!-- 퀴즈 이름, href-->
+                            <div class="datetime">2022-03-08 13:30</div><!-- 퀴즈 일시 -->
+                        </div>
+                        <div class="quiz-item">
+                            <a href="">퀴즈 2</a>
+                            <div class="datetime">2022-03-15 13:30</div>
+                        </div>
+                        <div class="quiz-item validate">
+                            <a href="">퀴즈 3</a>
+                            <div class="datetime">2022-03-22 13:30</div>
+                        </div>
+                        <!-- 퀴즈 등록 -->
+                        <div class="quiz-add">
+                            <a href=""> + 퀴즈 등록</a>
+                        </div>
+                    </div>
+                    <div class="list" style="width: 40%; display: inline-block; margin-right: 60px;">
+                    </div>
+                </div>
+                <div class="carousel-caption caption d-none d-md-block">
+                    <h5>퀴즈 / 시험</h5>
+                    <p>응시할 퀴즈 또는 시험을 선택해 주세요.</p>
+                </div>
+            </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+    </div>
+</div>
+
+{% endblock %}

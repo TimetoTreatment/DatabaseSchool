@@ -6,13 +6,12 @@ from django.db import models
 #PROBLEM
 #참여수업목록은 여기있으면 안될것 같음. ID로 참여수업을 조회하는게 나음
 #완료
-class Users(models.Model):
+class User(models.Model):
     ID = models.BigAutoField(auto_created=True, primary_key=True)
     Email = models.CharField(max_length = 30)
     Password = models.CharField(max_length = 30)
     Name = models.CharField(max_length = 30)
     IsTeacher = models.BooleanField(default = 0)
-
 
 #TABLE : 수업목록
 #PROBLEM
@@ -20,10 +19,10 @@ class Users(models.Model):
 class Class(models.Model):
     ID = models.BigAutoField(auto_created=True, primary_key=True) 
     Name = models.CharField(max_length = 30)
-    Teacher = models.ForeignKey(Users, on_delete=models.CASCADE, null=False)
+    Teacher = models.ForeignKey(User, on_delete=models.CASCADE, null=False)
 
 class RegClass(models.Model):
-    UserID=models.ForeignKey(Users, on_delete=models.CASCADE)
+    UserID=models.ForeignKey(User, on_delete=models.CASCADE)
     ClassID=models.ForeignKey(Class, on_delete=models.CASCADE)
 
 #TBALE : 퀴즈 목록
@@ -49,13 +48,13 @@ class Problem(models.Model):
 
 class Submit(models.Model):
     ID=models.BigAutoField(auto_created=True, primary_key=True)
-    UserName=models.ForeignKey(Users, on_delete=models.CASCADE)
+    UserName=models.ForeignKey(User, on_delete=models.CASCADE)
     ProblemID=models.ForeignKey(Problem, on_delete=models.CASCADE)
     AcceptRate=models.FloatField(default=0.0, null=False)
 
 #TABLE : 점수
 #PRIMAY KEY는 필요없음
 class Score(models.Model):
-    StudentID=models.ForeignKey(Users, on_delete=models.CASCADE)
+    StudentID=models.ForeignKey(User, on_delete=models.CASCADE)
     ProblemID=models.ForeignKey(Problem, on_delete=models.CASCADE)
     Score=models.IntegerField(null=False, default=0)
