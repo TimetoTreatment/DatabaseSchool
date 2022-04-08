@@ -30,3 +30,8 @@ a {
     font-weight: normal;
     font-style: normal;
 }
+
+
+main {
+    height: calc(100vh - 300px);
+}
