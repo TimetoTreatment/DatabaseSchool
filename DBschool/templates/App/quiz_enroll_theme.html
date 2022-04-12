@@ -1,0 +1,42 @@
+{% extends 'templates/App/_template_frame.html' %}
+
+{% block title %}
+<title>Online Judge</title>
+{% endblock %}
+
+{% block css %}
+{% load static %}
+<link href="{% static 'css/quiz_enroll.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+<form id="quiz-enroll" method="post">
+    <div class="row mb-4">
+        <label for="inputTime" class="col-sm-3 col-form-label quiz-enroll-label">테이블</label>
+        <select class="form-select" aria-label="select table">
+            <option value="1">학생</option>
+            <option value="2">직원</option>
+            <option value="3">부품</option>
+            <option value="4">동물</option>
+        </select>
+        <div class="other-option"><a href="">테이블 직접 입력하기</a></div>
+    </div>
+    <div class="row mb-5">
+        <label for="inputTime" class="col-sm-3 col-form-label quiz-enroll-label">키워드</label>
+        <select class="form-select" aria-label="select keyword">
+            <option value="1">SELECT</option>
+            <option value="2">INSERT</option>
+            <option value="3">UPDATE</option>
+            <option value="4">DELETE</option>
+        </select>
+    </div>
+    <div class="row mb-5">
+        <label for="inputLimit" class="col-sm-3 col-form-label quiz-enroll-label" style="color: #4472C4;">문제 수</label>
+        <div class="col-sm-8">
+            <input id="inputLimit" type="number" class="form-control" step="1" min="0" max="100">
+        </div>
+    </div>
+    <button type="submit" class="btn btn-primary" style="background-color: #4472C4;">등록</button>
+    <button type="reset" class="btn btn-outline-dark">초기화</button>
+</form>
+{% endblock %}

@@ -1,0 +1,65 @@
+/*--------------------------------------------------------------
+# Quiz Enroll
+--------------------------------------------------------------*/
+
+
+#quiz-enroll {
+    width: 400px;
+    position: absolute;
+    left: 50%;
+    top: 52%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+}
+
+    #quiz-enroll label {
+        font-family: GmarketSansBold;
+        font-size: 24px;
+        display: block;
+    }
+
+    #quiz-enroll input {
+        width: 240px;
+        font-family: GmarketSansLight;
+        padding-top: 10px;
+        margin-top: 3px;
+    }
+
+    #quiz-enroll button {
+        width: 100px;
+        margin: 0 10px;
+        border-radius: 25px;
+        font-family: GmarketSansMedium;
+        font-size: 18px;
+        padding-top: 10px;
+        margin-top: 20px;
+        border-color: black;
+    }
+
+    #quiz-enroll select {
+        width: 240px;
+        margin-left: 12px;
+        height: 40px;
+        margin-top: 3px;
+        font-family: GmarketSansMedium;
+        padding-top: 7px;
+        font-size: 18px;
+    }
+
+    #quiz-enroll .other-option {
+        text-align: center;
+        font-family: GmarketSansLight;
+        border-bottom: 1px solid lightgray;
+        width: 132px;
+        padding: 0;
+        margin: 0 65px 0 auto;
+        height:22px;
+    }
+
+        #quiz-enroll .other-option a {
+            text-decoration: none;
+            color: gray;
+            font-size: 14px;
+            margin:0;
+            padding:0;
+        }
