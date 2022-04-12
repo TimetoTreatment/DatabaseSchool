@@ -14,7 +14,7 @@ urlpatterns = [
     path('Practice', views.Practice, name="Practice"),
     path('Exam', views.Exam, name="Exam"),
     path('QuizReg', views.QuizReg, name="QuizReg"),
-    path('Grade', views.Grade, name="Grade"),
+    path('Grade/Mypage', views.Mypage, name="Mypage"),
 
 
 

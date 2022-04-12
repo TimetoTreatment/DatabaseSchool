@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.urls import reverse
 from django.contrib.auth import authenticate, login
 from django.http import HttpResponseRedirect
+from django.contrib.auth.decorators import login_required
 # Create your views here.
 
 #정원
@@ -26,7 +27,12 @@ def QuizReg(request):
     return render(request, "App/QuizReg.html")
 
 def Grade(request):
-    return render(request, "App/Grade.html")
+    return render(request, "App/Grade_Mypage.html")
+
+
+def Mypage(request):
+    author= request.user
+    return render(request, "App/Grade_Mypage.html", {'e':author})
 
 
 #준엽

@@ -1,17 +1,11 @@
 from django.db import models
-
+from django.contrib.auth.models import User
 # Create your models here.
 
 #TABLE : 사용자목로(Users)
 #PROBLEM
 #참여수업목록은 여기있으면 안될것 같음. ID로 참여수업을 조회하는게 나음
 #완료
-class User(models.Model):
-    ID = models.BigAutoField(auto_created=True, primary_key=True)
-    Email = models.CharField(max_length = 30)
-    Password = models.CharField(max_length = 30)
-    Name = models.CharField(max_length = 30)
-    IsTeacher = models.BooleanField(default = 0)
 
 #TABLE : 수업목록
 #PROBLEM
