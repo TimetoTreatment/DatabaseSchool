@@ -56,11 +56,13 @@
                 padding-top: 12px;
             }
 
-            #mypage .tab-content #form-mypage-privacy input[type=text] {
+            #mypage .tab-content #form-mypage-privacy input[type=text], input[type=password] {
                 width: 240px;
                 font-family: GmarketSansLight;
-                padding-top: 10px;
-                margin-top: 3px;
+                padding-top: 8px;
+                margin-top: 10px;
+                border-radius:50px;
+                height:30px;
             }
 
             #mypage .tab-content #form-mypage-privacy .role input[type=radio] {

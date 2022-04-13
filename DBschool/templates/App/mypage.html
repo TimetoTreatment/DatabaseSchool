@@ -27,59 +27,65 @@
     </ul>
     <div class="tab-content" id="myTabContent">
         <div class="tab-pane fade show active" id="privacy" role="tabpanel" aria-labelledby="privacy-tab">
+            <!-- ========== 개인 정보 ========== -->
             <form id="form-mypage-privacy" method="post">
-                <!-- ========== 아이디 ========== -->
+                <!-- ==== 아이디 ==== -->
                 <div class="row mb-4">
-                    <label for="inputDate" class="col-sm-3 col-form-label form-quiz-label">아이디</label>
+                    <label for="inputID" class="col-sm-3 col-form-label form-quiz-label">아이디</label>
                     <div class="col-sm-8">
-                        <input name="date" id="inputDate" type="text" class="form-control" placeholder="example@naver.com" disabled>
+                        <input name="date" id="inputID" type="text" class="form-control" placeholder="example@naver.com" disabled>
                     </div>
                 </div>
-                <!-- ========== 비밀번호 ========== -->
+                <!-- ==== 비밀번호 ==== -->
                 <div class="row mb-4">
-                    <label for="inputTime" class="col-sm-3 col-form-label form-quiz-label">비밀번호</label>
-                    <div class="col-sm-8">
-                        <!-- 입력 -->
-                        <input name="time" id="inputTime" type="text" class="form-control">
-                    </div>
-                </div>
-                <!-- ========== 이름 ========== -->
-                <div class="row mb-4">
-                    <label for="inputTimeout" class="col-sm-3 col-form-label form-quiz-label">이름</label>
+                    <label for="inputPassword" class="col-sm-3 col-form-label form-quiz-label">비밀번호</label>
                     <div class="col-sm-8">
                         <!-- 입력 -->
-                        <input name="time" id="inputTime" type="text" class="form-control" placeholder="아무개" disabled>
+                        <input name="time" id="inputPassword" type="password" class="form-control">
                     </div>
                 </div>
-                <!-- ========== 직책 ========== -->
+                <!-- ==== 이름 ==== -->
                 <div class="row mb-4">
-                    <label for="inputTimeout" class="col-sm-3 col-form-label form-quiz-label">직책</label>
+                    <label for="inputName" class="col-sm-3 col-form-label form-quiz-label">이름</label>
+                    <div class="col-sm-8">
+                        <!-- 입력 -->
+                        <input name="time" id="inputName" type="text" class="form-control" placeholder="아무개" disabled>
+                    </div>
+                </div>
+                <!-- ==== 직책 ==== -->
+                <div class="row mb-4">
+                    <label class="col-sm-3 col-form-label form-quiz-label">직책</label>
                     <div class="col-sm-8 role">
                         <!-- 입력 -->
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1" disabled>
+                            <input class="form-check-input" type="radio" name="roleOption" id="roleTeacher" value="teacher" disabled>
                             <label class="form-check-label" for="inlineRadio1">교사</label>
                         </div>
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2" disabled checked>
+                            <input class="form-check-input" type="radio" name="roleOption" id="roleStudent" value="student" disabled checked>
                             <label class="form-check-label" for="inlineRadio2">학생</label>
                         </div>
                     </div>
                 </div>
-
-                <!-- ========== 버튼 ========== -->
+                <!-- ==== 버튼 ==== -->
                 <div class="button-container">
                     <button type="submit" class="btn btn-primary" style="background-color: #4472C4;">완료</button>
                     <button type="reset" class="btn btn-outline-dark">취소</button>
                 </div>
             </form>
         </div>
+
+        <!-- ========== 수업 관리 ========== -->
         <div class="tab-pane fade" id="class" role="tabpanel" aria-labelledby="class-tab">
             수업관리
         </div>
+
+        <!-- ========== 성적 확인 ========== -->
         <div class="tab-pane fade" id="grade" role="tabpanel" aria-labelledby="grade-tab">
             성적확인
         </div>
+
+        <!-- ========== 학생 등록 ========== -->
         <div class="tab-pane fade" id="enroll" role="tabpanel" aria-labelledby="enroll-tab">
             학생등록
         </div>

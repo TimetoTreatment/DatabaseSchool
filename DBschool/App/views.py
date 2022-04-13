@@ -51,3 +51,23 @@ def signup(request):
     return render(request, 'App/signup.html')
 
 #부건
+
+
+#TEST
+def datetime(request):
+    return render(request, "App/form_quiz_datetime.html")
+
+def theme(request):
+    return render(request, "App/form_quiz_theme.html")
+
+def review(request):
+    return render(request, "App/form_quiz_review.html")
+
+def onlineJudge(request):
+    return render(request, "App/online_judge.html")
+
+def classQuiz(request):
+    return render(request, "App/SelectClassQuiz.html")
+
+def mypage(request):
+    return render(request, "App/mypage.html")

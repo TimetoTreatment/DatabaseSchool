@@ -10,82 +10,27 @@
 {% endblock %}
 
 {% block content %}
-<div id="mypage">
-    <ul class="nav nav-tabs" id="myTab" role="tablist">
-        <li class="nav-item" role="presentation">
-            <button class="nav-link active" id="privacy-tab" data-bs-toggle="tab" data-bs-target="#privacy" type="button" role="tab" aria-controls="privacy" aria-selected="true">개인 정보</button>
-        </li>
-        <li class="nav-item" role="presentation">
-            <button class="nav-link" id="class-tab" data-bs-toggle="tab" data-bs-target="#class" type="button" role="tab" aria-controls="class" aria-selected="false">수업 관리</button>
-        </li>
-        <li class="nav-item" role="presentation">
-            <button class="nav-link" id="grade-tab" data-bs-toggle="tab" data-bs-target="#grade" type="button" role="tab" aria-controls="grade" aria-selected="false">성적 확인</button>
-        </li>
-        <li class="nav-item" role="presentation">
-            <button class="nav-link" id="enroll-tab" data-bs-toggle="tab" data-bs-target="#enroll" type="button" role="tab" aria-controls="enroll" aria-selected="false">학생 등록</button>
-        </li>
-    </ul>
-    <div class="tab-content" id="myTabContent">
-        <div class="tab-pane fade show active" id="privacy" role="tabpanel" aria-labelledby="privacy-tab">
-            <form id="form-mypage-privacy" method="post">
-                <!-- ========== 아이디 ========== -->
-                <div class="row mb-4">
-                    <label for="inputDate" class="col-sm-3 col-form-label form-quiz-label">아이디</label>
-                    <div class="col-sm-8">
-                        <input name="date" id="inputDate" type="text" class="form-control" placeholder="example@naver.com" disabled>
-                    </div>
-                </div>
-                <!-- ========== 비밀번호 ========== -->
-                <div class="row mb-4">
-                    <label for="inputTime" class="col-sm-3 col-form-label form-quiz-label">비밀번호</label>
-                    <div class="col-sm-8">
-                        <!-- 입력 -->
-                        <input name="time" id="inputTime" type="text" class="form-control">
-                    </div>
-                </div>
-                <!-- ========== 이름 ========== -->
-                <div class="row mb-4">
-                    <label for="inputTimeout" class="col-sm-3 col-form-label form-quiz-label">이름</label>
-                    <div class="col-sm-8">
-                        <!-- 입력 -->
-                        <input name="time" id="inputTime" type="text" class="form-control" placeholder="아무개" disabled>
-                    </div>
-                </div>
-                <!-- ========== 직책 ========== -->
-                <div class="row mb-4">
-                    <label for="inputTimeout" class="col-sm-3 col-form-label form-quiz-label">직책</label>
-                    <div class="col-sm-8 role">
-                        <!-- 입력 -->
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1" disabled>
-                            <label class="form-check-label" for="inlineRadio1">교사</label>
-                        </div>
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2" disabled checked>
-                            <label class="form-check-label" for="inlineRadio2">학생</label>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- ========== 버튼 ========== -->
-                <div class="button-container">
-                    <button type="submit" class="btn btn-primary" style="background-color: #4472C4;">완료</button>
-                    <button type="reset" class="btn btn-outline-dark">취소</button>
-                </div>
-            </form>
-        </div>
-        <div class="tab-pane fade" id="class" role="tabpanel" aria-labelledby="class-tab">
-            수업관리
-        </div>
-        <div class="tab-pane fade" id="grade" role="tabpanel" aria-labelledby="grade-tab">
-            성적확인
-        </div>
-        <div class="tab-pane fade" id="enroll" role="tabpanel" aria-labelledby="enroll-tab">
-            학생등록
-        </div>
+<div style="margin:200px 1000px; font-size:24px;">
+    <div style="margin:30px 0;">
+        <a href={% url 'App:classQuiz' %}>분반 & 퀴즈 선택</a>
     </div>
-
-
-
+    <div style="margin:30px 0;">
+        <a href={% url 'App:datetime' %}>퀴즈 등록: 일시</a>
+    </div>
+    <div style="margin:30px 0;">
+        <a href={% url 'App:theme' %}>퀴즈 등록: 문제 테마</a>
+    </div>
+    <div style="margin:30px 0;">
+        <a href={% url 'App:review' %}>퀴즈 등록: 검토</a>
+    </div>
+    <div style="margin:30px 0;">
+        <a href={% url 'App:onlineJudge' %}>온라인 저지</a>
+    </div>
+    <div style="margin:30px 0;">
+        <a href={% url 'App:mypage' %}>마이페이지</a>
+    </div>
+    <div style="margin:50px 0;">
+        <a href={% url 'App:test' %}>TEST</a>
+    </div>
 </div>
 {% endblock %}

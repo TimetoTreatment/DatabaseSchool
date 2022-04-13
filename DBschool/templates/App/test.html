@@ -1,9 +1,51 @@
+{% extends 'templates/App/_template_frame.html' %}
 
-{% extends 'App/_template_frame.html' %}
+{% block title %}
+<title>Online Judge</title>
+{% endblock %}
+
+{% block css %}
+{% load static %}
+<link href="{% static 'css/form_quiz.css' %}" rel="stylesheet">
+{% endblock %}
+
 {% block content %}
-<div>
-
-    dfqdwq
-</div>
-
+<form id="form-quiz-setting" method="post">
+    <!-- ========== 테이블 ========== -->
+    <div class="row mb-4">
+        <label class="col-sm-3 col-form-label form-quiz-label">테이블</label>
+        <select class="form-select" aria-label="select table">
+            <!-- 테이블 목록 -->
+            <option value="1">학생</option>
+            <option value="2" selected>직원</option>
+            <option value="3">부품</option>
+            <option value="4">동물</option>
+        </select>
+        <div class="other-option"><a href="">테이블 직접 입력하기</a></div>
+    </div>
+    <!-- ========== 키워드 ========== -->
+    <div class="row mb-5">
+        <label class="col-sm-3 col-form-label form-quiz-label">키워드</label>
+        <select class="form-select" aria-label="select keyword">
+            <!-- 키워드 목록 -->
+            <option value="1">SELECT</option>
+            <option value="2">INSERT</option>
+            <option value="3" selected>UPDATE</option>
+            <option value="4">DELETE</option>
+        </select>
+    </div>
+    <!-- ========== 문제 개수 ========== -->
+    <div class="row mb-5">
+        <label for="problemCount" class="col-sm-3 col-form-label form-quiz-label" style="color: #4472C4;">문제 수</label>
+        <div class="col-sm-8">
+            <!-- 입력 -->
+            <input name="count" id="problemCount" type="number" class="form-control" step="1" min="0" max="100">
+        </div>
+    </div>
+    <!-- ========== 버튼 ========== -->
+    <div class="row mb-5 button-container">
+        <button type="submit" class="btn btn-primary" style="background-color: #4472C4;">등록</button>
+        <button type="reset" class="btn btn-outline-dark">초기화</button>
+    </div>
+</form>
 {% endblock %}

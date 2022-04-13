@@ -22,4 +22,13 @@ urlpatterns = [
     path('login', views.signup),
     #부건
 
+
+    #TEST
+    path('datetime', views.datetime, name="datetime"),
+    path('theme', views.theme, name="theme"),
+    path('review', views.review, name="review"),
+    path('onlineJudge', views.onlineJudge, name="onlineJudge"),
+    path('classQuiz', views.classQuiz, name="classQuiz"),
+    path('mypage', views.mypage, name="mypage"),
+    path('test', views.test, name="test"),
 ]
