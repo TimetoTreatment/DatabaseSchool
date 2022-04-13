@@ -1,11 +1,11 @@
 from django.contrib.auth import authenticate, login
 from django.shortcuts import render, redirect
-from user.forms import UserForm
+from user.forms import SignupForm
 from user.forms import CustomUserChangeForm
 # Create your views here.
 def signup(request):
     if request.method == "POST":
-        form = UserForm(request.POST)
+        form = SignupForm(request.POST)
         if form.is_valid():
             form.save()
             username = form.cleaned_data.get('username')
@@ -14,18 +14,18 @@ def signup(request):
             login(request, user)  # 로그인
             return redirect('/')
     else:
-        form = UserForm()
+        form = SignupForm()
     return render(request, 'user/signup.html', {'form': form})
 
 def update(request, pk):
     if request.method == 'POST':
-        form = CustomUserChangeForm(request.POST, instance=request.id)
+        form = CustomUserChangeForm(request.POST, instance=request.user)
         if form.is_valid():
             form.save()
             return redirect('/')
     else:
         form = CustomUserChangeForm(instance=request.user)
     context = {
-        'form': form
+        'user': form
     }
     return render(request, 'App/Grade_Mypage.html', context)

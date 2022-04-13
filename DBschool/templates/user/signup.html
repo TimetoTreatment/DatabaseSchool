@@ -45,11 +45,12 @@
                    value="ewfwe">
         </div>
         <div class="mb-3">
-          <label for="is_prof">직책</label>
-          <input type="radio" name="is_staff" id="is_staff"
-                 value="{{ form.is_staff.value }}"> 학생
-          <input type="radio" name="is_staff" id="is_staff"
-                 value=int(1)> 교수
+            <label for="email">직책</label>
+            <input type="text" list="RespList" class="form-control" name="Responsibility" id="Resp">
+            <datalist id="RespList">
+                <option value="학생"></option>
+                <option value="교수"></option>
+            </datalist>
         </div>
         <button type="submit" class="btn btn-primary">생성하기</button>
         <button type="submit" class="btn btn-primary">생성하기</button>

@@ -3,6 +3,7 @@ from django.urls import reverse
 from django.contrib.auth import authenticate, login
 from django.http import HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
+from user.forms import CustomUserChangeForm
 # Create your views here.
 
 #정원
@@ -29,11 +30,10 @@ def QuizReg(request):
 def Grade(request):
     return render(request, "App/Grade_Mypage.html")
 
-
+@login_required(login_url='user:login')
 def Mypage(request):
-    author= request.user
-    return render(request, "App/Grade_Mypage.html", {'e':author})
-
+    form = CustomUserChangeForm
+    return render(request, "App/Grade_Mypage.html", {'form':form})
 
 #준엽
 def signup(request):
