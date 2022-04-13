@@ -1,16 +1,17 @@
 {% extends 'templates/App/_template_frame.html' %}
 
 {% block title %}
-<title>Online Judge</title>
+    <title>Online Judge</title>
 {% endblock %}
 
 {% block css %}
-{% load static %}
-<link href="{% static 'css/quiz_enroll.css' %}" rel="stylesheet">
+    {% load static %}
+    <link href="{% static 'css/quiz_enroll.css' %}" rel="stylesheet">
 {% endblock %}
 
 {% block content %}
 <div id="quiz-enroll-review">
+    <!-- ================ 좌측 레이아웃 ================ -->
     <form id="quiz-enroll-setting" method="post">
         <!-- ========== 테이블 ========== -->
         <div class="row mb-4">
@@ -49,16 +50,24 @@
             <button type="reset" class="btn btn-outline-dark">초기화</button>
         </div>
     </form>
+
+    <!-- ================ 우측 레이아웃 ================ -->
     <div id="quiz-enroll-problem-list">
+        <!-- ========== 헤더 ========== -->
         <div class="title">
             <div class="text">문제 목록</div>
+            <!-- 문제 재생성 -->
             <a href=""><img src="{% static 'img/quiz-list-shuffle.png' %}" /></a>
         </div>
         <div class="subtitle-difficulty">난이도</div>
         <div class="subtitle-query">쿼리</div>
+        <!-- ========== 문제 목록 ========== -->
         <div class="problem-list">
+            <!-- 아이템 -->
             <div class="item">
+                <!-- (좌) 난이도 -->
                 <div class="difficulty easy">하</div>
+                <!-- (우) 쿼리 -->
                 <div class="query">
                     SELECT * <br />
                     FROM Employee <br />
@@ -99,4 +108,5 @@
 
     </div>
 </div>
-    {% endblock %}
+
+{% endblock %}
