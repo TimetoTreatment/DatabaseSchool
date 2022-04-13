@@ -1,0 +1,127 @@
+/*--------------------------------------------------------------
+# My Page
+--------------------------------------------------------------*/
+
+
+#mypage {
+    width: 960px;
+    height: 480px;
+    position: absolute;
+    left: 50%;
+    top: 45%;
+    transform: translate(-50%, -50%);
+    font-family: GMarketSansMedium;
+}
+
+    #mypage .nav-link {
+        color: black;
+        font-size: 20px;
+        margin: 0 20px;
+    }
+
+        #mypage .nav-link.active {
+            border-color: white;
+            border-bottom: 2px solid black;
+            border-radius: 0px;
+        }
+
+    #mypage .nav-tabs {
+        border: 1px solid white;
+        border-bottom-color: black;
+        padding: 0 60px;
+    }
+
+
+    #mypage .tab-content {
+        margin: 30px;
+        background-color: #FAFAFA;
+        height: 480px;
+        border-radius: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+        #mypage .tab-content #form-mypage-privacy {
+            width: 400px;
+            text-align: left;
+            margin: auto;
+        }
+
+            #mypage .tab-content #form-mypage-privacy label {
+                font-family: GmarketSansBold;
+                font-size: 20px;
+                display: block;
+                text-align: left;
+                padding-top: 12px;
+            }
+
+            #mypage .tab-content #form-mypage-privacy input[type=text] {
+                width: 240px;
+                font-family: GmarketSansLight;
+                padding-top: 10px;
+                margin-top: 3px;
+            }
+
+            #mypage .tab-content #form-mypage-privacy .role input[type=radio] {
+                font-family: GmarketSansLight;
+                margin-top: 18px;
+                text-align: left;
+            }
+
+            #mypage .tab-content #form-mypage-privacy .role {
+                padding-left: 30px;
+            }
+
+                #mypage .tab-content #form-mypage-privacy .role label {
+                    font-family: GmarketSansMedium;
+                    margin-left: 2px;
+                    margin-right: 35px;
+                    margin-top: 1px;
+                }
+
+            #mypage .tab-content #form-mypage-privacy .button-container {
+                text-align: center;
+                display: flex;
+                justify-content: center;
+                width: 400px;
+                padding-top: 25px;
+            }
+
+                #mypage .tab-content #form-mypage-privacy .button-container button {
+                    width: 100px;
+                    margin: 0 10px;
+                    border-radius: 25px;
+                    font-family: GmarketSansMedium;
+                    font-size: 18px;
+                    padding-top: 10px;
+                    border-color: black;
+                }
+
+            #mypage .tab-content #form-mypage-privacy select {
+                width: 240px;
+                margin-left: 12px;
+                height: 40px;
+                margin-top: 3px;
+                font-family: GmarketSansMedium;
+                padding-top: 7px;
+                font-size: 18px;
+            }
+
+            #mypage .tab-content #form-mypage-privacy .other-option {
+                text-align: center;
+                font-family: GmarketSansLight;
+                border-bottom: 1px solid lightgray;
+                width: 132px;
+                padding: 0;
+                margin: 0 65px 0 auto;
+                height: 22px;
+            }
+
+                #mypage .tab-content #form-mypage-privacy .other-option a {
+                    text-decoration: none;
+                    color: gray;
+                    font-size: 14px;
+                    margin: 0;
+                    padding: 0;
+                }

@@ -6,16 +6,16 @@
 
 {% block css %}
     {% load static %}
-    <link href="{% static 'css/quiz_enroll.css' %}" rel="stylesheet">
+    <link href="{% static 'css/form_quiz.css' %}" rel="stylesheet">
 {% endblock %}
 
 {% block content %}
-<div id="quiz-enroll-review">
+<div id="form-quiz-review">
     <!-- ================ 좌측 레이아웃 ================ -->
-    <form id="quiz-enroll-setting" method="post">
+    <form id="form-quiz-setting" method="post">
         <!-- ========== 테이블 ========== -->
         <div class="row mb-4">
-            <label class="col-sm-3 col-form-label quiz-enroll-label">테이블</label>
+            <label class="col-sm-3 col-form-label form-quiz-label">테이블</label>
             <select class="form-select" aria-label="select table">
                 <!-- 테이블 목록 -->
                 <option value="1">학생</option>
@@ -27,7 +27,7 @@
         </div>
         <!-- ========== 키워드 ========== -->
         <div class="row mb-5">
-            <label class="col-sm-3 col-form-label quiz-enroll-label">키워드</label>
+            <label class="col-sm-3 col-form-label form-quiz-label">키워드</label>
             <select class="form-select" aria-label="select keyword">
                 <!-- 키워드 목록 -->
                 <option value="1">SELECT</option>
@@ -38,7 +38,7 @@
         </div>
         <!-- ========== 문제 개수 ========== -->
         <div class="row mb-5">
-            <label for="problemCount" class="col-sm-3 col-form-label quiz-enroll-label" style="color: #4472C4;">문제 수</label>
+            <label for="problemCount" class="col-sm-3 col-form-label form-quiz-label" style="color: #4472C4;">문제 수</label>
             <div class="col-sm-8">
                 <!-- 입력 -->
                 <input name="count" id="problemCount" type="number" class="form-control" step="1" min="0" max="100">
@@ -52,7 +52,7 @@
     </form>
 
     <!-- ================ 우측 레이아웃 ================ -->
-    <div id="quiz-enroll-problem-list">
+    <div id="form-quiz-problem-list">
         <!-- ========== 헤더 ========== -->
         <div class="title">
             <div class="text">문제 목록</div>

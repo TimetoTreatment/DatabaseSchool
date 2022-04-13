@@ -6,14 +6,14 @@
 
 {% block css %}
 {% load static %}
-<link href="{% static 'css/quiz_enroll.css' %}" rel="stylesheet">
+<link href="{% static 'css/form_quiz.css' %}" rel="stylesheet">
 {% endblock %}
 
 {% block content %}
-<form id="quiz-enroll-setting" method="post">
+<form id="form-quiz-setting" method="post">
     <!-- ========== 날짜 ========== -->
     <div class="row mb-5">
-        <label for="inputDate" class="col-sm-3 col-form-label quiz-enroll-label">날짜</label>
+        <label for="inputDate" class="col-sm-3 col-form-label form-quiz-label">날짜</label>
         <div class="col-sm-8">
             <!-- 입력 -->
             <input name="date" type="date" class="form-control" id="inputDate">
@@ -21,7 +21,7 @@
     </div>
     <!-- ========== 시각 ========== -->
     <div class="row mb-5">
-        <label for="inputTime" class="col-sm-3 col-form-label quiz-enroll-label">시각</label>
+        <label for="inputTime" class="col-sm-3 col-form-label form-quiz-label">시각</label>
         <div class="col-sm-8">
             <!-- 입력 -->
             <input name="time" type="time" class="form-control" id="inputTime">
@@ -29,7 +29,7 @@
     </div>
     <!-- ========== 제한시간 ========== -->
     <div class="row mb-5">
-        <label for="inputTimeout" class="col-sm-3 col-form-label quiz-enroll-label" style="color: #4472C4;">시간</label>
+        <label for="inputTimeout" class="col-sm-3 col-form-label form-quiz-label" style="color: #4472C4;">시간</label>
         <div class="col-sm-8">
             <!-- 입력 -->
             <input name="timeout" id="inputTimeout" type="number" class="form-control" step="5" min="0" placeholder="(분) 단위로 입력해 주세요.">
