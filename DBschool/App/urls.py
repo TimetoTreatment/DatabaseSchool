@@ -22,7 +22,7 @@ urlpatterns = [
     path('login', views.signup),
     #부건
 
-
+    
     #TEST
     path('myclass', views.myclass, name="myclass"),
     path('quiz', views.quiz, name="quiz"),
@@ -31,6 +31,9 @@ urlpatterns = [
     path('review', views.review, name="review"),
     path('onlineJudge', views.onlineJudge, name="onlineJudge"),
     path('classQuiz', views.classQuiz, name="classQuiz"),
-    path('mypage', views.mypage, name="mypage"),
+    path('mypagePrivacy', views.mypagePrivacy, name="mypagePrivacy"),
+    path('mypageClass', views.mypageClass, name="mypageClass"),
+    path('mypageGrade', views.mypageGrade, name="mypageGrade"),
+    path('mypageEnroll', views.mypageEnroll, name="mypageEnroll"),
     path('test', views.test, name="test"),
 ]

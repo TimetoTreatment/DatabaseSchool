@@ -6,78 +6,92 @@
 
 {% block css %}
 {% load static %}
-<link href="{% static 'css/select_class_quiz.css ' %}" rel="stylesheet">
+<link href="{% static 'css/mypage.css' %}" rel="stylesheet">
 {% endblock %}
 
 {% block content %}
-<form id="select-quiz" method="post" action="">
-    <div id="carouselExampleDark" class="carousel carousel-dark slide" data-bs-ride="carousel">
-        <div class="carousel-indicators">
-            <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1" disabled></button>
-            <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="1" aria-label="Slide 2" disabled></button>
+<div id="mypage">
+    <ul class="nav nav-tabs" id="myTab" role="tablist">
+        <li class="nav-item" role="presentation">
+            <button class="nav-link active" id="privacy-tab" data-bs-toggle="tab" data-bs-target="#privacy" type="button" role="tab" aria-controls="privacy" aria-selected="true">개인 정보</button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="class-tab" data-bs-toggle="tab" data-bs-target="#class" type="button" role="tab" aria-controls="class" aria-selected="false">수업 관리</button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="grade-tab" data-bs-toggle="tab" data-bs-target="#grade" type="button" role="tab" aria-controls="grade" aria-selected="false">성적 확인</button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="enroll-tab" data-bs-toggle="tab" data-bs-target="#enroll" type="button" role="tab" aria-controls="enroll" aria-selected="false">학생 등록</button>
+        </li>
+    </ul>
+    <div class="tab-content" id="myTabContent">
+        <div class="tab-pane fade show active" id="privacy" role="tabpanel" aria-labelledby="privacy-tab">
+            <!-- ========== 개인 정보 ========== -->
+            <form id="form-mypage-privacy" method="post">
+                <!-- ==== 아이디 ==== -->
+                <div class="row mb-4">
+                    <label for="inputID" class="col-sm-3 col-form-label form-quiz-label">아이디</label>
+                    <div class="col-sm-8">
+                        <input name="date" id="inputID" type="text" class="form-control" placeholder="example@naver.com" disabled>
+                    </div>
+                </div>
+                <!-- ==== 비밀번호 ==== -->
+                <div class="row mb-4">
+                    <label for="inputPassword" class="col-sm-3 col-form-label form-quiz-label">비밀번호</label>
+                    <div class="col-sm-8">
+                        <!-- 입력 -->
+                        <input name="time" id="inputPassword" type="password" class="form-control">
+                    </div>
+                </div>
+                <!-- ==== 이름 ==== -->
+                <div class="row mb-4">
+                    <label for="inputName" class="col-sm-3 col-form-label form-quiz-label">이름</label>
+                    <div class="col-sm-8">
+                        <!-- 입력 -->
+                        <input name="time" id="inputName" type="text" class="form-control" placeholder="아무개" disabled>
+                    </div>
+                </div>
+                <!-- ==== 직책 ==== -->
+                <div class="row mb-4">
+                    <label class="col-sm-3 col-form-label form-quiz-label">직책</label>
+                    <div class="col-sm-8 role">
+                        <!-- 입력 -->
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="roleOption" id="roleTeacher" value="teacher" disabled>
+                            <label class="form-check-label" for="inlineRadio1">교사</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="roleOption" id="roleStudent" value="student" disabled checked>
+                            <label class="form-check-label" for="inlineRadio2">학생</label>
+                        </div>
+                    </div>
+                </div>
+                <!-- ==== 버튼 ==== -->
+                <div class="button-container">
+                    <button type="submit" class="btn btn-primary" style="background-color: #4472C4;">완료</button>
+                    <button type="reset" class="btn btn-outline-dark">취소</button>
+                </div>
+            </form>
         </div>
-        <div class="carousel-inner">
-            <!-- 페이지 1: 수업 선택 -->
-            <div class="carousel-item class-list active" data-bs-interval="100000000">
-                <div class="contents">
-                    <!-- 내 수업 목록 -->
-                    <div class="class-item">
-                        <input id="class1" type="radio" name="class" style="margin-right:10px">
-                        <label for="class0">데이터베이스001 (윤은일)</label>
-                    </div>
-                    <div class="class-item">
-                        <input id="class2" type="radio" name="class" style="margin-right:10px">
-                        <label for="class1">데이터베이스002 (윤은일)</label>
-                    </div>
-                </div>
-                <div class="carousel-caption caption d-none d-md-block">
-                    <h5>내 수업</h5>
-                    <p>수업을 선택해 주세요.</p>
-                </div>
-            </div>
-            <!-- 페이지 2: 퀴즈 선택 -->
-            <div class="carousel-item quiz-list" data-bs-interval="100000000">
-                <div class="contents">
-                    <div class="list" style="width: 40%; display: inline-block; margin-right: 60px;">
-                        <!-- 퀴즈 목록 -->
-                        <div class="quiz-item">
-                            <input type="submit" value="퀴즈 1" class="text-primary">
-                            <div class="progress">
-                                <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 75%">75 / 100</div>
-                            </div>
-                        </div>
-                        <div class="quiz-item">
-                            <input type="submit" value="퀴즈 2" class="text-warning">
-                            <div class="progress">
-                                <div class="progress-bar progress-bar-striped progress-bar-animated bg-warning" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: 45%">45 / 100</div>
-                            </div>
-                        </div>
-                        <div class="quiz-item validate">
-                            <input type="submit" value="퀴즈 3">
-                            <div class="datetime">
-                                2022-03-19 13:30
-                            </div>
-                        </div>
-                        <!-- 퀴즈 등록 -->
-                        <div class="quiz-add">
-                            {% csrf_token %}
-                            <input type="submit" value="퀴즈 등록" required="">
-                        </div>
-                    </div>
-                    <div class="list" style="width: 40%; display: inline-block; margin-right: 60px;">
-                    </div>
-                </div>
-                <div class="carousel-caption caption d-none d-md-block">
-                    <h5>퀴즈 / 시험</h5>
-                    <p>응시할 퀴즈 또는 시험을 선택해 주세요.</p>
-                </div>
-            </div>
+
+        <!-- ========== 수업 관리 ========== -->
+        <div class="tab-pane fade" id="class" role="tabpanel" aria-labelledby="class-tab">
+            수업관리
         </div>
-        <!-- (우) 페이지 이동 버튼 -->
-        <button class="carousel-control-next" type="submit">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Next</span>
-        </button>
+
+        <!-- ========== 성적 확인 ========== -->
+        <div class="tab-pane fade" id="grade" role="tabpanel" aria-labelledby="grade-tab">
+            성적확인
+        </div>
+
+        <!-- ========== 학생 등록 ========== -->
+        <div class="tab-pane fade" id="enroll" role="tabpanel" aria-labelledby="enroll-tab">
+            학생등록
+        </div>
     </div>
-</form>
+
+
+
+</div>
 {% endblock %}

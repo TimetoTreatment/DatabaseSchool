@@ -75,5 +75,14 @@ def onlineJudge(request):
 def classQuiz(request):
     return render(request, "App/SelectClassQuiz.html")
 
-def mypage(request):
-    return render(request, "App/mypage.html")
+def mypagePrivacy(request):
+    return render(request, "App/mypage_privacy.html")
+
+def mypageClass(request):
+    return render(request, "App/mypage_class.html")
+
+def mypageGrade(request):
+    return render(request, "App/mypage_grade.html")
+
+def mypageEnroll(request):
+    return render(request, "App/mypage_enroll.html")

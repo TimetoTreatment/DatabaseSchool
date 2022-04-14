@@ -10,27 +10,36 @@
 {% endblock %}
 
 {% block content %}
-<div style="margin: 80px 0 0 800px; font-size: 20px;">
-    <div style="margin:30px 0;">
+<div style="margin: 80px 0 0 800px; font-size: 16px;">
+    <div style="margin:15px 0;">
         <a href={% url 'App:myclass' %}>FORM1: 분반 선택</a>
     </div>
-    <div style="margin:30px 0;">
+    <div style="margin:15px 0;">
         <a href={% url 'App:quiz' %}>FORM1: 퀴즈 선택</a>
     </div>
-    <div style="margin:30px 0;">
+    <div style="margin:15px 0;">
         <a href={% url 'App:datetime' %}>FORM2: 퀴즈 일시 </a>
     </div>
-    <div style="margin:30px 0;">
+    <div style="margin:15px 0;">
         <a href={% url 'App:theme' %}>FORM2: 퀴즈 테마 </a>
     </div>
-    <div style="margin:30px 0;">
+    <div style="margin:15px 0;">
         <a href={% url 'App:review' %}>FORM2: 퀴즈 검토</a>
     </div>
-    <div style="margin:30px 0;">
-        <a href={% url 'App:onlineJudge' %}>LAYOUT: 온라인 저지</a>
+    <div style="margin:15px 0;">
+        <a href={% url 'App:mypagePrivacy' %}>FORM3: 마이페이지-개인정보</a>
     </div>
-    <div style="margin:30px 0;">
-        <a href={% url 'App:mypage' %}>LAYOUT: 마이페이지</a>
+    <div style="margin:15px 0;">
+        <a href={% url 'App:mypageClass' %}>FORM3: 마이페이지-수업관리</a>
+    </div>
+    <div style="margin:15px 0;">
+        <a href={% url 'App:mypageGrade' %}>FORM3: 마이페이지_성적확인</a>
+    </div>
+    <div style="margin:15px 0;">
+        <a href={% url 'App:mypageEnroll' %}>FORM3: 마이페이지_학생등록</a>
+    </div>
+    <div style="margin:15px 0;">
+        <a href={% url 'App:onlineJudge' %}>FORM4: 온라인 저지</a>
     </div>
     <div style="margin:50px 0;">
         <a href={% url 'App:test' %}>TEST</a>

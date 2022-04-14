@@ -11,20 +11,22 @@
 
 {% block content %}
 <div id="mypage">
+    <!-- ========== START: 네비게이션 (검정) ========== -->
     <ul class="nav nav-tabs" id="myTab" role="tablist">
         <li class="nav-item" role="presentation">
-            <button class="nav-link active" id="privacy-tab" data-bs-toggle="tab" data-bs-target="#privacy" type="button" role="tab" aria-controls="privacy" aria-selected="true">개인 정보</button>
+            <button class="nav-link active" type="button" role="tab">개인 정보</button>
         </li>
         <li class="nav-item" role="presentation">
-            <button class="nav-link" id="class-tab" data-bs-toggle="tab" data-bs-target="#class" type="button" role="tab" aria-controls="class" aria-selected="false">수업 관리</button>
+            <button class="nav-link" type="button" role="tab">수업 관리</button>
         </li>
         <li class="nav-item" role="presentation">
-            <button class="nav-link" id="grade-tab" data-bs-toggle="tab" data-bs-target="#grade" type="button" role="tab" aria-controls="grade" aria-selected="false">성적 확인</button>
+            <button class="nav-link" type="button" role="tab">성적 확인</button>
         </li>
         <li class="nav-item" role="presentation">
-            <button class="nav-link" id="enroll-tab" data-bs-toggle="tab" data-bs-target="#enroll" type="button" role="tab" aria-controls="enroll" aria-selected="false">학생 등록</button>
+            <button class="nav-link" type="button" role="tab">학생 등록</button>
         </li>
     </ul>
+    <!-- ========== END  : 네비게이션 (검정) ========== -->
     <div class="tab-content" id="myTabContent">
         <div class="tab-pane fade show active" id="privacy" role="tabpanel" aria-labelledby="privacy-tab">
             <!-- ========== 개인 정보 ========== -->
@@ -56,7 +58,6 @@
                 <div class="row mb-4">
                     <label class="col-sm-3 col-form-label form-quiz-label">직책</label>
                     <div class="col-sm-8 role">
-                        <!-- 입력 -->
                         <div class="form-check form-check-inline">
                             <input class="form-check-input" type="radio" name="roleOption" id="roleTeacher" value="teacher" disabled>
                             <label class="form-check-label" for="inlineRadio1">교사</label>
@@ -74,24 +75,6 @@
                 </div>
             </form>
         </div>
-
-        <!-- ========== 수업 관리 ========== -->
-        <div class="tab-pane fade" id="class" role="tabpanel" aria-labelledby="class-tab">
-            수업관리
-        </div>
-
-        <!-- ========== 성적 확인 ========== -->
-        <div class="tab-pane fade" id="grade" role="tabpanel" aria-labelledby="grade-tab">
-            성적확인
-        </div>
-
-        <!-- ========== 학생 등록 ========== -->
-        <div class="tab-pane fade" id="enroll" role="tabpanel" aria-labelledby="enroll-tab">
-            학생등록
-        </div>
     </div>
-
-
-
 </div>
 {% endblock %}

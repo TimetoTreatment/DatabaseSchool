@@ -1,0 +1,36 @@
+{% extends 'templates/App/_template_frame.html' %}
+
+{% block title %}
+<title>Online Judge</title>
+{% endblock %}
+
+{% block css %}
+{% load static %}
+<link href="{% static 'css/mypage.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+<div id="mypage">
+    <!-- ========== START: 네비게이션 (검정) ========== -->
+    <ul class="nav nav-tabs" id="myTab" role="tablist">
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" type="button" role="tab">개인 정보</button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link active" type="button" role="tab">수업 관리</button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" type="button" role="tab">성적 확인</button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" type="button" role="tab">학생 등록</button>
+        </li>
+    </ul>
+    <!-- ========== END  : 네비게이션 (검정) ========== -->
+    <div class="tab-content" id="myTabContent">
+        <div class="tab-pane fade show active" id="privacy" role="tabpanel" aria-labelledby="privacy-tab">
+           
+        </div>
+    </div>
+</div>
+{% endblock %}
