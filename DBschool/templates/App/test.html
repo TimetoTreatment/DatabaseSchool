@@ -6,46 +6,78 @@
 
 {% block css %}
 {% load static %}
-<link href="{% static 'css/form_quiz.css' %}" rel="stylesheet">
+<link href="{% static 'css/select_class_quiz.css ' %}" rel="stylesheet">
 {% endblock %}
 
 {% block content %}
-<form id="form-quiz-setting" method="post">
-    <!-- ========== 테이블 ========== -->
-    <div class="row mb-4">
-        <label class="col-sm-3 col-form-label form-quiz-label">테이블</label>
-        <select class="form-select" aria-label="select table">
-            <!-- 테이블 목록 -->
-            <option value="1">학생</option>
-            <option value="2" selected>직원</option>
-            <option value="3">부품</option>
-            <option value="4">동물</option>
-        </select>
-        <div class="other-option"><a href="">테이블 직접 입력하기</a></div>
-    </div>
-    <!-- ========== 키워드 ========== -->
-    <div class="row mb-5">
-        <label class="col-sm-3 col-form-label form-quiz-label">키워드</label>
-        <select class="form-select" aria-label="select keyword">
-            <!-- 키워드 목록 -->
-            <option value="1">SELECT</option>
-            <option value="2">INSERT</option>
-            <option value="3" selected>UPDATE</option>
-            <option value="4">DELETE</option>
-        </select>
-    </div>
-    <!-- ========== 문제 개수 ========== -->
-    <div class="row mb-5">
-        <label for="problemCount" class="col-sm-3 col-form-label form-quiz-label" style="color: #4472C4;">문제 수</label>
-        <div class="col-sm-8">
-            <!-- 입력 -->
-            <input name="count" id="problemCount" type="number" class="form-control" step="1" min="0" max="100">
+<form id="select-quiz" method="post" action="">
+    <div id="carouselExampleDark" class="carousel carousel-dark slide" data-bs-ride="carousel">
+        <div class="carousel-indicators">
+            <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1" disabled></button>
+            <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="1" aria-label="Slide 2" disabled></button>
         </div>
-    </div>
-    <!-- ========== 버튼 ========== -->
-    <div class="row mb-5 button-container">
-        <button type="submit" class="btn btn-primary" style="background-color: #4472C4;">등록</button>
-        <button type="reset" class="btn btn-outline-dark">초기화</button>
+        <div class="carousel-inner">
+            <!-- 페이지 1: 수업 선택 -->
+            <div class="carousel-item class-list active" data-bs-interval="100000000">
+                <div class="contents">
+                    <!-- 내 수업 목록 -->
+                    <div class="class-item">
+                        <input id="class1" type="radio" name="class" style="margin-right:10px">
+                        <label for="class0">데이터베이스001 (윤은일)</label>
+                    </div>
+                    <div class="class-item">
+                        <input id="class2" type="radio" name="class" style="margin-right:10px">
+                        <label for="class1">데이터베이스002 (윤은일)</label>
+                    </div>
+                </div>
+                <div class="carousel-caption caption d-none d-md-block">
+                    <h5>내 수업</h5>
+                    <p>수업을 선택해 주세요.</p>
+                </div>
+            </div>
+            <!-- 페이지 2: 퀴즈 선택 -->
+            <div class="carousel-item quiz-list" data-bs-interval="100000000">
+                <div class="contents">
+                    <div class="list" style="width: 40%; display: inline-block; margin-right: 60px;">
+                        <!-- 퀴즈 목록 -->
+                        <div class="quiz-item">
+                            <input type="submit" value="퀴즈 1" class="text-primary">
+                            <div class="progress">
+                                <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 75%">75 / 100</div>
+                            </div>
+                        </div>
+                        <div class="quiz-item">
+                            <input type="submit" value="퀴즈 2" class="text-warning">
+                            <div class="progress">
+                                <div class="progress-bar progress-bar-striped progress-bar-animated bg-warning" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: 45%">45 / 100</div>
+                            </div>
+                        </div>
+                        <div class="quiz-item validate">
+                            <input type="submit" value="퀴즈 3">
+                            <div class="datetime">
+                                2022-03-19 13:30
+                            </div>
+                        </div>
+                        <!-- 퀴즈 등록 -->
+                        <div class="quiz-add">
+                            {% csrf_token %}
+                            <input type="submit" value="퀴즈 등록" required="">
+                        </div>
+                    </div>
+                    <div class="list" style="width: 40%; display: inline-block; margin-right: 60px;">
+                    </div>
+                </div>
+                <div class="carousel-caption caption d-none d-md-block">
+                    <h5>퀴즈 / 시험</h5>
+                    <p>응시할 퀴즈 또는 시험을 선택해 주세요.</p>
+                </div>
+            </div>
+        </div>
+        <!-- (우) 페이지 이동 버튼 -->
+        <button class="carousel-control-next" type="submit">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
     </div>
 </form>
 {% endblock %}

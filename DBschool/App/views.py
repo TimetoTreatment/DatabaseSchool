@@ -54,6 +54,12 @@ def signup(request):
 
 
 #TEST
+def myclass(request):
+    return render(request, "App/form_class.html")
+
+def quiz(request):
+    return render(request, "App/form_quiz.html")
+
 def datetime(request):
     return render(request, "App/form_quiz_datetime.html")
 
