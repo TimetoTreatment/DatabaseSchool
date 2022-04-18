@@ -1,4 +1,5 @@
 from pypika import Query, Table, Field, Order
+from pypika import functions as fn
 import random
 #ALTER: Table 수정
 
@@ -54,6 +55,7 @@ class OurQuery:
             input_proper = "DISTNCT("+ input_proper + ")"
             q = Query.from_(tableName).select(input_proper)
             result.append(str(q))
+        #group by 와 having은 일단 보류
 
 
         #랜덤으로 고른 속성이 int인 경우? 0속성 인덱스의 0번 -> between, AVG, MAX, MIN,SUM
@@ -85,6 +87,10 @@ class OurQuery:
                 input_proper = "MIN(" + random_proper[0] + ")"
                 q = Query.from_(tableName).select(input_proper)
                 result.append(str(q))
+            if True: #MAX와 MIN의 차이를 출력하라
+                input_proper = "MIN(" + random_proper[0] + ")" + " - MIN(" + random_proper[0] + ")"
+                q = Query.from_(tableName).select(input_proper)
+                result.append(str(q))
             if True:# tmp2 ~ tmp1 사이에 있는 테이블을 출력
                 tmp1, tmp2 = max(num,num2), min(num,num2)
                 q = Query.from_(tableName).select("*")
@@ -96,12 +102,21 @@ class OurQuery:
                 q = Query.from_(tableName).select("*")
                 q = str(q)
                 q += " WHERE " + random_proper[0] + " NOT BETWEEN " + str(tmp2) + " AND " + str(tmp1)
-                result.append(q)
             if True:#내림차순 정렬
                 q = Query.from_(tableName).select("*").orderby(random_proper[0], order=Order.desc)
                 q = str(q)
                 result.append(q)
             if True:#오름차순 정렬
+                q = Query.from_(tableName).select("*").orderby(random_proper[0])
+                q = str(q)
+                result.append(q)
+
+        if type(col_type) is str:#문자열인 경우
+            if True:  # 내림차순 정렬
+                q = Query.from_(tableName).select("*").orderby(random_proper[0], order=Order.desc)
+                q = str(q)
+                result.append(q)
+            if True:  # 오름차순 정렬
                 q = Query.from_(tableName).select("*").orderby(random_proper[0])
                 q = str(q)
                 result.append(q)
