@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.urls import reverse
 from django.contrib.auth import authenticate, login
 from django.http import HttpResponseRedirect
-from .models import User
+from .models import *
 from .QueryBuilder import OurQuery
 # Create your views here.
 
@@ -14,7 +14,9 @@ def join(request):
     # for key in Q[0]:
     #     print(type(key),key)
     c1 = OurQuery(User,"User")
-    print(c1.select_query())
+    result = c1.select_query()
+    for i in result:
+        print(i)
     return render(request,"App/join.html")
 
 def test(request):
