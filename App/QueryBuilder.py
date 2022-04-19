@@ -120,11 +120,75 @@ class OurQuery:
                 q = Query.from_(tableName).select("*").orderby(random_proper[0])
                 q = str(q)
                 result.append(q)
+            if True: #문자열일 경우 첫번째 문자열로 시작하는 같은 데이터 조회
+                meta_data = str(pull_table_data(target_table , random_proper[0]))
+                q = Query.from_(tableName).select('*')
+                q = str(q)
+                q = q + " WHERE " + random_proper[0] +" LIKE " + "\'" + meta_data[0] + "%\'"
+                result.append(q)
+            if True: #문자열일 경우 해당 문자가 들어가는 테이블 조회
+                meta_data = str(pull_table_data(target_table, random_proper[0]))
+                q = Query.from_(tableName).select('*')
+                q = str(q)
+                q = q + " WHERE " + random_proper[0] + " LIKE " + "\'%" + meta_data[0] + "%\'"
+                result.append(q)
+            if True: #문자열일 경우 랜덤한 데이터를 뽑아서 같은 끝 문자로 끝나는 데이터
+                meta_data = str(pull_table_data(target_table, random_proper[0]))
+                q = Query.from_(tableName).select('*')
+                q = str(q)
+                q = q + " WHERE " + random_proper[0] + " LIKE " + "\'%" + meta_data[len(meta_data) - 1] + "\'"
+                result.append(q)
+
         return result
 
 
+    #INSERT
+    def insert_query(self):
+        target_table = self.table
+        tableName = self.tableName
+        #table로 부터 속성의 이름을 알아내는 과정
+        Q = target_table.objects.values()
+        #table의 속성명 저장
+        proper = []
+        call_random = 0
+        for key in Q[0]:
+            proper.append(key)
+        count = len(proper)
+        result = [] #완성된 쿼리문을 담는 결과 리스트
+        random_proper = []
+        random_proper = random.sample(proper, random.randint(1, count)) #randomNum 리스트에 proper 요소를 랜덤갯수만큼 추출해서 넣기
+        tmp = target_table.objects.values(random_proper[0]) #tmp에는 col_type의 모든 테이블 보유중
 
+    #DELETE
+    def delete_query(self):
+        target_table = self.table
+        tableName = self.tableName
+        #table로 부터 속성의 이름을 알아내는 과정
+        Q = target_table.objects.values()
+        #table의 속성명 저장
+        proper = []
+        call_random = 0
+        for key in Q[0]:
+            proper.append(key)
+        count = len(proper)
+        result = [] #완성된 쿼리문을 담는 결과 리스트
+        random_proper = []
+        random_proper = random.sample(proper, random.randint(1, count)) #randomNum 리스트에 proper 요소를 랜덤갯수만큼 추출해서 넣기
+        tmp = target_table.objects.values(random_proper[0]) #tmp에는 col_type의 모든 테이블 보유중
 
-        #INSERT
-        #DELETE
-        #UPDATE
+    #UPDATE
+    def update_query(self):
+        target_table = self.table
+        tableName = self.tableName
+        #table로 부터 속성의 이름을 알아내는 과정
+        Q = target_table.objects.values()
+        #table의 속성명 저장
+        proper = []
+        call_random = 0
+        for key in Q[0]:
+            proper.append(key)
+        count = len(proper)
+        result = [] #완성된 쿼리문을 담는 결과 리스트
+        random_proper = []
+        random_proper = random.sample(proper, random.randint(1, count)) #randomNum 리스트에 proper 요소를 랜덤갯수만큼 추출해서 넣기
+        tmp = target_table.objects.values(random_proper[0]) #tmp에는 col_type의 모든 테이블 보유중
