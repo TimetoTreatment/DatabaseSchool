@@ -18,27 +18,49 @@
         background-color: #FAFAFA;
         border-radius: 20px;
         grid-area: class;
-        padding: 20px;
+        padding: 15px;
     }
 
         #mypage-grade .class-list .item {
-            margin-bottom: 10px;
+            margin-bottom: 15px;
         }
 
-            #mypage-grade .class-list .item a {
+            #mypage-grade .class-list .item .class-name {
+                display:inline;
+                margin-top:2px;
+            }
+
+            #mypage-grade .class-list .item .class-name a {
                 color: black;
             }
 
-            #mypage-grade .class-list .item .active {
+            #mypage-grade .class-list .item .class-name .active {
                 border-bottom: 1px solid #4472C4;
                 color: #4472C4;
             }
 
-            #mypage-grade .class-list .item a:hover {
+            #mypage-grade .class-list .item .class-name a:hover {
                 border-bottom: 1px solid #4472C4;
                 color: #4472C4;
             }
 
+            #mypage-grade .class-list .item .class-delete {
+                display: inline;
+                float: right;
+            }
+
+                #mypage-grade .class-list .item .class-delete > a {
+                    color: #AAAAAA;
+                    border:1px solid #AAAAAA;
+                    border-radius:5px;
+                    padding:3px 4px 1px 4px;
+                    font-family:GMarketSansLight;
+                    font-size:12px;
+                }
+
+                #mypage-grade .class-list .item button {
+
+                }
 
     #mypage-grade .quiz-list {
         grid-area: quiz;
