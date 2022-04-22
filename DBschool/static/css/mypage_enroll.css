@@ -1,0 +1,249 @@
+/*--------------------------------------------------------------
+# My Page
+--------------------------------------------------------------*/
+
+
+#mypage-enroll {
+    margin: 30px;
+    height: 480px;
+    display: grid;
+    grid-template-areas:
+        'class student student';
+    gap: 50px;
+    grid-template-columns: 1fr 1fr 1fr;
+    font-family: GmarketSansMedium;
+}
+
+    #mypage-enroll .class-list {
+        background-color: #FAFAFA;
+        border-radius: 20px;
+        grid-area: class;
+        padding: 20px;
+    }
+
+        #mypage-enroll .class-list .item {
+            margin-bottom: 10px;
+        }
+
+            #mypage-enroll .class-list .item a {
+                color: black;
+            }
+
+            #mypage-enroll .class-list .item .active {
+                border-bottom: 1px solid #4472C4;
+                color: #4472C4;
+            }
+
+            #mypage-enroll .class-list .item a:hover {
+                border-bottom: 1px solid #4472C4;
+                color: #4472C4;
+            }
+
+
+    #mypage-enroll .quiz-list {
+        grid-area: quiz;
+        text-align: center;
+        display: grid;
+        grid-template-areas:
+            'title'
+            'contents';
+        gap: 1px;
+        grid-template-rows: auto 1fr;
+        grid-template-columns: 1fr;
+        font-family: GmarketSansMedium;
+        border: 1px solid black;
+        border-radius: 12px;
+        background-color: black;
+    }
+
+        #mypage-enroll .quiz-list .title {
+            text-align: center;
+            grid-area: title;
+            background-color: #4472C4;
+            color: white;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+            font-size: 24px;
+            padding-top: 6px;
+            padding-left: 50px;
+            display: grid;
+            grid-template-columns: 1fr 50px;
+        }
+
+        #mypage-enroll .quiz-list .contents {
+            grid-area: contents;
+            background-color: white;
+            color: black;
+            border-bottom-left-radius: 10px;
+            border-bottom-right-radius: 10px;
+            overflow: scroll;
+            text-align: left;
+            padding: 15px;
+            font-size: 18px;
+        }
+
+            #mypage-enroll .quiz-list .contents .item {
+                margin-bottom: 10px;
+            }
+
+                #mypage-enroll .quiz-list .contents .item a {
+                    color: black;
+                }
+
+                    #mypage-enroll .quiz-list .contents .item a:hover {
+                        border-bottom: 1px solid black;
+                    }
+
+    #mypage-enroll .student-list {
+        grid-area: student;
+        text-align: center;
+        display: grid;
+        grid-template-areas:
+            'title'
+            'contents';
+        gap: 1px;
+        grid-template-rows: auto 1fr;
+        grid-template-columns: 1fr;
+        font-family: GmarketSansMedium;
+        border: 1px solid black;
+        border-radius: 12px;
+        background-color: black;
+    }
+
+        #mypage-enroll .student-list .title {
+            text-align: center;
+            grid-area: title;
+            background-color: #4472C4;
+            color: white;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+            font-size: 24px;
+            padding-top: 6px;
+            padding-left: 50px;
+            display: grid;
+            grid-template-columns: 1fr 50px;
+        }
+
+        #mypage-enroll .student-list .contents {
+            grid-area: contents;
+            background-color: white;
+            color: black;
+            border-bottom-left-radius: 10px;
+            border-bottom-right-radius: 10px;
+            overflow-y: scroll;
+            height: 435px;
+        }
+
+            #mypage-enroll .student-list .contents .item {
+                display: grid;
+                grid-template-areas: 'name score';
+                gap: 1px;
+                grid-template-columns: 89px 1fr 100px;
+                border-bottom: 1px solid black;
+                background-color: white;
+                padding-top: 5px;
+                padding-left: 10px;
+                text-align: left;
+            }
+
+                #mypage-enroll .student-list .contents .item a {
+                    color: black;
+                }
+
+    #mypage-enroll .student-info {
+        background-color: #FAFAFA;
+        border-radius: 20px;
+        grid-area: student;
+        padding: 20px;
+        vertical-align: middle;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+
+        #mypage-enroll .student-info #form-mypage-privacy {
+            width: 400px;
+            text-align: left;
+            margin: auto;
+        }
+
+            #mypage-enroll .student-info #form-mypage-privacy label {
+                font-family: GmarketSansBold;
+                font-size: 20px;
+                display: block;
+                text-align: left;
+                padding-top: 12px;
+            }
+
+            #mypage-enroll .student-info #form-mypage-privacy input[type=text], input[type=password] {
+                width: 240px;
+                font-family: GmarketSansLight;
+                padding-top: 8px;
+                margin-top: 10px;
+                border-radius: 50px;
+                height: 30px;
+            }
+
+            #mypage-enroll .student-info #form-mypage-privacy .role input[type=radio] {
+                font-family: GmarketSansLight;
+                margin-top: 18px;
+                text-align: left;
+            }
+
+            #mypage-enroll .student-info #form-mypage-privacy .role {
+                padding-left: 30px;
+            }
+
+                #mypage-enroll .student-info #form-mypage-privacy .role label {
+                    font-family: GmarketSansMedium;
+                    margin-left: 2px;
+                    margin-right: 35px;
+                    margin-top: 1px;
+                }
+
+            #mypage-enroll .student-info #form-mypage-privacy .button-container {
+                text-align: center;
+                display: flex;
+                justify-content: center;
+                width: 400px;
+                padding-top: 25px;
+            }
+
+                #mypage-enroll .student-info #form-mypage-privacy .button-container button {
+                    width: 100px;
+                    margin: 0 10px;
+                    border-radius: 25px;
+                    font-family: GmarketSansMedium;
+                    font-size: 18px;
+                    padding-top: 10px;
+                    border-color: black;
+                }
+
+            #mypage-enroll .student-info #form-mypage-privacy select {
+                width: 240px;
+                margin-left: 12px;
+                height: 40px;
+                margin-top: 3px;
+                font-family: GmarketSansMedium;
+                padding-top: 7px;
+                font-size: 18px;
+            }
+
+    #mypage-enroll #form-mypage-privacy .other-option {
+        text-align: center;
+        font-family: GmarketSansLight;
+        border-bottom: 1px solid lightgray;
+        width: 132px;
+        padding: 0;
+        margin: 0 65px 0 auto;
+        height: 22px;
+    }
+
+        #mypage-enroll #form-mypage-privacy .other-option a {
+            text-decoration: none;
+            color: gray;
+            font-size: 14px;
+            margin: 0;
+            padding: 0;
+        }

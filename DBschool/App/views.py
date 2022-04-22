@@ -82,7 +82,7 @@ def mypageClass(request):
     return render(request, "App/mypage_class.html")
 
 def mypageGrade(request):
-    return render(request, "App/mypage_grade_phase1.html")
+    return render(request, "App/mypage_grade.html")
 
 def mypageEnroll(request):
     return render(request, "App/mypage_enroll.html")
