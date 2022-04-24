@@ -54,11 +54,8 @@ def signup(request):
 
 
 #TEST
-def myclass(request):
-    return render(request, "App/form_class.html")
-
-def quiz(request):
-    return render(request, "App/form_quiz.html")
+def selectClassQuiz(request):
+    return render(request, "App/form_class_quiz_select.html")
 
 def datetime(request):
     return render(request, "App/form_quiz_datetime.html")

@@ -24,8 +24,7 @@ urlpatterns = [
 
     
     #TEST
-    path('myclass', views.myclass, name="myclass"),
-    path('quiz', views.quiz, name="quiz"),
+    path('selectClassQuiz', views.selectClassQuiz, name="selectClassQuiz"),
     path('datetime', views.datetime, name="datetime"),
     path('theme', views.theme, name="theme"),
     path('review', views.review, name="review"),
