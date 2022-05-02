@@ -1,0 +1,32 @@
+/*--------------------------------------------------------------
+# My Page
+--------------------------------------------------------------*/
+
+
+#mypage {
+    width: 960px;
+    height: 480px;
+    position: absolute;
+    left: 50%;
+    top: 48%;
+    transform: translate(-50%, -50%);
+    font-family: GMarketSansMedium;
+}
+
+    #mypage .nav-tabs {
+        border: 1px solid white;
+        border-bottom-color: black;
+        padding: 0 60px;
+    }
+
+        #mypage .nav-tabs .nav-link {
+            color: black;
+            font-size: 20px;
+            margin: 0 20px;
+        }
+
+            #mypage .nav-tabs .nav-link.active {
+                border-color: white;
+                border-bottom: 2px solid black;
+                border-radius: 0px;
+            }

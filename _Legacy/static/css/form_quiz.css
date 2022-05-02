@@ -1,0 +1,206 @@
+/*--------------------------------------------------------------
+# Form: Quiz
+--------------------------------------------------------------*/
+
+
+/* µî·Ï */
+#form-quiz-setting {
+    width: 400px;
+    position: absolute;
+    left: 50%;
+    top: 52%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+}
+
+    #form-quiz-setting label {
+        font-family: GmarketSansBold;
+        font-size: 24px;
+        display: block;
+    }
+
+    #form-quiz-setting input {
+        width: 240px;
+        font-family: GmarketSansLight;
+        padding-top: 10px;
+        margin-top: 3px;
+    }
+
+    #form-quiz-setting .button-container {
+        text-align: center;
+        display: flex;
+        justify-content: center;
+        width: 400px;
+        padding-top: 20px;
+    }
+
+        #form-quiz-setting .button-container button {
+            width: 100px;
+            margin: 0 10px;
+            border-radius: 25px;
+            font-family: GmarketSansMedium;
+            font-size: 18px;
+            padding-top: 10px;
+            border-color: black;
+        }
+
+    #form-quiz-setting select {
+        width: 240px;
+        margin-left: 12px;
+        height: 40px;
+        margin-top: 3px;
+        font-family: GmarketSansMedium;
+        padding-top: 7px;
+        font-size: 18px;
+    }
+
+    #form-quiz-setting .other-option {
+        text-align: center;
+        font-family: GmarketSansLight;
+        border-bottom: 1px solid lightgray;
+        width: 132px;
+        padding: 0;
+        margin: 0 65px 0 auto;
+        height: 22px;
+    }
+
+        #form-quiz-setting .other-option a {
+            text-decoration: none;
+            color: gray;
+            font-size: 14px;
+            margin: 0;
+            padding: 0;
+        }
+
+
+/* ¸®ºä */
+#form-quiz-review {
+}
+
+    #form-quiz-review #form-quiz-setting {
+        width: 400px;
+        position: absolute;
+        left: 35%;
+        top: 52%;
+        transform: translate(-50%, -50%);
+        text-align: center;
+    }
+
+    #form-quiz-review #form-quiz-problem-list {
+        width: 600px;
+        position: absolute;
+        left: 61%;
+        top: 52%;
+        transform: translate(-50%, -50%);
+        text-align: center;
+        height: 400px;
+        display: grid;
+        grid-template-areas:
+            'title title'
+            'subtitle-difficulty subtitle-query'
+            'problem-list problem-list';
+        gap: 1px;
+        grid-template-rows: auto auto 1fr;
+        grid-template-columns: 90px 1fr;
+        font-family: GmarketSansMedium;
+        border: 1px solid black;
+        border-radius: 12px;
+        background-color: black;
+    }
+
+        #form-quiz-review #form-quiz-problem-list .title {
+            text-align: center;
+            grid-area: title;
+            background-color: #4472C4;
+            color: white;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+            font-size: 24px;
+            padding-left: 50px;
+            display: grid;
+            grid-template-columns: 1fr 50px;
+        }
+
+            #form-quiz-review #form-quiz-problem-list .title .text {
+                padding-top: 3px;
+            }
+
+            #form-quiz-review #form-quiz-problem-list .title > a {
+                padding-top: 2px;
+            }
+
+        #form-quiz-review #form-quiz-problem-list .subtitle-difficulty {
+            grid-area: subtitle-difficulty;
+            background-color: #F2F2F2;
+            color: black;
+            font-size: 18px;
+            padding-top: 5px;
+        }
+
+        #form-quiz-review #form-quiz-problem-list .subtitle-query {
+            grid-area: subtitle-query;
+            background-color: #F2F2F2;
+            color: black;
+            font-size: 18px;
+            padding-top: 5px;
+        }
+
+        #form-quiz-review #form-quiz-problem-list .problem-list {
+            grid-area: problem-list;
+            background-color: #F2F2F2;
+            color: black;
+            border-bottom-left-radius: 10px;
+            border-bottom-right-radius: 10px;
+            overflow: scroll;
+        }
+
+            #form-quiz-review #form-quiz-problem-list .problem-list .item {
+                display: grid;
+                grid-template-areas: 'difficulty query button';
+                gap: 1px;
+                grid-template-columns: 89px 1fr 100px;
+                border-bottom: 1px solid black;
+                background-color: white;
+            }
+
+                #form-quiz-review #form-quiz-problem-list .problem-list .item:last-child {
+                    border: none;
+                }
+
+                #form-quiz-review #form-quiz-problem-list .problem-list .item .difficulty {
+                    background-color: white;
+                    display: inline-flex;
+                    align-items: center;
+                    margin: auto;
+                    font-size: 20px;
+                    padding-top: 5px;
+                }
+
+                    #form-quiz-review #form-quiz-problem-list .problem-list .item .difficulty.easy {
+                        color: forestgreen;
+                    }
+
+                    #form-quiz-review #form-quiz-problem-list .problem-list .item .difficulty.normal {
+                        color: orange;
+                    }
+
+                    #form-quiz-review #form-quiz-problem-list .problem-list .item .difficulty.hard {
+                        color: red;
+                    }
+
+                #form-quiz-review #form-quiz-problem-list .problem-list .item .query {
+                    background-color: white;
+                    text-align: left;
+                    padding: 5px 10px;
+                    border-left: 1px solid black;
+                    font-family: arial;
+                }
+
+                #form-quiz-review #form-quiz-problem-list .problem-list .item button {
+                    text-align: center;
+                    margin: auto;
+                    margin-right: 20px;
+                    padding: 3px 15px 0 15px;
+                    border: 1px solid black;
+                    border-radius: 20px;
+                }

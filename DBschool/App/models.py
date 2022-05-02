@@ -1,60 +1,42 @@
+from enum import unique
 from django.db import models
-
+from account.models import CustomUser as User
 # Create your models here.
-
-#TABLE : 사용자목로(Users)
-#PROBLEM
-#참여수업목록은 여기있으면 안될것 같음. ID로 참여수업을 조회하는게 나음
-#완료
-class User(models.Model):
-    ID = models.BigAutoField(auto_created=True, primary_key=True)
-    Email = models.CharField(max_length = 30)
-    Password = models.CharField(max_length = 30)
-    Name = models.CharField(max_length = 30)
-    IsTeacher = models.BooleanField(default = 0)
-
-#TABLE : 수업목록
-#PROBLEM
-#학생 목록, 퀴즈 목록은 제외
 class Class(models.Model):
-    ID = models.BigAutoField(auto_created=True, primary_key=True) 
-    Name = models.CharField(max_length = 30)
-    Teacher = models.ForeignKey(User, on_delete=models.CASCADE, null=False)
+    classname = models.CharField(max_length = 30, null=True, unique=True, default='')
+    profid = models.ForeignKey(User, on_delete=models.CASCADE, null=False)
+    
+    def __str__(self):
+        return self.classname
 
-class RegClass(models.Model):
-    UserID=models.ForeignKey(User, on_delete=models.CASCADE)
-    ClassID=models.ForeignKey(Class, on_delete=models.CASCADE)
-
-#TBALE : 퀴즈 목록
-#점수는 따로 함수형식으로 만들어야 될듯함
 class Quiz(models.Model):
-    ID= models.BigAutoField(auto_created=True, primary_key=True)
-    Name=models.CharField(max_length=30)
-    StartDateTime=models.DateTimeField()
-    EndDateTime=models.DateTimeField()
-    ClassID=models.ForeignKey(Class, on_delete=models.CASCADE) 
-
-
-class Query(models.Model):
-    ID=models.BigAutoField(auto_created=True, primary_key=True)
-    Difficulty=models.FloatField(default=0.0)
-    Query=models.TextField()
-
-class Problem(models.Model):
-    ID=models.BigAutoField(auto_created=True, primary_key=True)
-    Query=models.ForeignKey(Query, on_delete=models.CASCADE)
-    Statement=models.TextField()
+    quizname=models.CharField(max_length=30)
+    classid = models.ForeignKey(Class, on_delete=models.CASCADE, default="")
+    profid=models.ForeignKey(User, on_delete=models.CASCADE)
+    date = models.DateField(null=True)
+    starttime = models.TimeField(null=True)
+    endtime = models.TimeField(null=True)
+    tablename = models.CharField(max_length=40)
+    sqlkeyword = models.CharField(max_length=40)
+    problemnum = models.IntegerField()
     
 
-class Submit(models.Model):
-    ID=models.BigAutoField(auto_created=True, primary_key=True)
-    UserName=models.ForeignKey(User, on_delete=models.CASCADE)
-    ProblemID=models.ForeignKey(Problem, on_delete=models.CASCADE)
-    AcceptRate=models.FloatField(default=0.0, null=False)
+class RegClass(models.Model):
+    userid=models.ForeignKey(User, on_delete=models.CASCADE)
+    classid = models.ForeignKey(Class, on_delete=models.CASCADE) 
+    date = models.DateTimeField(null=True)
 
-#TABLE : 점수
-#PRIMAY KEY는 필요없음
 class Score(models.Model):
-    StudentID=models.ForeignKey(User, on_delete=models.CASCADE)
-    ProblemID=models.ForeignKey(Problem, on_delete=models.CASCADE)
-    Score=models.IntegerField(null=False, default=0)
+    studentid=models.ForeignKey(User, on_delete=models.CASCADE)
+    classid=models.ForeignKey(Class, on_delete=models.CASCADE)
+    quizid=models.ForeignKey(Quiz, on_delete=models.CASCADE)
+    Score=models.FloatField(null=False, default=0)
+
+class table_school(models.Model):
+    name = models.CharField(max_length=100)#학교이름
+    studentnum = models.IntegerField() #학생수
+    classnum = models.IntegerField() #학급수
+    tel = models.CharField(max_length=30)
+    address = models.CharField(max_length=100)
+    
+    

@@ -1,0 +1,43 @@
+{% extends 'template.html' %}
+
+{% block title %}
+<title>Online Judge</title>
+{% endblock %}
+
+{% block css %}
+{% load static %}
+<link href="{% static 'css/mypage.css ' %}" rel="stylesheet">
+<link href="{% static 'css/mypage_grade.css' %}" rel="stylesheet">
+
+{% endblock %}
+
+{% block content %}
+<div id="mypage">
+    <div id="mypage-grade">
+        <div class="quiz-list">
+            <div class="title">퀴즈 / 시험</div>
+            <div class="contents">
+                <!-- {% for q in quiz %}
+                    <div class="item">
+                        <a > {{q.quizname}}</a>
+                    </div>
+                {% endfor%} -->
+
+            </div>
+        </div>
+
+        <div class="student-list">
+            <div class="title">학생</div>
+            <div class="contents">
+                <!-- {% for s in student %}
+                    <div class="item">      
+                        <div class="student-name">
+                            <a > {{s.userid}}</a>
+                        </div>
+                    </div>
+                {% endfor%} -->
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

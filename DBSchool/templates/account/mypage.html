@@ -1,0 +1,70 @@
+{% extends 'app/gradenav.html' %}
+{% block title %}
+<title>Online Judge</title>
+{% endblock %}
+
+{% block css %}
+
+{% load static %}
+<link href="{% static 'css/mypage.css' %}" rel="stylesheet">
+<link href="{% static 'css/mypage_grade.css' %}" rel="stylesheet">
+{% endblock %}
+
+
+{% block content %}
+<div id="mypage">
+    <div id="mypage-grade">
+        <form id="form-mypage-privacy" method="post" action="{% url 'account:mypage' %}">
+            {% csrf_token %}
+            <!-- ========== 아이디 ========== -->
+            <div class="row mb-4">
+                <label for="inputDate" class="col-sm-3 col-form-label form-quiz-label">아이디</label>
+                <div class="col-sm-8">
+                    <input id="inputDate" type="text" class="form-control" placeholder="example@naver.com" disabled value="{{ user.username}}">
+                </div>
+            </div>
+            <!-- ========== 비밀번호 ========== -->
+            <div class="row mb-4">
+                <label for="inputTime" class="col-sm-3 col-form-label form-quiz-label">기존 비밀번호</label>
+                <div class="col-sm-8">
+                    <!-- 입력 -->
+                    <input name="old_password" id="inputTime" type="password" class="form-control">
+                </div>
+            </div>
+            <div class="row mb-4">
+                <label for="inputTime" class="col-sm-3 col-form-label form-quiz-label">신규 비밀번호</label>
+                <div class="col-sm-8">
+                    <!-- 입력 -->
+                    <input name="new_password1" id="inputTime" type="password" class="form-control">
+                </div>
+            </div>
+            <div class="row mb-4">
+                <label for="inputTime" class="col-sm-3 col-form-label form-quiz-label">비밀번호 확인</label>
+                <div class="col-sm-8">
+                    <!-- 입력 -->
+                    <input name="new_password2" id="inputTime" type="password" class="form-control">
+                </div>
+            </div>
+            <!-- ========== 이름 ========== -->
+            
+            <!-- ========== 직책 ========== -->
+            
+            <div class="row mb-4">
+                <div class="row mb-4">
+                    <label for="inputTime" class="col-sm-3 col-form-label form-quiz-label">직책</label>
+                    <div class="col-sm-8">
+                        <!-- 입력 -->
+                        <input name="new_password2" id="inputTime" type="text" class="form-control" disabled value="{{user.Responsibility}}">
+                    </div>
+                </div>
+            </div>
+
+            <!-- ========== 버튼 ========== -->
+            <div class="button-container">
+                <button type="submit" class="btn btn-primary" style="background-color: #4472C4;">완료</button>
+                <button type="reset" class="btn btn-outline-dark">취소</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

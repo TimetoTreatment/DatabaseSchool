@@ -1,0 +1,46 @@
+{% extends 'template.html' %}
+
+{% block title %}
+<title>Online Judge</title>
+{% endblock %}
+
+{% block css %}
+{% load static %}
+<link href="{% static 'css/form_class_quiz_select.css ' %}" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+<form id="form-class-quiz" method="post">
+    {% csrf_token %}
+    <div id="select-class-quiz">
+        <!-- ===== 수업 목록 ===== -->
+        <div class="class-list">
+            <!-- 수업 -->
+            {% for c in class %}
+                <div class="item">
+                    <div class="class-name"><a  href="{% url 'app:exam_1' c.classid.id%}"> {{c.classid.classname}}</a></div>
+                </div>
+            {% endfor%}
+        </div>
+
+        <!-- ===== 퀴즈 목록 ===== -->
+        <div class="quiz-list">
+            <div class="title">퀴즈 / 시험</div>
+            <div class="contents">
+                {% for q in quiz %}
+                    <div class="item">
+                        <!-- 퀴즈 이름 -->
+                        <a href="{% url 'app:exam_2' q.classid.id q.id %}">{{q.quizname}}</a>
+                        <!-- 퀴즈 일시 (아직 안 친 퀴즈) -->
+                        <div class="datetime">
+                            {{q.date|date:'Y-m-d'}} {{q.starttime|date:'H:i:s'}}
+                        </div>
+                    </div>
+                {% endfor %}
+
+            </div>
+            
+        </div>
+    </div>
+</form>
+{% endblock %}

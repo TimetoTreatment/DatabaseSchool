@@ -18,57 +18,27 @@
         background-color: #FAFAFA;
         border-radius: 20px;
         grid-area: class;
-        padding: 15px;
+        padding: 20px;
     }
 
         #mypage-grade .class-list .item {
-            margin-bottom: 15px;
+            margin-bottom: 10px;
         }
 
-            #mypage-grade .class-list .item .class-name {
-                display: inline;
-                margin-top: 2px;
+            #mypage-grade .class-list .item a {
+                color: black;
             }
 
-                #mypage-grade .class-list .item .class-name a {
-                    color: black;
-                }
-
-                #mypage-grade .class-list .item .class-name .active {
-                    border-bottom: 1px solid #4472C4;
-                    color: #4472C4;
-                }
-
-                #mypage-grade .class-list .item .class-name a:hover {
-                    border-bottom: 1px solid #4472C4;
-                    color: #4472C4;
-                }
-
-            #mypage-grade .class-list .item .class-delete {
-                display: inline;
-                float: right;
+            #mypage-grade .class-list .item .active {
+                border-bottom: 1px solid #4472C4;
+                color: #4472C4;
             }
 
-            #mypage-grade .class-list .item .class-delete {
-                display: inline;
-                float: right;
+            #mypage-grade .class-list .item a:hover {
+                border-bottom: 1px solid #4472C4;
+                color: #4472C4;
             }
 
-                #mypage-grade .class-list .item .class-delete:hover {
-                    transform: scale(1.1);
-                }
-
-                #mypage-grade .class-list .item .class-delete > a {
-                    color: #AAAAAA;
-                    border: 1px solid #AAAAAA;
-                    border-radius: 5px;
-                    padding: 3px 4px 1px 4px;
-                    font-family: GMarketSansLight;
-                    font-size: 12px;
-                }
-
-            #mypage-grade .class-list .item button {
-            }
 
     #mypage-grade .quiz-list {
         grid-area: quiz;
@@ -124,20 +94,6 @@
                         border-bottom: 1px solid black;
                     }
 
-                #mypage-grade .quiz-list .contents .item .datetime {
-                    vertical-align: middle;
-                    float: right;
-                    width: 70%;
-                    height: 22px;
-                    float: right;
-                    border-radius: 4px;
-                    font-size: 10pt;
-                    text-align: center;
-                    padding-top: 3px;
-                    background-color: #E9ECEF;
-                    border-radius: 5px;
-                }
-
     #mypage-grade .student-list {
         grid-area: student;
         text-align: center;
@@ -182,13 +138,11 @@
                 display: grid;
                 grid-template-areas: 'name score';
                 gap: 1px;
-                grid-template-columns: 70px 1fr;
-                border-bottom: 1px dotted black;
+                grid-template-columns: 89px 1fr 100px;
+                border-bottom: 1px solid black;
                 background-color: white;
-                padding-top: 8px;
+                padding-top: 5px;
                 padding-left: 10px;
-                padding-right: 20px;
-                padding: 8px 20px 5px 10px;
                 text-align: left;
             }
 
@@ -196,15 +150,8 @@
                     color: black;
                 }
 
-                #mypage-grade .student-list .contents .item .student-name {
-                    grid-area: name;
-                }
+    #mypage-grade .quiz-list {
+    }
 
-                #mypage-grade .student-list .contents .item .score {
-                    grid-area: score;
-                    margin-top: 2px;
-                }
-
-                    #mypage-grade .student-list .contents .item .score .progress-bar {
-                        padding-top: 2px;
-                    }
+    #mypage-grade .student-list {
+    }

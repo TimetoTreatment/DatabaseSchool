@@ -1,85 +1,138 @@
-from django.shortcuts import render
-from django.urls import reverse
-from django.contrib.auth import authenticate, login
-from django.http import HttpResponseRedirect
+from datetime import datetime
+from this import d
+from django.shortcuts import get_object_or_404, render, redirect
+from pytz import timezone
+from .models import Class, Quiz, RegClass, Score
+from .forms import addClassForm, addQuiz
+from django.db.models import Max, Min, Avg, Count
+import datetime as dt
+from account.models import CustomUser as User
 # Create your views here.
+def main(request):
+    return render(request, 'app/main.html')
 
-#정원
-def join(request):
-    return render(request,"App/join.html")
+def manage(request):
+    context ={}
+    _class = Class.objects.filter(profid = request.user.id)
+    context['class'] = _class
+    if request.method == 'POST':
+        form = addClassForm(request.POST)
+        if form.is_valid():
+            question = form.save(commit=False)
+            question.profid = request.user
+            question.save()
+            return redirect('app:manage')
+    else:
+        form = addClassForm()
+        context['form'] = form
+        
+        return render(request, 'app/manage.html', context)
 
-def test(request):
-    return render(request,"App/test.html")
+def class_delete(request, deleteid):
+    print(deleteid)
+    model = Class.objects.filter(profid = request.user.id, id = deleteid)
+    model.delete()
+    return redirect('app:manage')
 
-
-#건호
-def home(request):
-    return render(request, "App/home.html")
-
-def Practice(request):
-    return render(request, "App/Practice.html")
-
-def Exam(request):
-    return render(request, "App/Exam.html")
+def quiz_student_print(request, class_id):
+    context ={}
+    _quiz = Quiz.objects.filter(profid = request.user.id, classid = class_id)
+    _class = Class.objects.filter(profid = request.user.id)
+    context['quiz'] = _quiz
+    context['class'] = _class
+    context['form'] = addClassForm()
     
-def QuizReg(request):
-    return render(request, "App/QuizReg.html")
+    
+    return render(request, 'app/manage.html', context)
 
-def Grade(request):
-    return render(request, "App/Grade.html")
+def quiz_delete(request, classid, quizdeleteid):
+    model= Quiz.objects.filter(classid = classid, id = quizdeleteid)
+    model.delete()
+    return redirect('app:main')
+
+def enroll(request):
+    return render(request, 'app/enroll.html')
+
+def quizenroll_1(request):
+    return render(request, 'app/quizenroll_1.html')
+
+def student_print(request, classid, quizid):
+    context ={}
+    context['quiz'] =  Quiz.objects.filter(classid= classid, profid = request.user.id)
+    context['class'] = Class.objects.filter(profid = request.user.id)
+    grade = Score.objects.filter(classid = classid, quizid= quizid).values('studentid')\
+    .annotate(max_score=Max('Score'))
+    
+    for row in grade:
+        row['student_name']=\
+            User.objects.filter(id = row['studentid']).first().username
+    context['grade'] = grade
+    a= Score.objects.filter(classid = classid, quizid= quizid)
+    print(a)
+    print(grade)
+    return render(request, 'app/manage.html', context)
+
+def quizreg_2(request, classid):
+    context ={}
+    context['classid'] = classid
+    if request.method == 'POST':
+        form = addQuiz(request.POST)
+        if form.is_valid():
+            quiz = form.save(commit=False)
+            quiz.profid = request.user
+            quiz.classid = Class.objects.get(id=classid)
+            print(Class.objects.get(id=classid))
+            endtime = request.POST.get("starttime") + ":00"
+            enddatetime= request.POST.get("date")+' ' + endtime
+            enddatetime=datetime.strptime(enddatetime,'%Y-%m-%d %H:%M:%S')
+            enddatetime = enddatetime + dt.timedelta(minutes=int(request.POST.get("timeout")))
+            quiz.endtime = enddatetime.strftime('%H:%M:%S')
+            print(request.POST.get('sqlkeyword'))
+            quiz.save()
+
+            return redirect('app:quizreg_3', classid=classid,quizid= quiz.id)
+    else:
+        form = addClassForm()
+        context['form'] = form
+        
+        return render(request, 'app/quizreg_1.html', context)
+    return render(request, 'app/quizreg_1.html')
+
+def quizreg_3(request, classid, quizid):
+    context={}
+    context['quiz'] = Quiz.objects.get(id=quizid)
+    print(context['quiz'])
+    return render(request, 'app/quizreg_2.html', context)
+    
 
 
-#준엽
-def signup(request):
-    if request.method == "GET":
-        return render(request, 'App/signup.html')
+def quizreg_0(request):
+    context ={}
+    _class = Class.objects.filter(profid = request.user.id)
+    context['class'] = _class
+   
+    return render(request, 'app/quizreg_0.html', context)
 
+def quizreg_1(request, classid):
+    context ={}
+    context['class'] = Class.objects.filter(profid = request.user.id)
+    context['quiz'] =  Quiz.objects.filter(classid= classid, profid = request.user.id)
+    context['classid'] = classid
+    return render(request, 'app/quizreg_0.html', context)
 
-    elif request.method == "POST":
-        username = request.POST['username']
-        password = request.POST['password']
-        print(request.POST)
-        user = authenticate(request, username=username, password=password)
+def exam_0(request):
+    context = {}
+    
+    context['class'] = RegClass.objects.filter(userid = request.user.id)
+    return render(request, 'app/test_0.html', context)
 
-        if user is not None:
-            login(request, user)
-            print("인증 성공")
-            return HttpResponseRedirect(reverse('posts:index'))
-        else:
-            print("인증 실패")
-            return render(request, 'App/signup.html')
-    return render(request, 'App/signup.html')
+def exam_1(request, classid):
+    context = {}
+    
+    context['class'] = RegClass.objects.filter(userid = request.user.id)
+    context['quiz'] = Quiz.objects.filter(classid=classid)
+    return render(request, 'app/test_0.html', context)
 
-#부건
-
-
-#TEST
-def selectClassQuiz(request):
-    return render(request, "App/form_class_quiz_select.html")
-
-def datetime(request):
-    return render(request, "App/form_quiz_datetime.html")
-
-def theme(request):
-    return render(request, "App/form_quiz_theme.html")
-
-def review(request):
-    return render(request, "App/form_quiz_review.html")
-
-def onlineJudge(request):
-    return render(request, "App/online_judge.html")
-
-def classQuiz(request):
-    return render(request, "App/SelectClassQuiz.html")
-
-def mypagePrivacy(request):
-    return render(request, "App/mypage_privacy.html")
-
-def mypageClass(request):
-    return render(request, "App/mypage_class.html")
-
-def mypageGrade(request):
-    return render(request, "App/mypage_grade.html")
-
-def mypageEnroll(request):
-    return render(request, "App/mypage_enroll.html")
+def exam_2(request, classid, quizid):
+    
+    return render(request, 'app/test_1.html')

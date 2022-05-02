@@ -1,0 +1,82 @@
+/*--------------------------------------------------------------
+# Header
+--------------------------------------------------------------*/
+
+
+/*-- Nav 1 --*/
+.nav-top-1 {
+    height: 120px;
+    display: flex;
+    font-family: GmarketSansMedium;
+}
+
+    .nav-top-1 .logo {
+        padding: 15px 30px;
+        font-size: 66px;
+        font-weight: bold;
+    }
+
+        .nav-top-1 .logo a {
+            text-decoration: none;
+        }
+
+        .nav-top-1 .logo .text-the {
+            color: #4472C4;
+        }
+
+        .nav-top-1 .logo .text-school {
+            color: black;
+        }
+
+    .nav-top-1 .function {
+        padding: 15px 30px;
+    }
+
+        .nav-top-1 .function img {
+            height: 90%;
+            transition: transform .2s;
+            margin: 0px 30px;
+        }
+
+            .nav-top-1 .function img:hover {
+                transform: scale(1.05);
+            }
+
+    .nav-top-1 .user {
+        font-size: 22px;
+        margin-left: auto;
+        margin-right: 40px;
+        margin-bottom: 10px;
+        align-self: flex-end;
+        color: black;
+    }
+
+        .nav-top-1 .user u {
+            color: #4472C4;
+        }
+
+/*-- Nav 2 --*/
+.nav-top-2 {
+    overflow: hidden;
+    background-color: #4472C4;
+    font-family: GmarketSansMedium;
+}
+
+    .nav-top-2 a {
+        float: left;
+        color: #f2f2f2;
+        text-align: center;
+        padding: 14px 22px;
+        text-decoration: none;
+        font-size: 18px;
+    }
+
+        .nav-top-2 a:hover {
+            background-color: #ddd;
+            color: black;
+        }
+
+        .nav-top-2 a.active {
+            background-color: #333;
+            color: white;
+        }
