@@ -1,0 +1,40 @@
+hr {
+    height: 3px;
+    background: #bbb;
+    background-image: -webkit-linear-gradient(left, #eee, #4472C4, #eee);
+    background-image: -moz-linear-gradient(left, #eee, #4472C4, #eee);
+    background-image: -ms-linear-gradient(left, #eee, #4472C4, #eee);
+    background-image: -o-linear-gradient(left, #eee, #4472C4, #eee);
+}
+
+#main_tag {
+    margin-top: 250px;
+}
+
+h1 {
+    font-weight: bold;
+    font-size: 6em;
+}
+
+.container {
+    height: 250px;
+    width: 800px;
+    position: relative;
+}
+
+.center {
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
+
+.main-color {
+    color: #4472C4;
+}
+
+.form-control {
+    border-radius: 20px;
+}

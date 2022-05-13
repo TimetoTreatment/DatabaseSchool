@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Online Judge</title>
+
+    <!-- Project CSS Files -->
+    {% block css %}
+    {% load static %}
+    <link href="{% static 'css/common.css ' %}" rel="stylesheet">
+    <link href="{% static 'css/signup.css' %}" rel="stylesheet">
+    {% endblock %}
+</head>
+<body>
+<div id="signup">
+    <div id="signup-privacy">
+        <!-- ========== 개인 정보 ========== -->
+        <form id="form-mypage-privacy" method="post" action="{% url 'account:signup' %}">
+            <!-- ==== 아이디 ==== -->
+            {% csrf_token %}
+            {% include 'form_errors.html' %}
+            <div class="row mb-5">
+                <label for="inputDate" class="col-sm-3 col-form-label form-quiz-label" >아이디</label>
+                <div class="col-sm-8">
+                    <!-- 입력 -->
+                    <input name="username" type="text" class="form-control" id="classname">
+                </div>
+            </div>
+
+            <div class="row mb-5">
+                <label for="inputDate" class="col-sm-3 col-form-label form-quiz-label" >이름</label>
+                <div class="col-sm-8">
+                    <!-- 입력 -->
+                    <input name="first_name" type="text" class="form-control" id="classname">
+                </div>
+            </div>
+            <div class="row mb-5">
+                <label for="password" class="col-sm-3 col-form-label form-quiz-label" >비밀번호</label>
+                <div class="col-sm-8">
+                    <!-- 입력 -->
+                    <input name="password1" type="password" class="form-control" id="group">
+                </div>
+            </div>
+
+            <div class="row mb-5">
+                <label for="password" class="col-sm-3 col-form-label form-quiz-label" >비밀번호 확인</label>
+                <div class="col-sm-8">
+                    <!-- 입력 -->
+                    <input name="password2" type="password" class="form-control" id="group">
+                </div>
+            </div>
+
+            <div class="row mb-5">
+                <label for="" class="col-sm-3 col-form-label form-quiz-label" >직책</label>
+                <div class="col-sm-8">
+                    <!-- 입력 -->
+                    <input name="Responsibility" list="RespList" type="text" class="form-control" id="Resp">
+                    <datalist id="RespList">
+                        <option value="학생"></option>
+                        <option value="교수"></option>
+                    </datalist>
+                </div>
+            </div>
+           
+            <div class="row mb-5 button-container">
+                <button type="submit" class="btn btn-primary" style="background-color: #4472C4;">등록</button>
+                <button type="reset" class="btn btn-outline-dark">초기화</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+</body>
+</html>

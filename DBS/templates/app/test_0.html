@@ -1,0 +1,92 @@
+{% extends 'template.html' %}
+
+{% block title %}
+<title>Online Judge</title>
+{% endblock %}
+
+{% block css %}
+{% load static %}
+<link href="{% static 'css/common.css' %}" rel="stylesheet">
+<link href="{% static 'css/form_class_quiz_select.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+<nav class="nav-top-2" style="padding-left:20px">
+    <a class="navbar-nav" href="{% url 'account:mypage' %}">마이페이지</a>
+    <a class="navbar-nav" href="{% url 'app:manage' %}">성적확인</a>
+    <a class="navbar-nav" href="{% url 'app:addclass' %}">수업등록</a>
+    <a class="navbar-nav" href="{% url 'app:addstudent' %}">학생등록</a>
+
+</nav>
+<form id="form-class-quiz" method="post">
+    {% csrf_token %}
+    <div id="select-class-quiz">
+        <!-- ===== 수업 목록 (좌) ===== -->
+        <div class="class-list">
+            <!-- 수업 -->
+            {% for c in class %}
+            <div class="item">
+                <div class="class-name"><a href="{% url 'app:test_view_quiz' c.classid.id%}"> {{c.classid.classname}} {{c.classid.group}} ({{c.classid.profid.first_name}})</a></div>
+            </div>
+            {% endfor%}
+        </div>
+
+        <!-- ===== 퀴즈 목록 (중) ===== -->
+        <div class="quiz-list">
+            <div class="title">퀴즈 / 시험</div>
+            <div class="contents">
+                {% for q in quiz %}
+                <div class="item">
+                    <!-- 퀴즈 이름 -->
+                    <a href="{% url 'app:test_view_student' q.classid.id q.id %}">{{q.quizname}}</a>
+                    <!-- 퀴즈 일시 (아직 안 친 퀴즈) -->
+                    <div class="datetime">
+                        {{q.date|date:'Y-m-d'}} {{q.starttime|date:'H:i:s'}}
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <!-- ===== 문제 목록 (우) ===== -->
+        <div id="problem-list">
+            <!-- ========== 헤더 ========== -->
+            <div class="title"><div class="text">문제 목록</div></div>
+            <div class="subtitle-number">번호</div>
+            <div class="subtitle-result">결과</div>
+            <div class="subtitle-rate">정답률</div>
+
+            <!-- ========== 문제 ========== -->
+            <div class="contents">
+                <!-- 아이템 -->
+                {% for p in prob%}
+                <div class="item">
+                    <!-- 문제 번호 -->
+                    <div class="number"><a href="{% url 'app:test_exam' classid quizid p.id%}">{{forloop.counter}}</a></div>
+
+                    <!-- 결과 -->
+                    {% if p.submit == 0%}
+                    <div class="result">
+                        <button class="btn btn-sm btn-outline-danger">Wrong</button>
+                    </div>
+
+                    {% elif p.submit == "미제출" %}
+                    <div class="result">
+                        <button class="btn btn-sm btn-outline-secondary">None</button>
+                    </div>
+
+                    {% else %}
+                    <div class="result">
+                        <button class="btn btn-sm btn-outline-success">Accept</button>
+                    </div>
+                    {% endif %}
+
+                    <!-- 정답률: easy, normal, hard -->
+                    <div class="rate easy">85%</div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</form>
+{% endblock %}

@@ -1,0 +1,130 @@
+/*--------------------------------------------------------------
+# Online Judge
+--------------------------------------------------------------*/
+
+#online-judge {
+    display: grid;
+    grid-template-areas:
+        'number-header description-header input-header input-header input-header'
+        'number description input input input'
+        'number description output-header execute submit'
+        'number description output output output';
+    gap: 1px;
+    background-color: black;
+    grid-template-columns: 75px 4fr 5fr auto auto;
+    grid-template-rows: auto 1fr auto 1fr;
+    font-family: GmarketSansMedium;
+    height: 100%;
+}
+
+    #online-judge table {
+        margin: 30px 0;
+        font-family: arial, sans-serif;
+        border-collapse: collapse;
+        width: 90%;
+        background-color: #FDFDFD;
+    }
+
+    #online-judge th {
+        text-align: center;
+        font-weight: bold;
+    }
+
+    #online-judge td, th {
+        border: 1px solid #CCCCCC;
+        text-align: left;
+        padding: 8px;
+    }
+
+    #online-judge .header {
+        text-align: center;
+        font-size: 20px;
+        padding-top: 5px;
+    }
+
+    #online-judge .number-header {
+        grid-area: number-header;
+        background-color: #F2F2F2;
+    }
+
+    #online-judge .description-header {
+        grid-area: description-header;
+        background-color: #F2F2F2;
+    }
+
+    #online-judge .input-header {
+        grid-area: input-header;
+        background-color: #F2F2F2;
+    }
+
+    #online-judge .output-header {
+        grid-area: output-header;
+        background-color: #F2F2F2;
+    }
+
+    #online-judge .execute-header {
+        grid-area: execute;
+        padding: 5px 25px 0px 25px;
+        border-radius: 0;
+        color: black;
+        background-color:white;
+    }
+
+    #online-judge .submit-header {
+        grid-area: submit;
+        padding: 5px 25px 0px 25px;
+        border-radius: 0;
+        color: white;
+        background-color: #4472C4;
+    }
+
+    #online-judge .contents {
+        background-color: white;
+        padding: 20px;
+    }
+
+    #online-judge .number {
+        font-family: GmarketSansBold;
+        grid-area: number;
+        text-align: center;
+        font-size: 26px;
+        color: #D9D9D9;
+    }
+
+        #online-judge .number > div {
+            padding: 10px 0 20px 0;
+        }
+
+        #online-judge .number a {
+            color: #D9D9D9;
+        }
+
+        #online-judge .number .correct a {
+            color: #4472C4;
+        }
+
+        #online-judge .number .wrong a {
+            color: #C00000;
+        }
+
+        #online-judge .number .selected a {
+            color: black;
+        }
+
+    #online-judge .description {
+        grid-area: description;
+    }
+
+        #online-judge .description .text-attribute {
+            padding: 3px;
+            background-color: #000080;
+            color: white;
+        }
+
+    #online-judge .input {
+        grid-area: input;
+    }
+
+    #online-judge .output {
+        grid-area: output;
+    }

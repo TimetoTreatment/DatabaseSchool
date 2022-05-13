@@ -1,0 +1,83 @@
+{% extends 'app/gradenav.html' %}
+
+{% block title %}
+<title>Online Judge</title>
+{% endblock %}
+
+{% block css %}
+{% load static %}
+<link href="{% static 'css/mypage.css' %}" rel="stylesheet">
+<link href="{% static 'css/mypage_grade.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+<div id="mypage" method="post">
+    {% csrf_token %}
+    <ul class="nav nav-tabs" id="myTab" role="tablist">
+        <li class="nav-item" role="presentation">
+            <button class="nav-link " type="button" role="tab" onclick="location.href='{% url 'account:mypage' %}'">개인 정보</button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link active" type="button" role="tab" onclick="location.href='{% url 'app:manage' %}'">수업 관리</button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" type="button" role="tab" onclick="location.href='{% url 'app:addclass' %}'">수업 등록</button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link " type="button" role="tab" onclick="location.href='{% url 'app:addstudent' %}'">학생 등록</button>
+        </li>
+    </ul>
+    <div id="mypage-grade">
+        <!-- ===== 수업 목록 ===== -->
+        <div class="class-list">
+            <!-- 수업 -->
+            {% for c in class %}
+            <div class="item">
+                <div class="class-name">
+                    <a href="{% url 'app:manage_quiz' c.id%}"> {{c.classname}} {{c.group}} ({{c.profid.first_name}})</a>
+                </div>
+                <div class="class-delete"><a href="{% url 'app:delete_class' c.id %}">X</a></div>
+            </div>
+            {% endfor%}
+        </div>
+
+        <!-- ===== 퀴즈 목록 ===== -->
+        <div class="quiz-list">
+            <div class="title">퀴즈 / 시험</div>
+            <div class="contents">
+                <!-- 퀴즈 -->
+                {% for q in quiz %}
+                    <div class="item">
+                        <a href="{% url 'app:manage_student' q.classid.id  q.id %}">{{q.quizname}}</a>  <a href="{% url 'app:delete_quiz' classid=q.classid.id quizdeleteid=q.id %}">X</a>
+                        <div class="datetime">
+                            <span>{{q.starttime|date:'Y-m-d h:i:s'}}</span>
+                        </div>
+                    </div>
+                {% endfor%}
+            </div>
+        </div>
+
+        <!-- ===== 학생 목록 ===== -->
+        <div class="student-list">
+            <div class="title">학생 목록</div>
+            <div class="contents">
+                <!-- 학생 -->
+                {% for g in grade %}
+                    <div class="item">      
+                        <div class="student-name">
+                            <a > {{g.student_name}}</a>
+                        </div>
+                        {% if g.grade == "미제출"%}
+                        미제출
+                        {% else%}
+                        <div class="progress score">
+                            <div class="progress-bar progress-bar-striped progress-bar-animated bg-warning" role="progressbar" aria-valuenow="{{g.grade}}" aria-valuemin="0" aria-valuemax="100" style="width: '{{g.grade}}'%">{{g.grade}}/100</div>
+                        </div>
+                        {% endif%}
+                    </div>
+                {% endfor%}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

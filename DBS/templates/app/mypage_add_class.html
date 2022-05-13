@@ -1,0 +1,61 @@
+{% extends 'app/gradenav.html' %}
+
+{% block title %}
+<title>Online Judge</title>
+{% endblock %}
+
+{% block css %}
+{% load static %}
+<link href="{% static 'css/mypage.css' %}" rel="stylesheet">
+<link href="{% static 'css/mypage_privacy.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+
+
+<div id="mypage">
+    <!-- ========== START: 네비게이션 (검정) ========== -->
+    <ul class="nav nav-tabs" id="myTab" role="tablist">
+        <li class="nav-item" role="presentation">
+            <button class="nav-link " type="button" role="tab" onclick="location.href='{% url 'account:mypage' %}'">개인 정보</button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link " type="button" role="tab" onclick="location.href='{% url 'app:manage' %}'">수업 관리</button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link active" type="button" role="tab" onclick="location.href='{% url 'app:addclass' %}'">수업 등록</button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link " type="button" role="tab" onclick="location.href='{% url 'app:addstudent' %}'">학생 등록</button>
+        </li>
+    </ul>
+    <!-- ========== END  : 네비게이션 (검정) ========== -->
+    <div id="mypage-privacy">
+        <!-- ========== 개인 정보 ========== -->
+        <form id="form-mypage-privacy" method="post">
+            <!-- ==== 아이디 ==== -->
+            {% csrf_token %}
+            {% include 'form_errors.html' %}
+            <div class="row mb-5">
+                <label for="inputDate" class="col-sm-3 col-form-label form-quiz-label" >수업명</label>
+                <div class="col-sm-8">
+                    <!-- 입력 -->
+                    <input name="classname" type="text" class="form-control" id="classname">
+                </div>
+            </div>
+            <div class="row mb-5">
+                <label for="inputDate" class="col-sm-3 col-form-label form-quiz-label" >분반</label>
+                <div class="col-sm-8">
+                    <!-- 입력 -->
+                    <input name="group" type="text" class="form-control" id="group">
+                </div>
+            </div>
+           
+            <div class="row mb-5 button-container">
+                <button type="submit" class="btn btn-primary" style="background-color: #4472C4;">등록</button>
+                <button type="reset" class="btn btn-outline-dark">초기화</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
