@@ -180,13 +180,13 @@
             'title title'
             'subtitle-difficulty subtitle-query'
             'problem-list problem-list';
-        gap: 1px;
         grid-template-rows: auto auto 1fr;
         grid-template-columns: 90px 1fr;
         font-family: GmarketSansMedium;
         border: 1px solid black;
         border-radius: 12px;
         background-color: black;
+        gap:1px;
     }
 
         #form-quiz-review #form-quiz-problem-list .title {
@@ -241,7 +241,7 @@
                 grid-template-areas: 'difficulty query button';
                 gap: 1px;
                 grid-template-columns: 89px 1fr 100px;
-                border-bottom: 1px solid black;
+                border-bottom: 1px dotted black;
                 background-color: white;
             }
 

@@ -45,15 +45,20 @@
     .nav-top-1 .user {
         font-size: 22px;
         margin-left: auto;
-        margin-right: 40px;
-        margin-bottom: 10px;
+        margin-right: 5px;
+        margin-bottom: 3px;
         align-self: flex-end;
-        color: black;
     }
 
-        .nav-top-1 .user u {
-            color: #4472C4;
+        .nav-top-1 .user a {
+            color: black;
+            font-family: GMarketSansLight;
         }
+
+            .nav-top-1 .user a u {
+                color: black;
+                font-family: GMarketSansMedium;
+            }
 
 /*-- Nav 2 --*/
 .nav-top-2 {

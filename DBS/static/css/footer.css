@@ -5,22 +5,94 @@
 #footer {
     background: #222222;
     font-size: 14px;
-    padding: 20px 0;
-    color: #FFFFFF;
-    height:125px;
+    padding: 15px 0;
+    height: 125px;
 }
 
-    #footer h3 {
-        font-size: 36px;
-        position: relative;
-        padding: 0;
-        margin: 0 0 15px 0;
+    #footer .footer-info {
+        width: 1440px;
+        margin: auto;
+        display: grid;
+        grid-template-areas: 'logo team class temp';
+        grid-template-columns: 1fr 320px 320px 1fr;
         font-family: GmarketSansMedium;
+        color: white;
     }
 
-    #footer p {
-        font-size: 12pt;
-        padding: 0;
-        margin: 0 0 5px 0;
-        font-family: GmarketSansLight;
-    }
+
+        #footer .footer-info .logo {
+            grid-area: logo;
+            display: flex;
+        }
+
+            #footer .footer-info .logo .logo-img {
+                display: inline;
+                margin: 3px 0;
+            }
+
+            #footer .footer-info .logo .logo-text {
+                display: inline;
+                margin: 8px 5px;
+            }
+
+
+            #footer .footer-info .logo .title .text-color {
+                color: #4472C4;
+            }
+
+            #footer .footer-info .logo .title {
+                font-size: 22pt;
+                padding: 0;
+                font-family: GmarketSansBold;
+                margin-bottom: 4px;
+            }
+
+            #footer .footer-info .logo .subtitle {
+                font-size: 14pt;
+                padding: 0;
+                font-family: GmarketSansLight;
+            }
+
+                #footer .footer-info .logo .subtitle .text-color {
+                    color: #4472C4;
+                    font-family: GmarketSansMedium;
+                }
+
+
+        #footer .footer-info .team {
+            grid-area: team;
+            text-align: right;
+            margin-top: 8px;
+            padding-right: 40px;
+        }
+
+            #footer .footer-info .team h3 {
+                font-size: 32px;
+                position: relative;
+                padding: 0;
+                margin-top: 5px;
+                font-family: GmarketSansMedium;
+                color: rgb(195, 0, 47);
+                margin-bottom: 4px;
+            }
+
+            #footer .footer-info .team p {
+                font-size: 16px;
+                font-family: GmarketSansLight;
+            }
+
+
+        #footer .footer-info .class {
+            grid-area: class;
+            margin: 16px;
+        }
+
+            #footer .footer-info .class > p {
+                font-family: GmarketSansLight;
+                font-size: 16px;
+            }
+
+
+                #footer .footer-info .class > p span {
+                    font-size: 12px;
+                }

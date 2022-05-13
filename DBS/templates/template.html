@@ -34,7 +34,7 @@
             </div>
             <div class="user">
                 {% if user.is_authenticated %}
-                <a class="nav-link" href="{% url 'account:logout' %}">{{ user.username }}<br> (로그아웃)</a>
+                <a class="nav-link" href="{% url 'account:logout' %}"><u>{{ user.username }}</u> 님</a>
                 {% else %}
                 <a class="nav-link" href="{% url 'account:login' %}">로그인</a>
                 {% endif %}
@@ -61,9 +61,29 @@
 
     <!-- ====== Footer ====== -->
     <footer id="footer" class="fixed-bottom">
-        <div class="container">
-            <h3>세종대학교</h3>
-            <p>캡스톤디자인: "아니이게외않되" 팀</p>
+        <div class="footer-info">
+            <div class="logo">
+                <div class="logo-img">
+                    <img style="width:80px;" src="{% static 'img/footer-logo-project.png' %}" />
+                </div>
+                <div class="logo-text">
+                    <p class="title"><span class="text-color">DB</span> School</p>
+                    <p class="subtitle">
+                        <span class="text-color">A</span>utomated
+                        <span class="text-color">O</span>nline
+                        <span class="text-color">J</span>udge
+                    </p>
+                </div>
+            </div>
+            <div class="team">
+                <h3>세종대학교</h3>
+                <p>아니이게외않되 팀</p>
+            </div>
+
+            <div class="class">
+                <p><b>분반</b>&nbsp;&nbsp;|&nbsp;&nbsp;캡스톤디자인 <span>(001)</span></p>
+                <p><b>팀명</b>&nbsp;&nbsp;|&nbsp;&nbsp;아니이게외않되 <span>(8조)</span></p>
+            </div>
         </div>
     </footer>
 
