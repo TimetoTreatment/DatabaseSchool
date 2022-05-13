@@ -6,27 +6,25 @@
 
 {% block css %}
 {% load static %}
-<link href="{% static 'css/form_class_quiz_select.css ' %}" rel="stylesheet">
+<link href="{% static 'css/form_class_quiz_select.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block description %}
+퀴즈를 등록합니다.
 {% endblock %}
 
 {% block content %}
-<nav class="nav-top-2" style="padding-left:20px">
-    <a class="navbar-nav" href="{% url 'account:mypage' %}">마이페이지</a>
-    <a class="navbar-nav" href="{% url 'app:manage' %}">성적확인</a>
-    <a class="navbar-nav" href="{% url 'app:addclass' %}">수업등록</a>
-    <a class="navbar-nav" href="{% url 'app:addstudent' %}">학생등록</a>
-</nav>
 <form id="form-class-quiz" method="post">
-    
+
     {% csrf_token %}
     <div id="select-class-quiz">
         <!-- ===== 수업 목록 ===== -->
         <div class="class-list">
             <!-- 수업 -->
             {% for c in class %}
-                <div class="item">
-                    <div class="class-name"><a  href="{% url 'app:quizreg_view_quiz' c.id%}"> {{c.classname}} {{c.group}} ({{c.profid.first_name}})</a></div>
-                </div>
+            <div class="item">
+                <div class="class-name"><a href="{% url 'app:quizreg_view_quiz' c.id%}"> {{c.classname}} {{c.group}} ({{c.profid.first_name}})</a></div>
+            </div>
             {% endfor%}
         </div>
 
@@ -35,18 +33,18 @@
             <div class="title">퀴즈 / 시험</div>
             <div class="contents">
                 {% for q in quiz %}
-                    <div class="item">
-                        <!-- 퀴즈 이름 -->
-                        <a>{{q.quizname}}</a>
-                        <!-- 퀴즈 일시 (아직 안 친 퀴즈) -->
-                        <div class="datetime">
-                            {{q.date|date:'Y-m-d'}} {{q.starttime|date:'H:i:s'}}
-                        </div>
+                <div class="item">
+                    <!-- 퀴즈 이름 -->
+                    <a>{{q.quizname}}</a>
+                    <!-- 퀴즈 일시 (아직 안 친 퀴즈) -->
+                    <div class="datetime">
+                        {{q.date|date:'Y-m-d'}} {{q.starttime|date:'H:i:s'}}
                     </div>
+                </div>
                 {% endfor %}
                 {% if classid %}
-                <div class="">
-                    <a href="{% url 'app:quizreg_2' classid  %}">퀴즈등록</a>
+                <div class="add-quiz">
+                    <a href="{% url 'app:quizreg_2' classid  %}"><b>+</b> 퀴즈 등록하기</a>
                 </div>
                 {% endif %}
             </div>

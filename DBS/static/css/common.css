@@ -9,6 +9,26 @@ a:link {
 }
 
 
+/*-- Scroll Bar --*/
+::-webkit-scrollbar {
+    width: 0px;
+}
+
+::-webkit-scrollbar-track {
+    background: none;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #CCCCCC;
+    width: 3px;
+    border-radius: 5px;
+}
+
+    ::-webkit-scrollbar-thumb:hover {
+        background: #AAAAAA;
+    }
+
+
 /*-- Font --*/
 @font-face {
     font-family: 'GmarketSansBold';

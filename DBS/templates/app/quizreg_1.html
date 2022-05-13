@@ -9,67 +9,80 @@
 <link href="{% static 'css/form_quiz.css' %}" rel="stylesheet">
 {% endblock %}
 
+{% block description %}
+퀴즈의 일시와 테마를 입력합니다.
+{% endblock %}
+
 {% block content %}
 <form id="form-quiz-setting" method="post" action="{% url 'app:quizreg_2' classid %}">
-    <!-- ========== 날짜 ========== -->
     {% csrf_token %}
-    <div class="row mb-5">
-        <label for="inputDate" class="col-sm-3 col-form-label form-quiz-label" >퀴즈명</label>
-        <div class="col-sm-8">
-            <!-- 입력 -->
-            <input name="quizname" type="text" class="form-control" id="inputDate">
+    <!-- ========== 일시 (좌) ========== -->
+    <div class="input-datetime">
+        <!-- ========== 이름 ========== -->
+        <div class="row mb-5">
+            <label for="inputDate" class="col-sm-3 col-form-label form-quiz-label">이름</label>
+            <div class="col-sm-8">
+                <!-- 입력 -->
+                <input name="quizname" type="text" class="form-control" id="inputDate">
+            </div>
+        </div>
+        <!-- ========== 날짜 ========== -->
+        <div class="row mb-5">
+            <label for="inputDate" class="col-sm-3 col-form-label form-quiz-label">날짜</label>
+            <div class="col-sm-8">
+                <!-- 입력 -->
+                <input name="date" type="date" class="form-control" id="inputDate">
+            </div>
+        </div>
+        <!-- ========== 시각 ========== -->
+        <div class="row mb-5">
+            <label for="inputTime" class="col-sm-3 col-form-label form-quiz-label">시각</label>
+            <div class="col-sm-8">
+                <!-- 입력 -->
+                <input name="starttime" type="time" class="form-control" id="inputTime">
+            </div>
+        </div>
+        <!-- ========== 제한시간 ========== -->
+        <div class="row mb-5">
+            <label for="inputTimeout" class="col-sm-3 col-form-label form-quiz-label">시간</label>
+            <div class="col-sm-8">
+                <!-- 입력 -->
+                <input name="timeout" id="inputTimeout" type="number" class="form-control" step="5" min="0" placeholder="(분) 단위로 입력해 주세요.">
+            </div>
         </div>
     </div>
-    <div class="row mb-5">
-        <label for="inputDate" class="col-sm-3 col-form-label form-quiz-label" >날짜</label>
-        <div class="col-sm-8">
-            <!-- 입력 -->
-            <input name="date" type="date" class="form-control" id="inputDate">
-        </div>
-    </div>
-    <!-- ========== 시각 ========== -->
-    <div class="row mb-5">
-        <label for="inputTime" class="col-sm-3 col-form-label form-quiz-label">시각</label>
-        <div class="col-sm-8">
-            <!-- 입력 -->
-            <input name="starttime" type="time" class="form-control" id="inputTime">
-        </div>
-    </div>
-    <!-- ========== 제한시간 ========== -->
-    <div class="row mb-5">
-        <label for="inputTimeout" class="col-sm-3 col-form-label form-quiz-label" style="color: #4472C4;">시간</label>
-        <div class="col-sm-8">
-            <!-- 입력 -->
-            <input name="timeout" id="inputTimeout" type="number" class="form-control" step="5" min="0" placeholder="(분) 단위로 입력해 주세요.">
-        </div>
-    </div>
-    <div class="row mb-4">
-        <label for="inputTime" class="col-sm-3 col-form-label quiz-enroll-label">테이블</label>
-        <select class="form-select" aria-label="select table" name="tablename">
-            <option value="table_school">학교</option>
 
-        </select>
-        <div class="other-option"><a href="">테이블 직접 입력하기</a></div>
-    </div>
-    <div class="row mb-5">
-        <label for="inputTime" class="col-sm-3 col-form-label quiz-enroll-label">키워드</label>
-        <select class="form-select" aria-label="select keyword" name ="sqlkeyword">
-            <option value="select">SELECT</option>
-            <option value="insert">INSERT</option>
-            <option value="update">UPDATE</option>
-            <option value="delete">DELETE</option>
-        </select>
-    </div>
-    <div class="row mb-5">
-        <label for="inputLimit" class="col-sm-3 col-form-label quiz-enroll-label" style="color: #4472C4;">문제 수</label>
-        <div class="col-sm-8">
-            <input name="problemnum" id="inputLimit" type="number" class="form-control" step="1" min="0" max="100">
+    <!-- ========== 테마 (우) ========== -->
+    <div class="input-theme">
+        <div class="row mb-4">
+            <label for="inputTime" class="col-sm-3 col-form-label quiz-enroll-label">테이블</label>
+            <select class="form-select" aria-label="select table" name="tablename">
+                <option value="table_school">학교</option>
+
+            </select>
+            <div class="other-option"><a href="">테이블 직접 입력하기</a></div>
+        </div>
+        <div class="row mb-5">
+            <label for="inputTime" class="col-sm-3 col-form-label quiz-enroll-label">키워드</label>
+            <select class="form-select" aria-label="select keyword" name="sqlkeyword">
+                <option value="select">SELECT</option>
+                <option value="insert">INSERT</option>
+                <option value="update">UPDATE</option>
+                <option value="delete">DELETE</option>
+            </select>
+        </div>
+        <div class="row mb-5">
+            <label for="inputLimit" class="col-sm-3 col-form-label quiz-enroll-label" style="color: #4472C4;">문제 수</label>
+            <div class="col-sm-8">
+                <input name="problemnum" id="inputLimit" type="number" class="form-control" step="1" min="0" max="100">
+            </div>
+        </div>
+        <!-- ========== 버튼 ========== -->
+        <div class="button-container">
+            <button type="submit" class="btn btn-primary" style="background-color: #4472C4;">다음</button>
+            <button type="reset" class="btn btn-outline-dark">초기화</button>
         </div>
     </div>
-    <!-- ========== 버튼 ========== -->
-    <div class="row mb-5 button-container">
-        <button type="submit" class="btn btn-primary" style="background-color: #4472C4;">다음</button>
-        <button type="reset" class="btn btn-outline-dark">초기화</button>
-    </div>
+
 </form>
 {% endblock %}

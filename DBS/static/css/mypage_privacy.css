@@ -63,11 +63,12 @@
 
             #mypage #mypage-privacy #form-mypage-privacy .button-container button {
                 width: 100px;
+                height:40px;
                 margin: 0 10px;
-                border-radius: 25px;
+                border-radius:25px;
                 font-family: GmarketSansMedium;
                 font-size: 18px;
-                padding-top: 10px;
+                padding-top: 8px;
                 border-color: black;
             }
 

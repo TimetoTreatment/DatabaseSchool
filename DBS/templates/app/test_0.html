@@ -1,23 +1,19 @@
 {% extends 'template.html' %}
 
 {% block title %}
-<title>Online Judge</title>
+<title>DB School - Quiz</title>
 {% endblock %}
 
 {% block css %}
 {% load static %}
-<link href="{% static 'css/common.css' %}" rel="stylesheet">
 <link href="{% static 'css/form_class_quiz_select.css' %}" rel="stylesheet">
 {% endblock %}
 
-{% block content %}
-<nav class="nav-top-2" style="padding-left:20px">
-    <a class="navbar-nav" href="{% url 'account:mypage' %}">마이페이지</a>
-    <a class="navbar-nav" href="{% url 'app:manage' %}">성적확인</a>
-    <a class="navbar-nav" href="{% url 'app:addclass' %}">수업등록</a>
-    <a class="navbar-nav" href="{% url 'app:addstudent' %}">학생등록</a>
+{% block description %}
+퀴즈를 선택하여 응시합니다.
+{% endblock %}
 
-</nav>
+{% block content %}
 <form id="form-class-quiz" method="post">
     {% csrf_token %}
     <div id="select-class-quiz">

@@ -60,9 +60,11 @@
     overflow: hidden;
     background-color: #4472C4;
     font-family: GmarketSansMedium;
+    height: 50px;
+    padding-left: 20px;
 }
 
-    .nav-top-2 a {
+    .nav-top-2 > div {
         float: left;
         color: #f2f2f2;
         text-align: center;
@@ -71,12 +73,12 @@
         font-size: 18px;
     }
 
-        .nav-top-2 a:hover {
+        .nav-top-2 > div:hover {
             background-color: #ddd;
             color: black;
         }
 
-        .nav-top-2 a.active {
+        .nav-top-2 > div.active {
             background-color: #333;
             color: white;
         }

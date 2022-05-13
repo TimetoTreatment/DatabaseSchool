@@ -1,18 +1,20 @@
-{% extends 'app/gradenav.html' %}
+{% extends 'template.html' %}
+
 {% block title %}
-<title>Online Judge</title>
+<title>DB School - Mypage</title>
 {% endblock %}
 
 {% block css %}
-
 {% load static %}
 <link href="{% static 'css/mypage.css' %}" rel="stylesheet">
 <link href="{% static 'css/mypage_privacy.css' %}" rel="stylesheet">
 {% endblock %}
 
+{% block description %}
+개인 정보를 수정하거나 수업을 관리합니다.
+{% endblock %}
 
 {% block content %}
-
 <div id="mypage">
     <!-- ========== START: 네비게이션 (검정) ========== -->
     <ul class="nav nav-tabs" id="myTab" role="tablist">
@@ -50,7 +52,7 @@
             </div>
 
             <div class="row mb-3">
-                <label for="password" class="col-sm-4 col-form-label form-quiz-label">비밀번호 확인</label>
+                <label for="password" class="col-sm-4 col-form-label form-quiz-label" style="font-size:18px;">비밀번호 확인</label>
                 <div class="col-sm-8">
                     <!-- 입력 -->
                     <input name="new_password1" type="password" class="form-control" id="group">

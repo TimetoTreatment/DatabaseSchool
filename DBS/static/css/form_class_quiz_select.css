@@ -2,7 +2,6 @@
 # Select Class and Quiz
 --------------------------------------------------------------*/
 
-
 #form-class-quiz {
     width: 1200px;
     height: 480px;
@@ -118,16 +117,19 @@
             border-bottom-right-radius: 10px;
             overflow: scroll;
             text-align: left;
-            padding: 15px;
             font-size: 18px;
+            overflow-x: hidden;
+            overflow-y: auto;
         }
 
             #select-class-quiz .quiz-list .contents .item {
-                padding-bottom: 10px;
+                padding: 10px;
+                padding-bottom: 5px;
                 display: grid;
                 grid-template-areas:
                     'name score';
-                grid-template-columns: auto 1fr;
+                grid-template-columns: 100px 1fr;
+                border-bottom: 1px dotted black;
             }
 
                 #select-class-quiz .quiz-list .contents .item a {
@@ -138,13 +140,13 @@
                 }
 
                     #select-class-quiz .quiz-list .contents .item a:hover {
-                        border-bottom: 1px solid #4472C4;
                         color: #4472C4;
                     }
 
                 #select-class-quiz .quiz-list .contents .item .score {
                     grid-area: score;
                     margin-top: 3px;
+                    font-size: 9pt;
                 }
 
                 #select-class-quiz .quiz-list .contents .item .datetime {
@@ -152,13 +154,28 @@
                     margin-top: 2px;
                     padding-top: 2px;
                     border-radius: 4px;
-                    font-size: 10pt;
+                    font-size: 9pt;
                     text-align: center;
                     background-color: #E9ECEF;
                     border-radius: 5px;
                     display: inline;
                     height: 20px;
                 }
+
+            #select-class-quiz .quiz-list .contents .add-quiz {
+                margin-top: 15px;
+                text-align: center;
+            }
+
+                #select-class-quiz .quiz-list .contents .add-quiz > a {
+                    color: black;
+                    font-size: 24px;
+                    padding: 8px 8px 4px 8px;
+                }
+
+                    #select-class-quiz .quiz-list .contents .add-quiz > a:hover {
+                        color: #888888;
+                    }
 
     #select-class-quiz #problem-list {
         text-align: center;
@@ -169,7 +186,7 @@
             'item item item';
         gap: 1px;
         grid-template-rows: auto auto 1fr;
-        grid-template-columns: 56px auto 85px;
+        grid-template-columns: 56px 202px 85px;
         font-family: GmarketSansMedium;
         border: 1px solid black;
         border-radius: 12px;
@@ -228,7 +245,8 @@
             color: black;
             border-bottom-left-radius: 10px;
             border-bottom-right-radius: 10px;
-            overflow: scroll;
+            overflow-x: hidden;
+            overflow-y: scroll;
         }
 
             #select-class-quiz #problem-list .contents .item {
@@ -237,7 +255,7 @@
                 gap: 1px;
                 grid-template-columns: 55px auto 86px;
                 height: 48px;
-                border-bottom: 1px solid black;
+                border-bottom: 1px dotted black;
                 background-color: white;
                 text-align: center;
             }
@@ -258,6 +276,10 @@
                         color: black;
                         font-size: 18px;
                     }
+
+                        #select-class-quiz #problem-list .contents .item .number a:hover {
+                            color: #AAAAAA;
+                        }
 
                 #select-class-quiz #problem-list .contents .item .result {
                     background-color: white;

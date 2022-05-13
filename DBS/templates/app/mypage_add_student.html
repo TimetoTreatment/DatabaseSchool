@@ -1,8 +1,7 @@
-
-{% extends 'app/gradenav.html' %}
+{% extends 'template.html' %}
 
 {% block title %}
-<title>Online Judge</title>
+<title>DB School - Mypage</title>
 {% endblock %}
 
 {% block css %}
@@ -11,9 +10,11 @@
 <link href="{% static 'css/mypage_privacy.css' %}" rel="stylesheet">
 {% endblock %}
 
+{% block description %}
+수업에 학생을 등록합니다.
+{% endblock %}
+
 {% block content %}
-
-
 <div id="mypage">
     <!-- ========== START: 네비게이션 (검정) ========== -->
     <ul class="nav nav-tabs" id="myTab" role="tablist">
@@ -37,7 +38,7 @@
             <!-- ==== 아이디 ==== -->
             {% csrf_token %}
             {% include 'form_errors.html' %}
-            <div class="row mb-5">
+            <div class="row mb-4">
                 <label for="inputTime" class="col-sm-3 col-form-label form-quiz-label">수업</label>
                 <select class="form-select form-control" aria-label="select table" name="classid" id="classname">
                     {% for c in class%}
@@ -45,9 +46,9 @@
                     {% endfor %}
                 </select>
             </div>
-            
-            <div class="row mb-5">
-                <label for="inputDate" class="col-sm-3 col-form-label form-quiz-label" >학번</label>
+
+            <div class="row mb-4">
+                <label for="inputDate" class="col-sm-3 col-form-label form-quiz-label">학번</label>
                 <div class="col-sm-8">
                     <!-- 입력 -->
                     <input name="studentid" type="text" class="form-control" id="group">

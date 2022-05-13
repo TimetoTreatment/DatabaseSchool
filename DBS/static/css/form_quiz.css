@@ -5,13 +5,27 @@
 
 /* µî·Ï */
 #form-quiz-setting {
-    width: 400px;
+    width: 1000px;
     position: absolute;
     left: 50%;
     top: 52%;
     transform: translate(-50%, -50%);
     text-align: center;
+    display: grid;
+    grid-template-areas:
+        'input-datetime input-theme';
+    gap: 50px;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr auto;
 }
+
+    #form-quiz-setting .input-datetime {
+        grid-area: input-datetime;
+    }
+
+    #form-quiz-setting .input-theme {
+        grid-area: input-theme;
+    }
 
     #form-quiz-setting label {
         font-family: GmarketSansBold;
@@ -27,11 +41,9 @@
     }
 
     #form-quiz-setting .button-container {
-        text-align: center;
-        display: flex;
-        justify-content: center;
-        width: 400px;
-        padding-top: 20px;
+        text-align: right;
+        width: 380px;
+        padding-top: 10px;
     }
 
         #form-quiz-setting .button-container button {
@@ -60,7 +72,7 @@
         border-bottom: 1px solid lightgray;
         width: 132px;
         padding: 0;
-        margin: 0 65px 0 auto;
+        margin: 0 120px 0 auto;
         height: 22px;
     }
 
@@ -75,7 +87,76 @@
 
 /* ¸®ºä */
 #form-quiz-review {
+    width: 1200px;
+    position: absolute;
+    left: 53%;
+    top: 52%;
+    transform: translate(-50%, -50%);
 }
+
+    #form-quiz-review #form-quiz-theme {
+        width: 400px;
+        text-align: center;
+    }
+
+        #form-quiz-review #form-quiz-theme label {
+            font-family: GmarketSansBold;
+            font-size: 24px;
+            display: block;
+        }
+
+        #form-quiz-review #form-quiz-theme input {
+            width: 240px;
+            font-family: GmarketSansLight;
+            padding-top: 10px;
+            margin-top: 3px;
+        }
+
+        #form-quiz-review #form-quiz-theme .button-container {
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            width: 400px;
+            padding-top: 20px;
+        }
+
+            #form-quiz-review #form-quiz-theme .button-container button {
+                width: 100px;
+                margin: 0 10px;
+                border-radius: 25px;
+                font-family: GmarketSansMedium;
+                font-size: 18px;
+                padding-top: 10px;
+                border-color: black;
+            }
+
+        #form-quiz-review #form-quiz-theme select {
+            width: 240px;
+            margin-left: 12px;
+            height: 40px;
+            margin-top: 3px;
+            font-family: GmarketSansMedium;
+            padding-top: 7px;
+            font-size: 18px;
+        }
+
+        #form-quiz-review #form-quiz-theme .other-option {
+            text-align: center;
+            font-family: GmarketSansLight;
+            border-bottom: 1px solid lightgray;
+            width: 132px;
+            padding: 0;
+            margin: 0 65px 0 auto;
+            height: 22px;
+        }
+
+            #form-quiz-review #form-quiz-theme .other-option a {
+                text-decoration: none;
+                color: gray;
+                font-size: 14px;
+                margin: 0;
+                padding: 0;
+            }
 
     #form-quiz-review #form-quiz-setting {
         width: 400px;
@@ -90,7 +171,7 @@
         width: 600px;
         position: absolute;
         left: 61%;
-        top: 52%;
+        top: 44%;
         transform: translate(-50%, -50%);
         text-align: center;
         height: 400px;
@@ -151,7 +232,8 @@
             color: black;
             border-bottom-left-radius: 10px;
             border-bottom-right-radius: 10px;
-            overflow: scroll;
+            overflow-x: hidden;
+            overflow-y: scroll;
         }
 
             #form-quiz-review #form-quiz-problem-list .problem-list .item {
@@ -162,10 +244,6 @@
                 border-bottom: 1px solid black;
                 background-color: white;
             }
-
-                #form-quiz-review #form-quiz-problem-list .problem-list .item:last-child {
-                    border: none;
-                }
 
                 #form-quiz-review #form-quiz-problem-list .problem-list .item .difficulty {
                     background-color: white;

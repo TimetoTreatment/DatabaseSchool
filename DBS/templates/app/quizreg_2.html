@@ -1,23 +1,27 @@
 {% extends 'template.html' %}
 
 {% block title %}
-    <title>Online Judge</title>
+<title>Online Judge</title>
 {% endblock %}
 
 {% block css %}
-    {% load static %}
-    <link href="{% static 'css/form_quiz.css' %}" rel="stylesheet">
+{% load static %}
+<link href="{% static 'css/form_quiz.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block description %}
+퀴즈를 검토합니다.
 {% endblock %}
 
 {% block content %}
 <div id="form-quiz-review">
     <!-- ================ 좌측 레이아웃 ================ -->
-    <form id="form-quiz-setting" method="post">
+    <form id="form-quiz-theme" method="post">
         <!-- ========== 테이블 ========== -->
         <div class="row mb-4">
             <label class="col-sm-3 col-form-label form-quiz-label">테이블</label>
-            
-            <select class="form-select" disabled  >    
+
+            <select class="form-select" disabled>
                 <option value="1" selected>{{quiz.tablename}}</option>
             </select>
             <div class="other-option"><a href="">테이블 직접 입력하기</a></div>
@@ -25,7 +29,7 @@
         <!-- ========== 키워드 ========== -->
         <div class="row mb-5">
             <label class="col-sm-3 col-form-label form-quiz-label">키워드</label>
-            <select class="form-select" disabled  >    
+            <select class="form-select" disabled>
                 <option value="1" selected>{{quiz.sqlkeyword}}</option>
             </select>
         </div>
@@ -39,8 +43,8 @@
         </div>
         <!-- ========== 버튼 ========== -->
         <div class="row mb-5 button-container">
-            <button type="button" class="btn btn-primary" style="background-color: #4472C4;" onclick=location.href="{% url 'app:quizreg_4' classid quizid prob %}">등록</button>
-            <button type="button" class="btn btn-outline-dark" onclick=location.href="{% url 'app:delete_quiz' quiz.classid.id quiz.id%}" >취소</button>
+            <button type="button" class="btn btn-primary" style="background-color: #4472C4;" onclick=location.href ="{% url 'app:quizreg_4' classid quizid prob %}">등록</button>
+            <button type="button" class="btn btn-outline-dark" onclick=location.href ="{% url 'app:delete_quiz' quiz.classid.id quiz.id%}">취소</button>
         </div>
     </form>
 
