@@ -23,22 +23,40 @@
 
         #mypage-grade .class-list .item {
             margin-bottom: 10px;
+            height: 25px;
         }
 
-            #mypage-grade .class-list .item a {
+            #mypage-grade .class-list .item .class-name a {
+                float: left;
                 color: black;
             }
 
-            #mypage-grade .class-list .item .active {
+            #mypage-grade .class-list .item .class-name .active {
                 border-bottom: 1px solid #4472C4;
                 color: #4472C4;
             }
 
-            #mypage-grade .class-list .item a:hover {
+            #mypage-grade .class-list .item .class-name a:hover {
                 border-bottom: 1px solid #4472C4;
                 color: #4472C4;
             }
 
+            #mypage-grade .class-list .item .class-delete {
+                float: right;
+            }
+
+                #mypage-grade .class-list .item .class-delete:hover {
+                    transform: scale(1.1);
+                }
+
+                #mypage-grade .class-list .item .class-delete > a {
+                    color: #AAAAAA;
+                    border: 1px solid #AAAAAA;
+                    border-radius: 5px;
+                    padding: 4px 5px 2px 5px;
+                    font-family: GMarketSansLight;
+                    font-size: 12px;
+                }
 
     #mypage-grade .quiz-list {
         grid-area: quiz;
@@ -86,12 +104,21 @@
                 margin-bottom: 10px;
             }
 
-                #mypage-grade .quiz-list .contents .item a {
+                #mypage-grade .quiz-list .contents .item .quiz-name {
                     color: black;
                 }
 
-                    #mypage-grade .quiz-list .contents .item a:hover {
+                    #mypage-grade .quiz-list .contents .item .quiz-name:hover {
                         border-bottom: 1px solid black;
+                    }
+
+                #mypage-grade .quiz-list .contents .item .quiz-delete {
+                    float: right;
+                    color: black;
+                }
+
+                    #mypage-grade .quiz-list .contents .item .quiz-delete:hover {
+                        transform: scale(1.1);
                     }
 
     #mypage-grade .student-list {

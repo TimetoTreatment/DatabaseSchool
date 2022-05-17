@@ -5,16 +5,16 @@
 #footer {
     background: #222222;
     font-size: 14px;
-    padding: 15px 0;
+    padding: 16px 0;
     height: 125px;
 }
 
     #footer .footer-info {
-        width: 1440px;
+        width: 1000px;
         margin: auto;
         display: grid;
-        grid-template-areas: 'logo team class temp';
-        grid-template-columns: 1fr 320px 320px 1fr;
+        grid-template-areas: 'logo team class';
+        grid-template-columns: 360px 320px auto;
         font-family: GmarketSansMedium;
         color: white;
     }
@@ -23,12 +23,17 @@
         #footer .footer-info .logo {
             grid-area: logo;
             display: flex;
+            padding-left:50px;
         }
 
             #footer .footer-info .logo .logo-img {
                 display: inline;
                 margin: 3px 0;
             }
+
+                #footer .footer-info .logo .logo-img img {
+                    width: 80px;
+                }
 
             #footer .footer-info .logo .logo-text {
                 display: inline;
@@ -40,6 +45,11 @@
                 color: #4472C4;
             }
 
+            #footer .footer-info .logo .title .text-light {
+                font-family: GMarketSansLight;
+                font-size: 18px;
+            }
+
             #footer .footer-info .logo .title {
                 font-size: 22pt;
                 padding: 0;
@@ -48,7 +58,7 @@
             }
 
             #footer .footer-info .logo .subtitle {
-                font-size: 14pt;
+                font-size: 12pt;
                 padding: 0;
                 font-family: GmarketSansLight;
             }
@@ -63,7 +73,7 @@
             grid-area: team;
             text-align: right;
             margin-top: 8px;
-            padding-right: 40px;
+            padding-right: 15px;
         }
 
             #footer .footer-info .team h3 {
@@ -85,6 +95,7 @@
         #footer .footer-info .class {
             grid-area: class;
             margin: 16px;
+            padding-left: 5px;
         }
 
             #footer .footer-info .class > p {

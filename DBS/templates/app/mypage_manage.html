@@ -7,7 +7,7 @@
 {% block css %}
 {% load static %}
 <link href="{% static 'css/mypage.css' %}" rel="stylesheet">
-<link href="{% static 'css/mypage_grade.css' %}" rel="stylesheet">
+<link href="{% static 'css/mypage_manage.css' %}" rel="stylesheet">
 {% endblock %}
 
 {% block content %}
@@ -48,7 +48,8 @@
                 <!-- 퀴즈 -->
                 {% for q in quiz %}
                     <div class="item">
-                        <a href="{% url 'app:manage_student' q.classid.id  q.id %}">{{q.quizname}}</a>  <a href="{% url 'app:delete_quiz' classid=q.classid.id quizdeleteid=q.id %}">X</a>
+                        <a href="{% url 'app:manage_student' q.classid.id  q.id %}" class="quiz-name">{{q.quizname}}</a>
+                        <a href="{% url 'app:delete_quiz' classid=q.classid.id quizdeleteid=q.id %}" class="quiz-delete">X</a>
                         <div class="datetime">
                             <span>{{q.starttime|date:'Y-m-d h:i:s'}}</span>
                         </div>
