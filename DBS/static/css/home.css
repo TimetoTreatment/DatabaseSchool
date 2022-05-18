@@ -1,0 +1,79 @@
+#home {
+    width: 80%;
+    height: 102%;
+    background: url("../img/home-bg.png") no-repeat bottom right;
+    background-size: 80%;
+    position: relative;
+    margin: 0 0 0 auto;
+}
+
+    #home:before {
+        content: "";
+        background: rgba(255, 255, 255, 0.6);
+        position: absolute;
+        bottom: 0;
+        top: 0;
+        left: 0;
+        right: 0;
+    }
+
+    #home h1 {
+        margin: 0;
+        font-size: 64px;
+        font-weight: 700;
+        line-height: 56px;
+        color: #454545;
+        font-family: GMarketSansMedium;
+    }
+
+    #home p {
+        color: #45505b;
+        margin: 15px 0 0 0;
+        font-size: 26px;
+        font-family: GMarketSansLight;
+    }
+
+        #home p span {
+            color: #4472C4;
+            letter-spacing: 1px;
+        }
+
+    #home .tech-stack {
+        margin-top: 30px;
+    }
+
+        #home .tech-stack a {
+            font-size: 24px;
+            display: inline-block;
+            color: #45505b;
+            line-height: 1;
+            margin-right: 20px;
+            transition: 0.3s;
+            height: 20px;
+            width: 20px;
+            opacity: 0.8;
+        }
+
+            #home .tech-stack a:hover {
+                opacity: 0.5;
+            }
+
+        #home .tech-stack .python {
+            background: url("../img/home-python.png") no-repeat;
+            background-size: 100%;
+        }
+
+        #home .tech-stack .django {
+            background: url("../img/home-django.png") no-repeat;
+            background-size: 100%;
+        }
+
+        #home .tech-stack .sqlite {
+            background: url("../img/home-sqlite.png") no-repeat;
+            background-size: 100%;
+        }
+
+        #home .tech-stack .github {
+            background: url("../img/home-github.png") no-repeat;
+            background-size: 100%;
+        }

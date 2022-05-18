@@ -1,5 +1,84 @@
 {% extends 'template.html' %}
-<div>
 
-    홈입니다.
-</div>
+{% block title %}
+<title>Online Judge</title>
+{% endblock %}
+
+{% block css %}
+{% load static %}
+<link href="{% static 'css/common.css' %}" rel="stylesheet">
+<link href="{% static 'css/select_class_quiz.css' %}" rel="stylesheet">
+<link href="{% static 'css/home.css' %}" rel="stylesheet">
+
+<link href="{% static 'vendor/aos/aos.css' %}" rel="stylesheet">
+<link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+<link href="{% static 'vendor/bootstrap-icons/bootstrap-icons.css' %}" rel="stylesheet">
+<link href="{% static 'vendor/boxicons/css/boxicons.min.css' %}" rel="stylesheet">
+<link href="{% static 'vendor/glightbox/css/glightbox.min.css' %}" rel="stylesheet">
+<link href="{% static 'vendor/swiper/swiper-bundle.min.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block description %}
+디 스쿨에 오신 것을 환영합니다
+{% endblock %}
+
+{% block content %}
+<section id="home" class="d-flex flex-column justify-content-center">
+    <div class="container" data-aos="zoom-in" data-aos-delay="100">
+        <h1>데이터베이스 스쿨</h1>
+        <p>디 스쿨은 <span class="typed" data-typed-items="데이터베이스 언어를 다룹니다., 문제를 자동으로 생성합니다., 온라인 저지 시스템입니다."></span></p>
+        <div class="tech-stack">
+            <a href="#" class="python"></a>
+            <a href="#" class="django"></a>
+            <a href="#" class="sqlite"></a>
+            <a href="#" class="github"></a>
+        </div>
+    </div>
+</section>
+
+<script src="{% static 'vendor/purecounter/purecounter.js' %}"></script>
+<script src="{% static 'vendor/aos/aos.js' %}"></script>
+<script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+<script src="{% static 'vendor/glightbox/js/glightbox.min.js' %}"></script>
+<script src="{% static 'vendor/isotope-layout/isotope.pkgd.min.js' %}"></script>
+<script src="{% static 'vendor/swiper/swiper-bundle.min.js' %}"></script>
+<script src="{% static 'vendor/typed.js/typed.min.js' %}"></script>
+<script src="{% static 'vendor/waypoints/noframework.waypoints.js' %}"></script>
+<script src="{% static 'vendor/php-email-form/validate.js' %}"></script>
+<script>
+    (function () {
+        "use strict";
+
+        const select = (el, all = false) => {
+            el = el.trim()
+            if (all) {
+                return [...document.querySelectorAll(el)]
+            } else {
+                return document.querySelector(el)
+            }
+        }
+
+        const typed = select('.typed')
+        if (typed) {
+            let typed_strings = typed.getAttribute('data-typed-items')
+            typed_strings = typed_strings.split(',')
+            new Typed('.typed', {
+                strings: typed_strings,
+                loop: true,
+                typeSpeed: 100,
+                backSpeed: 50,
+                backDelay: 2000
+            });
+        }
+
+        window.addEventListener('load', () => {
+            AOS.init({
+                duration: 1000,
+                easing: 'ease-in-out',
+                once: true,
+                mirror: false
+            })
+        });
+    })()
+</script>
+{% endblock %}
