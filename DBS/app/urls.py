@@ -28,8 +28,7 @@ urlpatterns =[
     
     
     path('quizreg/reg/<int:classid>', views.quizreg_2, name='quizreg_2'),
-    path('quizreg/reg/<int:classid>/<int:quizid>', views.quizreg_3, name='quizreg_3'),
-    path('quizreg/reg/<int:classid>/<int:quizid>/<str:prob>', views.quizreg_4, name='quizreg_4'),
+    path('quizreg/reg/en', views.quizreg_3, name='quizreg_3'),
     
     #test
     path('test/', views.test_view, name='test_view_class'),

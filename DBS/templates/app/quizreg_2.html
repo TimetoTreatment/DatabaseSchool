@@ -16,65 +16,78 @@
 {% block content %}
 <div id="form-quiz-review">
     <!-- ================ 좌측 레이아웃 ================ -->
-    <form id="form-quiz-theme" method="post">
+    <form id="form-quiz-theme" method="post" action="{% url 'app:quizreg_3' %}">
+        {% csrf_token %}
+        <!-- ========== 테이블 ========== -->
+        <div style="display:none">
+            {% for k,v in quizlabel.items %}
+            <input name={{k}} value={{v}}>
+            {% endfor %}
+        </div>
         <!-- ========== 테이블 ========== -->
         <div class="row mb-4">
             <label class="col-sm-3 col-form-label form-quiz-label">테이블</label>
+            <div class="col-sm-8">
+                <!-- 입력 -->
+                <input id="problemCount" class="form-control" readonly value="{{quizlabel.tablename}}">
+            </div>
 
-            <select class="form-select" disabled>
-                <option value="1" selected>{{quiz.tablename}}</option>
-            </select>
             <div class="other-option"><a href="">테이블 직접 입력하기</a></div>
         </div>
         <!-- ========== 키워드 ========== -->
         <div class="row mb-5">
             <label class="col-sm-3 col-form-label form-quiz-label">키워드</label>
-            <select class="form-select" disabled>
-                <option value="1" selected>{{quiz.sqlkeyword}}</option>
-            </select>
+            <div class="col-sm-8">
+                <input class="form-control" readonly value="{{quizlabel.sqlkeyword}}">
+            </div>
         </div>
         <!-- ========== 문제 개수 ========== -->
         <div class="row mb-5">
             <label for="problemCount" class="col-sm-3 col-form-label form-quiz-label" style="color: #4472C4;">문제 수</label>
             <div class="col-sm-8">
                 <!-- 입력 -->
-                <input name="count" id="problemCount" type="number" class="form-control" step="1" min="0" max="100" disabled value="{{quiz.problemnum}}">
+                <input id="problemCount" type="number" class="form-control" step="1" min="0" max="100" readonly value="{{quizlabel.problemnum}}">
             </div>
         </div>
         <!-- ========== 버튼 ========== -->
         <div class="row mb-5 button-container">
-            <button type="button" class="btn btn-primary" style="background-color: #4472C4;" onclick=location.href ="{% url 'app:quizreg_4' classid quizid prob %}">등록</button>
-            <button type="button" class="btn btn-outline-dark" onclick=location.href ="{% url 'app:delete_quiz' quiz.classid.id quiz.id%}">취소</button>
+            <button type="submit" class="btn btn-primary">등록</button>
+            <button type="button" class="btn btn-outline-dark" onclick="location.href='{% url 'app:test_view_class' %}'">취소</button>
+        </div>
+
+        <!-- ================ 우측 레이아웃 ================ -->
+        <div id="form-quiz-problem-list">
+            <!-- ========== 헤더 ========== -->
+            <div class="title">
+                <div class="text">문제 목록</div>
+                <!-- 문제 재생성 -->
+                <a href=""><img src="{% static 'img/quiz-list-shuffle.png' %}" /></a>
+            </div>
+            <div class="subtitle-difficulty">난이도</div>
+            <div class="subtitle-query">쿼리</div>
+            <!-- ========== 문제 목록 ========== -->
+            <div class="problem-list">
+                <!-- 아이템 -->
+                {%for item in makequery %}
+                <div class="item">
+                    <!-- (좌) 난이도 -->
+                    <div class="difficulty easy">하</div>
+                    <!-- (우) 쿼리 -->
+                    <div class="query">
+                        <input style="display:none" readonly name='query{{forloop.counter}}' value='{{item}}'>
+                        {{item}}
+                    </div>
+                    <button>변경</button>
+                </div>
+                {% endfor %}
+            </div>
+            <div style='display:none'>
+                {% for i in contents %}
+                <input readonly name='contents{{forloop.counter}}' value='{{i}}'>
+                {% endfor %}
+            </div>
         </div>
     </form>
-
-    <!-- ================ 우측 레이아웃 ================ -->
-    <div id="form-quiz-problem-list">
-        <!-- ========== 헤더 ========== -->
-        <div class="title">
-            <div class="text">문제 목록</div>
-            <!-- 문제 재생성 -->
-            <a href=""><img src="{% static 'img/quiz-list-shuffle.png' %}" /></a>
-        </div>
-        <div class="subtitle-difficulty">난이도</div>
-        <div class="subtitle-query">쿼리</div>
-        <!-- ========== 문제 목록 ========== -->
-        <div class="problem-list">
-            <!-- 아이템 -->
-            {%for item in makequery %}
-            <div class="item">
-                <!-- (좌) 난이도 -->
-                <div class="difficulty easy">하</div>
-                <!-- (우) 쿼리 -->
-                <div class="query">
-                    {{item}}
-                </div>
-                <button>변경</button>
-            </div>
-            {% endfor %}
-        </div>
-
-    </div>
 </div>
 
 {% endblock %}

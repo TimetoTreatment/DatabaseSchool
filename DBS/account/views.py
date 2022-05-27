@@ -11,15 +11,19 @@ from django.contrib.auth.decorators import login_required
 def login_view(request):
   if request.method == 'POST':
     form = AuthenticationForm(request=request, data=request.POST)
+    print(form.is_valid())
+    print(request.POST.get('username'), request.POST.get('password'))
     if form.is_valid():
+      print('12')
       username = form.cleaned_data.get('username')
       password = form.cleaned_data.get('password')
+      print(password)
       user = auth.authenticate(
         request=request,
         username=username,
         password=password
       )
-
+      print('w')
       if user is not None:
         auth.login(request, user)
         return redirect('app:main')
@@ -52,7 +56,8 @@ def change_password(request):
   if request.method == 'POST':
     form = PasswordChangeForm(request.user, request.POST)
     if form.is_valid():
-      user = form.save()
+      print('a')
+      form.save()
       return redirect('app:main')
   else:
     form = PasswordChangeForm(request.user)

@@ -1,7 +1,9 @@
 import datetime
-
+from turtle import update
 from pypika import Query, Table, Field, Order
 from pypika import functions as fn
+import pandas as pd
+import numpy as np
 import random
 import datetime as dt
 import string
@@ -14,6 +16,22 @@ def lowercase_word():
         word += random.choice(lowercase_letters)
     return word
 
+#유일key값을 뽑는 함수
+def find_key(table, proper):
+    answer = []
+    for p in proper:
+        if len(table[p]) ==  len(set(table[p])):
+            answer.append(p)
+    return answer
+#메인키를 제외한 속성을 뱉기
+def non_find_key(table, proper):
+    answer = []
+    for p in proper:
+        if len(table[p]) !=  len(set(table[p])):
+            answer.append(p)
+    return answer
+
+
 #속성과 테이블을 넣으면 랜덤한 해당속성의 데이터가 튀어나오는 함수
 def pull_table_data(table, proper):
     table_list = table.objects.values(proper)
@@ -22,6 +40,38 @@ def pull_table_data(table, proper):
     result = table_list[random.randint(0, count-1)][proper]
     return result
 #PK키 찾기 함수
+
+
+def type_to_string(its_type):
+    date=dt.datetime.now()
+    t=''
+    if its_type==int:
+        t="INT"
+    if its_type==str:
+        t="STRING"
+    if its_type==bool:
+        t="BOOL"
+    if its_type==float:
+        t="FLOAT"
+    if its_type==type(date):
+        t="DATETIME"
+    return t
+
+def table_info(tableName, proper, proper_type):
+    txt = tableName + "테이블이 있습니다. " + tableName +"테이블은 다음처럼 "
+    for i in range(len(proper)):
+        txt += "<span class='text-attribute'>" + str(proper[i]) +"(" + type_to_string(proper_type[i]) + ")</span>" + " "
+    txt += "의 column(type) " + "구조로 이루여져 있습니다."
+    return txt
+
+def update_info(s):
+    a=[]
+    t=''
+    for i in s:
+        a.append(s[i])
+    for i in a:
+        t += str(i)+ " "
+    return t
 
 class OurQuery:
     def __init__(self, table, tableName, count):
@@ -44,30 +94,57 @@ class OurQuery:
         count = len(proper)
         result = {} #완성된 쿼리문을 담는 결과 리스트
         result = set()
-
+        dic={}
+        dic=dict()
         # print(random_proper[0])
 
+        proper_type=[]
+        for i in range(len(proper)):
+                tm = target_table.objects.values(proper[i])
+                for check in tm:
+                    ctype=(check[proper[i]])
+                    proper_type.append(type(ctype))
+                    break
 
         # if type(date_type) == type(col_type): #날짜 변수인 경우에는
         #      print()
         #아래함수부터 본격 쿼리문 뽑기
         textres = []
+        txt1=[]
         query_num = 1
-        # if query_num == 0:#기본테이블 전체 출력
-        #     q = Query.from_(tableName).select("*")
-        #     result.add(str(q))
-        #     textres.append(str(tableName)+ " 테이블에서 모든 데이터를 조회하시오")
-        # if query_num == 0:#필요한 요소만 출력
-        #     input_proper = ",".join(random_proper)
-        #     q = Query.from_(tableName).select(input_proper)
-        #     result.add(str(q))
-        #     textres.append(str(tableName) + " 테이블에서" + str(input_proper) + " column에서만 데이터를 조회하시오")
-        # if query_num == 0: #중복없이 출력하기
-        #     input_proper = ",".join(random_proper)
-        #     input_proper = "DISTNCT("+ input_proper + ")"
-        #     q = Query.from_(tableName).select(input_proper)
-        #     result.add(str(q))
-        #     textres.append(str(tableName) + " 테이블에서 " + str(input_proper) + " column에서 데이터를 중복값 없이 출력하시오")
+        if query_num == 0:#기본테이블 전체 출력
+           q = Query.from_(tableName).select("*")
+           result.add(str(q))
+           txt1.append(table_info(tableName, proper, proper_type))
+           txt1.append(str(tableName) + " 테이블에서 모든 테이블을 조회하는 SQL문을 작성해 주세요. SQL을 실행하면 다음과 같이 출력되어야 합니다")
+           textres.append(txt1)
+           dic[str(q)]=txt1
+           txt1=[]
+           textres=[]
+
+        
+        if query_num == 0:#필요한 요소만 출력
+           input_proper = ",".join(random_proper)
+           q = Query.from_(tableName).select(input_proper)
+           result.add(str(q))
+           txt1.append(table_info(tableName, proper, proper_type))
+           txt1.append(str(tableName) + " 테이블에서 " + str(input_proper) + " column에서 데이터를 조회하는 SQL문을 작성해 주세요. SQL을 실행하면 다음과 같이 출력되어야 합니다.")
+           textres.append(txt1)
+           dic[str(q)]=txt1
+           txt1=[]
+           textres=[]
+        if query_num == 0: #중복없이 출력하기
+           input_proper = ",".join(random_proper)
+           input_tem = input_proper
+           input_proper = "DISTNCT("+ input_proper + ")"
+           q = Query.from_(tableName).select(input_proper)
+           result.add(str(q))
+           txt1.append(table_info(tableName, proper, proper_type))
+           txt1.append(str(tableName) + " 테이블에서 " + str(input_tem) + " column에서 데이터를 중복값 없이 조회하는 SQL문을 작성해 주세요. SQL을 실행하면 다음과 같이 출력되어야 합니다.")
+           textres.append(txt1)
+           dic[str(q)]=txt1
+           txt1=[]
+           textres=[]
         #group by 와 having은 일단 보류
         while len(result) !=  query_count:
             random_proper = []
@@ -79,7 +156,6 @@ class OurQuery:
                 # print(type(col_type))
                 break
 
-            r_num = random.randint(0, 9)
             num = pull_table_data(target_table, random_proper[0])  # num에는 현재 랜덤한 int형 테이블값이 들어있다.
             num2 = pull_table_data(target_table, random_proper[0])  # 숫자 범위자료형을 위한 변수 num2
             while num == num2:  # 같지않은것이 뽑힐때까지 계속 뽑는다.
@@ -93,103 +169,321 @@ class OurQuery:
 
             tmp_set = str(tmp_set).strip('{}')
             tmp_set = tmp_set.replace('\'', "")
+            r_num = random.randint(0, 16)
             #랜덤으로 고른 속성이 int인 경우? 0속성 인덱스의 0번 -> between, AVG, MAX, MIN,SUM
             if type(col_type) is int or type(col_type) is float:
                 if r_num == 0:#num 이상인 테이블 출력
                     q = Query.from_(tableName).select(tmp_set)
                     q = str(q)
+                    q = q.replace("\"",'')
                     q += " WHERE " + random_proper[0] + " >= " + str(num)
                     result.add(q)
-                    textres.append(str(tableName) + " 테이블에서 " + random_proper[0] + " column중 " + str(num) + " 이상인 값들을 출력하시오")
+                    txt1.append(table_info(tableName, proper, proper_type))
+                    txt1.append(str(tableName) + " 테이블에서 "+ random_proper[0] + " column에서 " + str(num) + " 이상인 값들을 조회하는 SQL문을 작성해 주세요. SQL을 실행하면 다음과 같이 출력되어야 합니다.")
+                    textres.append(txt1)
+                    dic[str(q)]=txt1
+                    textres=[]
+                    txt1=[]
                 elif r_num == 1: #이하
                     q = Query.from_(tableName).select(tmp_set)
                     q = str(q)
+                    q = q.replace("\"",'')
                     q += " WHERE " + random_proper[0] + " <= " + str(num)
                     result.add(q)
-                    textres.append(str(tableName) + " 테이블에서 " + random_proper[0] + " column중 " + str(num) + " 이하인 값들을 출력하시오")
+                    txt1.append(table_info(tableName, proper, proper_type))
+                    txt1.append(str(tableName) + " 테이블에서 " + random_proper[0] + " column에서 " + str(num) + " 이하인 값들을 조회하는 SQL문을 작성해 주세요. SQL을 실행하면 다음과 같이 출력되어야 합니다.")
+                    textres.append(txt1)
+                    dic[str(q)]=txt1
+                    textres=[]
+                    txt1=[]
                 elif r_num == 2: #같은경우
                     q = Query.from_(tableName).select(tmp_set)
                     q = str(q)
+                    q = q.replace("\"",'')
                     q += " WHERE " + random_proper[0] + " = " + str(num)
                     result.add(q)
-                    textres.append(str(tableName) + " 테이블에서 " + random_proper[0] + " column중 " + str(num) + " 과 같은 값들을 출력하시오")
+                    txt1.append(table_info(tableName, proper, proper_type))
+                    txt1.append(str(tableName) + " 테이블에서 " + random_proper[0] + " column에서 " + str(num) + " 과 같은 값들을 조회하는 SQL문을 작성해 주세요. SQL을 실행하면 다음과 같이 출력되어야 합니다.")
+                    textres.append(txt1)
+                    dic[str(q)]=txt1
+                    textres=[]
+                    txt1=[]
                 elif r_num == 3: #MAX값
                     input_proper = "MAX("+random_proper[0]+")"
                     q = Query.from_(tableName).select(input_proper)
+                    q= str(q)
+                    q = q.replace("\"",'')
                     result.add(str(q))
-                    textres.append(str(tableName) + " 테이블에서 " + random_proper[0] + " column의 최대값을 출력하시오")
+                    txt1.append(table_info(tableName, proper, proper_type))
+                    txt1.append(str(tableName) + " 테이블에서 " + random_proper[0] + " column에서 " + " 최대값을 조회하는 SQL문을 작성해 주세요. SQL을 실행하면 다음과 같이 출력되어야 합니다.")
+                    textres.append(txt1)
+                    dic[str(q)]=txt1
+                    textres=[]
+                    txt1=[]
+                    #textres.append(str(tableName) + " 테이블에서 " + random_proper[0] + " column의 최대값을 출력하시오")
                 elif r_num == 4:  # MIN값
                     input_proper = "MIN(" + random_proper[0] + ")"
                     q = Query.from_(tableName).select(input_proper)
+                    q= str(q)
+                    q = q.replace("\"",'')
                     result.add(str(q))
-                    textres.append(str(tableName) + " 테이블에서 " + random_proper[0] + " column의 최솟값을 출력하시오")
+                    txt1.append(table_info(tableName, proper, proper_type))
+                    txt1.append(str(tableName) + " 테이블에서 " + random_proper[0] + " column에서 " + "최솟값을 조회하는 SQL문을 작성해 주세요. SQL을 실행하면 다음과 같이 출력되어야 합니다.")
+                    textres.append(txt1)
+                    dic[str(q)]=txt1
+
+                    textres=[]
+                    txt1=[]
+                    #textres.append(str(tableName) + " 테이블에서 " + random_proper[0] + " column의 최솟값을 출력하시오")
                 elif r_num == 5: #MAX와 MIN의 차이를 출력하라
                     input_proper = "MAX(" + random_proper[0] + ")" + " - MIN(" + random_proper[0] + ")"
                     q = Query.from_(tableName).select(input_proper)
+                    q= str(q)
+                    q = q.replace("\"",'')
                     result.add(str(q))
-                    textres.append(str(tableName) + " 테이블에서 " + random_proper[0] + " column의 최대값과 최솟값의 차이를 출력하시오")
+                    txt1.append(table_info(tableName, proper, proper_type))
+                    txt1.append(str(tableName) + " 테이블에서 " + random_proper[0] + " column에서 " + " 최대값과 최솟값의 차이를 나타내는 SQL문을 작성해 주세요. SQL을 실행하면 다음과 같이 출력되어야 합니다.")
+                    textres.append(txt1)
+                    dic[str(q)]=txt1
+                    textres=[]
+                    txt1=[]
+                    #textres.append(str(tableName) + " 테이블에서 " + random_proper[0] + " column의 최대값과 최솟값의 차이를 출력하시오")
                 elif r_num == 6:# tmp2 ~ tmp1 사이에 있는 테이블을 출력
                     tmp1, tmp2 = max(num,num2), min(num,num2)
                     q = Query.from_(tableName).select(tmp_set)
                     q = str(q)
+                    q = q.replace("\"",'')
                     q += " WHERE " + random_proper[0] + " BETWEEN " + str(tmp2) + " AND " + str(tmp1)
                     result.add(q)
-                    textres.append(str(tableName) + " 테이블에서 " + random_proper[0] + " column에서 " + str(tmp2) + "과" + str(tmp1) + " 사이값인 데이터들을 출력하시오")
+                    txt1.append(table_info(tableName, proper, proper_type))
+                    txt1.append(str(tableName) + " 테이블에서 " + random_proper[0] + " column에서 " + str(tmp2) + "과" + str(tmp1) + " 사이값들을 조회하는 SQL문을 작성해 주세요. SQL을 실행하면 다음과 같이 출력되어야 합니다.")
+                    textres.append(txt1)
+                    dic[str(q)]=txt1
+                    textres=[]
+                    txt1=[]
+                    #textres.append(str(tableName) + " 테이블에서 " + random_proper[0] + " column에서 " + str(tmp2) + "과" + str(tmp1) + " 사이값인 데이터들을 출력하시오")
                 elif r_num == 7: #tmp2 ~ tmp1 사이가 아닌 테이블을 출력
                     tmp1, tmp2 = max(num, num2), min(num, num2)
                     q = Query.from_(tableName).select(tmp_set)
                     q = str(q)
+                    q = q.replace("\"",'')
                     q += " WHERE " + random_proper[0] + " NOT BETWEEN " + str(tmp2) + " AND " + str(tmp1)
                     result.add(q)
-                    textres.append(str(tableName) + " 테이블에서 " + random_proper[0] + " column에서 " + str(tmp2) + "과" + str(tmp1) + " 사이에 있지 않는 데이터들을 출력하시오")
+                    txt1.append(table_info(tableName, proper, proper_type))
+                    txt1.append(str(tableName) + " 테이블에서 " + random_proper[0] + " column에서 " + str(tmp2) + "과" + str(tmp1) + " 사이에 있지 않는 값들을 조회하는 SQL문을 작성해 주세요. SQL을 실행하면 다음과 같이 출력되어야 합니다.")
+                    textres.append(txt1)
+                    dic[str(q)]=txt1
+                    textres=[]
+                    txt1=[]
+                    #textres.append(str(tableName) + " 테이블에서 " + random_proper[0] + " column에서 " + str(tmp2) + "과" + str(tmp1) + " 사이에 있지 않는 데이터들을 출력하시오")
                 elif r_num == 8:#내림차순 정렬
                     q = Query.from_(tableName).select(tmp_set).orderby(random_proper[0], order=Order.desc)
                     q = str(q)
+                    q = q.replace("\"",'')
                     result.add(q)
-                    textres.append(str(tableName) + " 테이블에서 " + random_proper[0] + " column에서 데이터들을 내림차순으로 정렬하시오")
+                    txt1.append(table_info(tableName, proper, proper_type))
+                    txt1.append(str(tableName) + " 테이블에서 " + random_proper[0] + " column에서 " + "데이터들을 내림차순으로 조회하는 SQL문을 작성해 주세요. SQL을 실행하면 다음과 같이 출력되어야 합니다.")
+                    textres.append(txt1)
+                    dic[str(q)]=txt1
+                    textres=[]
+                    txt1=[]
+                    #textres.append(str(tableName) + " 테이블에서 " + random_proper[0] + " column에서 데이터들을 내림차순으로 정렬하시오")
                 elif r_num == 9:#오름차순 정렬
                     q = Query.from_(tableName).select(tmp_set).orderby(random_proper[0])
                     q = str(q)
+                    q = q.replace("\"",'')
                     result.add(q)
-                    textres.append(str(tableName) + " 테이블에서 " + random_proper[0] + " column에서 데이터들을 오름차순으로 정렬하시오")
+                    txt1.append(table_info(tableName, proper, proper_type))
+                    txt1.append(str(tableName) + " 테이블에서 " + random_proper[0] + " column에서 " + "데이터들을 오름차순으로 조회하는 SQL문을 작성해 주세요. SQL을 실행하면 다음과 같이 출력되어야 합니다.")
+                    textres.append(txt1)
+                    dic[str(q)]=txt1
+                    textres=[]
+                    txt1=[]
+                    #textres.append(str(tableName) + " 테이블에서 " + random_proper[0] + " column에서 데이터들을 오름차순으로 정렬하시오")
+                elif r_num == 10: #rank 함수 활용 random_proper[0] 은 무조건 int 그리고 사전 정렬할 속성을 뽑아야한다.
+                    #random_proper[0]의 수가 작은것부터 1~n까지의 순위를 매기고 (수가 같으면 순위도 같음 공동1등 가능) order type를 str이면 사전순으로 or 오름차순으로 정렬하시오
+                    order_type = proper[random.randint(0, count - 1)]
+                    q = Query.from_(tableName).select(tmp_set).orderby(order_type)
+                    q = str(q)
+                    q = q.split("FROM")
+                    rank_str = ", rank() over(order by " + random_proper[0] + ") as ranking FROM"
+                    q.insert(1, rank_str)
+                    q = "".join(q)
+                    q = q.replace("\"", "")
+                    result.add(q)
+                    txt1.append(table_info(tableName, proper, proper_type))
+                    txt1.append(str(tableName) + " 테이블에서 " + random_proper[0] + " column에서 " + "작은수부터 순위를 매기고 " + str(order_type) + "는 사전순으로(오름차순) " + "조회하는 SQL문을 작성해 주세요. " + "SQL을 실행하면 다음과 같이 출력되어야 합니다.")
+                    textres.append(txt1)
+                    dic[str(q)]=txt1
+                    textres=[]
+                    txt1=[]
+                elif r_num == 11: #rank 함수 활용 random_proper[0] 은 무조건 int 그리고 사전 정렬할 속성을 뽑아야한다.
+                    #random_proper[0]의 수가 큰 수부터 1~n까지의 순위를 매기고 (수가 같으면 순위도 같음 공동1등 가능) order type를 str이면 사전순으로 or 오름차순으로 정렬하시오
+                    order_type = proper[random.randint(0, count - 1)]
+                    q = Query.from_(tableName).select(tmp_set).orderby(order_type)
+                    q = str(q)
+                    q = q.split("FROM")
+                    rank_str = ", rank() over(order by " + random_proper[0] + " DESC) as ranking FROM"
+                    q.insert(1, rank_str)
+                    q = "".join(q)
+                    q = q.replace("\"", "")
+                    result.add(q)
+                    txt1.append(table_info(tableName, proper, proper_type))
+                    txt1.append(str(tableName) + " 테이블에서 " + random_proper[0] + " column에서 " + "큰수은것부터 순위를 매기고 " + str(order_type) + "는 사전순으로(오름차순) " + "조회하는 SQL문을 작성해 주세요. " + "SQL을 실행하면 다음과 같이 출력되어야 합니다.")
+                    textres.append(txt1)
+                    dic[str(q)]=txt1
+                    textres=[]
+                    txt1=[]
+                elif r_num == 12: #rank 함수 활용 random_proper[0] 은 무조건 int 그리고 사전 정렬할 속성을 뽑아야한다.
+                    #random_proper[0]의 수가 작은 수부터 1~n까지의 순위를 매기고 (수가 같으면 순위도 같음 공동1등 가능) order type를 str이면 사전역순으로 or 내림차순으로 정렬하시오
+                    order_type = proper[random.randint(0, count - 1)]
+                    q = Query.from_(tableName).select(tmp_set).orderby(order_type, order=Order.desc)
+                    q = str(q)
+                    q = q.split("FROM")
+                    rank_str = ", rank() over(order by " + random_proper[0] + ") as ranking FROM"
+                    q.insert(1, rank_str)
+                    q = "".join(q)
+                    q = q.replace("\"", "")
+                    result.add(q)
+                    txt1.append(table_info(tableName, proper, proper_type))
+                    txt1.append(str(tableName) + " 테이블에서 " + random_proper[0] + " column에서 " + "작은수부터 순위를 매기고 " + str(order_type) + "는 사전역순으로(내림차순) " + "조회하는 SQL문을 작성해 주세요. " + "SQL을 실행하면 다음과 같이 출력되어야 합니다.")
+                    textres.append(txt1)
+                    dic[str(q)]=txt1
+                    textres=[]
+                    txt1=[]
+                elif r_num == 13: #rank 함수 활용 random_proper[0] 은 무조건 int 그리고 사전 정렬할 속성을 뽑아야한다.
+                    #random_proper[0]의 수가 큰 수부터 1~n까지의 순위를 매기고 (수가 같으면 순위도 같음 공동1등 가능) order type를 str이면 사전역순으로 or 내림차순으로 정렬하시오
+                    order_type = proper[random.randint(0, count - 1)]
+                    q = Query.from_(tableName).select(tmp_set).orderby(order_type, order = Order.desc)
+                    q = str(q)
+                    q = q.split("FROM")
+                    rank_str = ", rank() over(order by " + random_proper[0] + " DESC) as ranking FROM"
+                    q.insert(1, rank_str)
+                    q = "".join(q)
+                    q = q.replace("\"", "")
+                    result.add(q)
+                    txt1.append(table_info(tableName, proper, proper_type))
+                    txt1.append(str(tableName) + " 테이블에서 " + random_proper[0] + " column에서 " + "큰수부터 순위를 매기고 " + str(order_type) + "는 사전역순으로(내림차순) " + "조회하는 SQL문을 작성해 주세요. " + "SQL을 실행하면 다음과 같이 출력되어야 합니다.")
+                    textres.append(txt1)
+                    dic[str(q)]=txt1
+                    textres=[]
+                    txt1=[]
+                elif r_num == 14:
+                    #random_proper[0]의 값의 평균보다 random_proper[0]의 속성이 크거나 같은 테이블 random_proper 의 오름차순으로 출력
+                    q = Query.from_(tableName).select('*')
+                    q = str(q)
+                    q += " where " + random_proper[0] + " >= (SELECT avg(" + random_proper[0] + ") FROM " + tableName + ") "+ "ORDER BY " + random_proper[0]
+                    q = q.replace("\"", "")
+                    result.add(q)
+                    txt1.append(table_info(tableName, proper, proper_type))
+                    txt1.append(str(tableName) + " 테이블에서 " + random_proper[0] + " column에서 " + "해당 column의 평균보다 " + "크거나 같은 데이터를 오름차순으로 조회하는 SQL문을 작성해 주세요. " + "SQL을 실행하면 다음과 같이 출력되어야 합니다.")
+                    textres.append(txt1)
+                    dic[str(q)]=txt1
+                    textres=[]
+                    txt1=[]
+                elif r_num == 15:
+                    #random_proper[0]의 값의 평균보다 random_proper[0]의 속성이 크거나 같은 테이블 random_proper 의 내림차순으로 출력
+                    q = Query.from_(tableName).select('*')
+                    q = str(q)
+                    q += " where " + random_proper[0] + " >= (SELECT avg(" + random_proper[0] + ") FROM " + tableName + ") "+ "ORDER BY " + random_proper[0] +" DESC"
+                    q = q.replace("\"", "")
+                    result.add(q)
+                    txt1.append(table_info(tableName, proper, proper_type))
+                    txt1.append(str(tableName) + " 테이블에서 " + random_proper[0] + " column에서 " + "해당 column의 평균보다 " + "크거나 같은 데이터를 내림차순으로 조회하는 SQL문을 작성해 주세요. " + "SQL을 실행하면 다음과 같이 출력되어야 합니다.")
+                    textres.append(txt1)
+                    dic[str(q)]=txt1
+                    textres=[]
+                    txt1=[]
+
+                elif r_num == 16:
+                    #random_proper[0]의 값의 평균보다 random_proper[0]의 속성이 크거나 같은 테이블의 갯수를 출력
+                    q = Query.from_(tableName).select('count(*)')
+                    q = str(q)
+                    q += " where " + random_proper[0] + " >= (SELECT avg(" + random_proper[0] + ") FROM " + tableName + ") "
+                    q = q.replace("\"", "")
+                    result.add(q)
+                    txt1.append(table_info(tableName, proper, proper_type))
+                    txt1.append(str(tableName) + " 테이블에서 " + random_proper[0] + " column에서 " + "해당 column의 평균보다 " + "크거나 같은 테이블의 갯수를 조회하는 SQL문을 작성해 주세요. " + "SQL을 실행하면 다음과 같이 출력되어야 합니다.")
+                    textres.append(txt1)
+                    dic[str(q)]=txt1
+                    textres=[]
+                    txt1=[]
+
 
             elif type(col_type) is str:#문자열인 경우
                 r_num = random.randint(0, 4)
                 if r_num == 0:  # 내림차순 정렬
                     q = Query.from_(tableName).select(tmp_set).orderby(random_proper[0], order=Order.desc)
                     q = str(q)
+                    q = q.replace("\"", "")
                     result.add(q)
-                    textres.append(str(tableName) + " 테이블에서 " + random_proper[0] + " column에서 데이터들을 내림차순으로 정렬하시오")
+                    txt1.append(table_info(tableName, proper, proper_type))
+                    txt1.append(str(tableName) + " 테이블에서 " + random_proper[0] + " column에서 " + "내림차순으로 조회하는 SQL문을 작성해 주세요. " + "SQL을 실행하면 다음과 같이 출력되어야 합니다.")
+                    textres.append(txt1)
+                    dic[str(q)]=txt1
+                    textres=[]
+                    txt1=[]
+                    #textres.append(str(tableName) + " 테이블에서 " + random_proper[0] + " column에서 데이터들을 내림차순으로 정렬하시오")
                 elif r_num == 1:  # 오름차순 정렬
                     q = Query.from_(tableName).select(tmp_set).orderby(random_proper[0])
                     q = str(q)
+                    q = q.replace("\"", "")
                     result.add(q)
-                    textres.append(str(tableName) + " 테이블에서 " + random_proper[0] + " column에서 데이터들을 오름차순으로 정렬하시오")
+                    txt1.append(table_info(tableName, proper, proper_type))
+                    txt1.append(str(tableName) + " 테이블에서 " + random_proper[0] + " column에서 " + "오름차순으로 조회하는 SQL문을 작성해 주세요. " + "SQL을 실행하면 다음과 같이 출력되어야 합니다.")
+                    textres.append(txt1)
+                    dic[str(q)]=txt1
+                    textres=[]
+                    txt1=[]
+                    #textres.append(str(tableName) + " 테이블에서 " + random_proper[0] + " column에서 데이터들을 오름차순으로 정렬하시오")
                 elif r_num == 2: #문자열일 경우 첫번째 문자열로 시작하는 같은 데이터 조회
                     meta_data = str(pull_table_data(target_table , random_proper[0]))
                     q = Query.from_(tableName).select(tmp_set)
                     q = str(q)
                     q = q + " WHERE " + random_proper[0] +" LIKE " + "\'" + meta_data[0] + "%\'"
+                    q = q.replace("\"", "")
                     result.add(q)
-                    textres.append(str(tableName) + " 테이블에서 " + random_proper[0] + " column에서 " + "'"+meta_data[0]+"'" + "인 문자로 시작하는 데이터를 조회하시오")
+                    txt1.append(table_info(tableName, proper, proper_type))
+                    txt1.append(str(tableName) + " 테이블에서 " + random_proper[0] + " column에서 " + "'" +meta_data[0]+"'" + "인 문자로 시작하는 데이터를 조회하는 SQL문을 작성해 주세요. " + "SQL을 실행하면 다음과 같이 출력되어야 합니다.")
+                    textres.append(txt1)
+                    dic[str(q)]=txt1
+                    textres=[]
+                    txt1=[]
+                    #textres.append(str(tableName) + " 테이블에서 " + random_proper[0] + " column에서 " + "'"+meta_data[0]+"'" + "인 문자로 시작하는 데이터를 조회하시오")
                 elif r_num == 3: #문자열일 경우 해당 문자가 들어가는 테이블 조회
                     meta_data = str(pull_table_data(target_table, random_proper[0]))
                     q = Query.from_(tableName).select(tmp_set)
                     q = str(q)
                     q = q + " WHERE " + random_proper[0] + " LIKE " + "\'%" + meta_data[0] + "%\'"
+                    q = q.replace("\"", "")
                     result.add(q)
-                    textres.append(str(tableName) + " 테이블에서 " + random_proper[0] + " column에서 " + "'"+meta_data[0]+"'" + "인 문자가 포함되는 데이터를 조회하시오")
+                    txt1.append(table_info(tableName, proper, proper_type))
+                    txt1.append(str(tableName) + " 테이블에서 " + random_proper[0] + " column에서 " + "'" +meta_data[0]+"'" + "인 문자를 포함하는 데이터를 조회하는 SQL문을 작성해 주세요. " + "SQL을 실행하면 다음과 같이 출력되어야 합니다.")
+                    textres.append(txt1)
+                    dic[str(q)]=txt1
+                    textres=[]
+                    txt1=[]
+                    #textres.append(str(tableName) + " 테이블에서 " + random_proper[0] + " column에서 " + "'"+meta_data[0]+"'" + "인 문자가 포함되는 데이터를 조회하시오")
                 elif r_num == 4: #문자열일 경우 랜덤한 데이터를 뽑아서 같은 끝 문자로 끝나는 데이터
                     meta_data = str(pull_table_data(target_table, random_proper[0]))
                     q = Query.from_(tableName).select(tmp_set)
                     q = str(q)
+                    q = q.replace("\"", "")
                     q = q + " WHERE " + random_proper[0] + " LIKE " + "\'%" + meta_data[len(meta_data) - 1] + "\'"
+                    q = q.replace("\"", "")
                     result.add(q)
-                    textres.append(str(tableName) + " 테이블에서 " + random_proper[0] + " column에서 " + "'" + meta_data[len(meta_data) - 1] + "'" + "인 문자로 끝나는 데이터를 조회하시오")
+                    txt1.append(table_info(tableName, proper, proper_type))
+                    txt1.append(str(tableName) + " 테이블에서 " + random_proper[0] + " column에서 " + "'" +meta_data[len(meta_data) -1]+"'" + "인 문자로 끝나는 데이터를 조회하는 SQL문을 작성해 주세요. " + "SQL을 실행하면 다음과 같이 출력되어야 합니다.")
+                    textres.append(txt1)
+                    dic[str(q)]=txt1
+                    textres=[]
+                    txt1=[]
+                    #textres.append(str(tableName) + " 테이블에서 " + random_proper[0] + " column에서 " + "'" + meta_data[len(meta_data) - 1] + "'" + "인 문자로 끝나는 데이터를 조회하시오")
         result = list(result)
         for i in range(len(result)):
             result[i] = result[i].replace("\"","")
-        return result
+        
+        return dic
 
 
     #INSERT
@@ -218,6 +512,8 @@ class OurQuery:
         Q = target_table.objects.values()
         #table의 속성명 저장
         proper = []
+        dic={}
+        dic=dict()
         call_random = 0
         for key in Q[0]:
             proper.append(key)
@@ -226,15 +522,30 @@ class OurQuery:
         random_proper = []
         random_proper = random.sample(proper, random.randint(1, count)) #randomNum 리스트에 proper 요소를 랜덤갯수만큼 추출해서 넣기
         tmp = target_table.objects.values(random_proper[0]) #tmp에는 col_type의 모든 테이블 보유중
+        proper_type=[]
+        txt1=[]
+        textres=[]
+        for i in range(len(proper)):
+                tm = target_table.objects.values(proper[i])
+                for check in tm:
+                    ctype=(check[proper[i]])
+                    proper_type.append(type(ctype))
+                    break
 
         while len(result) != tablecount:
             update_query = Q[random.randint(0, len(Q) - 1)]#랜덤한 테이블의 행을 골라서 가져오기
-            print(update_query , "에 해당하는 쿼리문을 삭제")
+            #print(update_query , "에 해당하는 쿼리문을 삭제")
             proper_num =random.randint(0, len(random_proper)-1)
-            query = "DELETE FROM " + str(tableName) +" WHERE " + str(random_proper[proper_num]) + " = "+ str(update_query[random_proper[proper_num]])
-            print(random_proper[proper_num], " 속성이 " , update_query[random_proper[proper_num]] , " 에 해당하는 값의 테이블을 삭제")
+            query = "DELETE FROM " + str(tableName) +" WHERE " + str(random_proper[proper_num]) + " = \'"+ str(update_query[random_proper[proper_num]]) + "\'"
+            #print(random_proper[proper_num], " 속성이 " , update_query[random_proper[proper_num]] , " 에 해당하는 값의 테이블을 삭제")
             result.append(query)
-        return result
+            txt1.append(table_info(tableName, proper, proper_type))
+            txt1.append(str(tableName) +"테이블에서 " + str(random_proper[proper_num]) + "에 해당하는 데이터를 삭제하는" + " SQL문을 작성해주세요." + " SQL을 실행하면 다음과 같이 출력되어야 합니다.")
+            textres.append(txt1)
+            dic[str(query)]=txt1
+            textres=[]
+            txt1=[]
+        return dic
     #UPDATE
     def update_query(self):
         target_table = self.table
@@ -244,20 +555,37 @@ class OurQuery:
         Q = target_table.objects.values()
         #table의 속성명 저장
         proper = []
+        dic={}
+        dic=dict()
         call_random = 0
         for key in Q[0]:
             proper.append(key)
-        count = len(proper)
+        table_proper=[]
+        for key in Q[0]:
+            table_proper.append(key)
+        table_proper_type=[]
         result = {} #완성된 쿼리문을 담는 결과 리스트
         result = set()
         random_proper = []
+        txt1=[]
+        textres=[]
+        count = len(proper)
         random_proper = random.sample(proper, random.randint(1, count)) #randomNum 리스트에 proper 요소를 랜덤갯수만큼 추출해서 넣기
         tmp = target_table.objects.values(random_proper[0]) #tmp에는 col_type의 모든 테이블 보유중
-
-
+        table = pd.DataFrame(Q)
+        mainkey = find_key(table,proper)
+        proper = non_find_key(table,proper)
+        count = len(proper)
+        for i in range(len(table_proper)):
+                tm = target_table.objects.values(table_proper[i])
+                for check in tm:
+                    ctype=(check[table_proper[i]])
+                    table_proper_type.append(type(ctype))
+                    break
         while query_count != len(result):
             tmp_set = {}  # 랜덤한 속성명을 담는 set 집합
             tmp_set = set()
+            a={}
             sel_random = random.randint(1, count)
             while len(tmp_set) != sel_random:
                 tmp_set.add(proper[random.randint(0, count - 1)])
@@ -265,19 +593,58 @@ class OurQuery:
             tmp_set = str(tmp_set).strip('{}')
             tmp_set = tmp_set.replace('\'', "")
             update_query = Q[random.randint(0, len(Q)-1)]
-
             tmp_set = tmp_set.replace(' ',"").split(',')
             for i in range(len(tmp_set)):
                 if type(update_query[tmp_set[i]]) is int:
-                    tmp_set[i] = (tmp_set[i] + "=" + str(random.randint(1, update_query[tmp_set[i]])))
+                    a[i] = (tmp_set[i] + " 값을 "+ str(random.randint(1, update_query[tmp_set[i]])))
+                    tmp_set[i] = (tmp_set[i] + " = " + str(random.randint(1, update_query[tmp_set[i]])))
                 else:
                     random_word = lowercase_word()
-                    tmp_set[i] = (tmp_set[i] + "=" +str(random_word))
-
-            query = "UPDATE "+ str(tableName) + " SET "+ str(tmp_set)
+                    a[i] = (tmp_set[i] + " 값을 " + str(random_word))
+                    tmp_set[i] = (tmp_set[i] + " = " + "\"" + str(random_word)) + "\""
+            sel_key = random.randint(0, len(mainkey)-1)
+            if type(pull_table_data(target_table, mainkey[sel_key])) is int or type(pull_table_data(target_table, mainkey[sel_key])) is float:
+                query = "UPDATE "+ str(tableName) + " SET "+ str(tmp_set) + " WHERE " + mainkey[sel_key] + " = " + str(pull_table_data(target_table, mainkey[sel_key]))
+            else:
+                query = "UPDATE " + str(tableName) + " SET " + str(tmp_set) + " WHERE " + mainkey[sel_key] + " = " + "\"" +str(pull_table_data(target_table, mainkey[sel_key])) +"\""
             query = query.replace('\'',"")
             query = query.replace('[', "")
             query = query.replace(']', "")
             result.add(query)
-            print(update_query, "해당하는 행을 변경하는 쿼리문입니다.")
-        return result
+            txt1.append(table_info(tableName, table_proper, table_proper_type))
+            txt1.append(str(tableName) + "테이블에서 " + str(mainkey[sel_key]) + "필드의 값이 " + "'" +str(pull_table_data(target_table, mainkey[sel_key]))+ "'" + "인 모든 레코드의 " + update_info(a) +"로 변경하는 SQL문을 작성해주세요." + " SQL을 실행하면 다음과 같이 출력되어야 합니다.")
+            textres.append(txt1)
+            dic[str(query)]=txt1
+            textres=[]
+            txt1=[]
+            #print(update_query, "해당하는 행을 변경하는 쿼리문입니다.")
+            
+        return dic
+    def join_query(self, right_table):
+        target_table = self.table
+        tablename = self.tableName
+        query_count = self.count
+        result = []
+        proper = []
+        left_table = target_table.objects.values()
+        right_table = right_table.objects.values()
+
+        left_table = pd.DataFrame(left_table)
+        right_table = pd.DataFrame(right_table)
+        r_num = random.randint(0,3)
+        if r_num == 0:
+            #inner join
+            tmp = pd.merge(left = left_table, right = right_table, how = 'inner', on = 'id')
+            return tmp
+        elif r_num == 1:
+            #LeftOuterJoin
+            tmp = pd.merge(left=left_table, right=right_table, how='left', on='id')
+            return tmp
+        elif r_num == 2:
+            #RightOuterJoin
+            tmp = pd.merge(left=left_table, right=right_table, how='right', on='id')
+            return tmp
+        elif r_num == 3:
+            #OuterJoin
+            tmp = pd.merge(left=left_table, right=right_table, how='outer', on='id')
+            return tmp

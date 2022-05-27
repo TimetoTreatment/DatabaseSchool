@@ -14,7 +14,7 @@ class addClassForm(forms.ModelForm):
 class addQuiz(forms.ModelForm):
     class Meta:
         model = Quiz
-        fields = ['date', 'starttime','tablename', 'quizname','sqlkeyword', 'tablename', 'problemnum']
+        fields = "__all__"
         
 class addRegClass(forms.ModelForm):
     class Meta:
