@@ -26,7 +26,7 @@ def login_view(request):
       print('w')
       if user is not None:
         auth.login(request, user)
-        return redirect('app:main')
+        return redirect('/')
 
     return redirect('account:login')
   

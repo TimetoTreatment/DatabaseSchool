@@ -10,7 +10,7 @@
 {% endblock %}
 
 {% block content %}
-<form id="online-judge" method="post" >
+<form id="online-judge" method="post">
     {%csrf_token%}
     <!-- ======= 문제 번호 ======= -->
     <div class="number-header header"></div>
@@ -39,14 +39,22 @@
             {{ contents.0|safe }}
         </p>
         <!-- 초기 테이블 (필요시) -->
+        <div class="table-container">
             {{origintable|safe}}
+            {% if righttable %}
+            <br />
+            {{righttable|safe}}
+            {% endif %}
+        </div>
         <p>
-            {{contents.1}}
+            {{contents.1|safe}}
         </p>
 
-        {{modifytable|safe}}
+        <div class="table-container">
+            {{modifytable|safe}}
+        </div>
         <!-- 정답 목표 테이블 -->
-        
+
     </div>
 
     <!-- ======= 코드 에디터 ======= -->
@@ -54,7 +62,7 @@
     <div class="input contents">
         <!-- 입력 텍스트, 이하 더미 데이터 -->
         <textarea name="code" cols="50" rows="7">{{sql}}</textarea>
-        
+
     </div>
 
     <!-- ======= 실행 결과 ======= -->

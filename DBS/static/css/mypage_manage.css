@@ -165,13 +165,18 @@
                 display: grid;
                 grid-template-areas: 'name score';
                 gap: 1px;
-                grid-template-columns: 99px 1fr 100px;
+                grid-template-columns: 99px 1fr;
                 border-bottom: 1px solid black;
                 background-color: white;
                 padding-top: 5px;
                 padding-left: 10px;
                 text-align: left;
             }
+
+                #mypage-grade .student-list .contents .item .score {
+                    margin-right: 50px;
+                    margin-top: 1px;
+                }
 
                 #mypage-grade .student-list .contents .item a {
                     color: black;

@@ -47,13 +47,13 @@
             <div class="contents">
                 <!-- 퀴즈 -->
                 {% for q in quiz %}
-                    <div class="item">
-                        <a href="{% url 'app:manage_student' q.classid.id  q.id %}" class="quiz-name">{{q.quizname}}</a>
-                        <a href="{% url 'app:delete_quiz' classid=q.classid.id quizdeleteid=q.id %}" class="quiz-delete">X</a>
-                        <div class="datetime">
-                            <span>{{q.starttime|date:'Y-m-d h:i:s'}}</span>
-                        </div>
+                <div class="item">
+                    <a href="{% url 'app:manage_student' q.classid.id  q.id %}" class="quiz-name">{{q.quizname}}</a>
+                    <a href="{% url 'app:delete_quiz' classid=q.classid.id quizdeleteid=q.id %}" class="quiz-delete">X</a>
+                    <div class="datetime">
+                        <span>{{q.starttime|date:'Y-m-d h:i:s'}}</span>
                     </div>
+                </div>
                 {% endfor%}
             </div>
         </div>
@@ -64,18 +64,28 @@
             <div class="contents">
                 <!-- 학생 -->
                 {% for g in grade %}
-                    <div class="item">      
-                        <div class="student-name">
-                            <a > {{g.student_name}}</a>
-                        </div>
-                        {% if g.grade == "미제출"%}
-                        미제출
-                        {% else%}
-                        <div class="progress score">
-                            <div class="progress-bar progress-bar-striped progress-bar-animated bg-warning" role="progressbar" aria-valuenow="{{g.grade}}" aria-valuemin="0" aria-valuemax="100" style="width: '{{g.grade}}'%">{{g.grade}}/100</div>
-                        </div>
-                        {% endif%}
+                <div class="item">
+                    <div class="student-name">
+                        <a> {{g.student_name}}</a>
                     </div>
+                    {% if g.grade == "미제출"%}
+                    <div class="progress score">
+                        <div class="progress-bar progress-bar-striped progress-bar-animated bg-secondary" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 100%">미제출</div>
+                    </div>
+                    {% elif g.grade >= 70 %}
+                    <div class="progress score">
+                        <div class="progress-bar progress-bar-striped progress-bar-animated bg-success" role="progressbar" aria-valuenow="{{g.grade}}" aria-valuemin="0" aria-valuemax="100" style="width: {{g.grade}}%">{{g.grade}}/100</div>
+                    </div>
+                    {% elif g.grade >= 40 %}
+                    <div class="progress score">
+                        <div class="progress-bar progress-bar-striped progress-bar-animated bg-warning" role="progressbar" aria-valuenow="{{g.grade}}" aria-valuemin="0" aria-valuemax="100" style="width: {{g.grade}}%">{{g.grade}}/100</div>
+                    </div>
+                    {% else %}
+                    <div class="progress score">
+                        <div class="progress-bar progress-bar-striped progress-bar-animated bg-danger" role="progressbar" aria-valuenow="{{g.grade}}" aria-valuemin="0" aria-valuemax="100" style="width: {{g.grade}}%">{{g.grade}}/100</div>
+                    </div>
+                    {% endif%}
+                </div>
                 {% endfor%}
             </div>
         </div>

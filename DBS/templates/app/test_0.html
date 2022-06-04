@@ -78,7 +78,13 @@
                     {% endif %}
 
                     <!-- 정답률: easy, normal, hard -->
-                    <div class="rate easy">85%</div>
+                    {% if p.nan == "상" %}
+                        <div class="rate hard">{{p.nan}}</div>
+                    {% elif p.nan == "중" %}
+                        <div class="rate normal">{{p.nan}}</div>
+                    {% else %}
+                        <div class="rate easy">{{p.nan}}</div>
+                    {% endif %}
                 </div>
                 {% endfor %}
             </div>

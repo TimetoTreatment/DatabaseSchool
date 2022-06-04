@@ -186,7 +186,7 @@
         border: 1px solid black;
         border-radius: 12px;
         background-color: black;
-        gap:1px;
+        gap: 1px;
     }
 
         #form-quiz-review #form-quiz-problem-list .title {
@@ -273,6 +273,12 @@
                     border-left: 1px solid black;
                     font-family: arial;
                 }
+
+                    #form-quiz-review #form-quiz-problem-list .problem-list .item .query > input {
+                        overflow: initial;
+                        outline: none;
+                        overflow: visible
+                    }
 
                 #form-quiz-review #form-quiz-problem-list .problem-list .item button {
                     text-align: center;

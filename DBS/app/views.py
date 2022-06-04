@@ -49,9 +49,16 @@ def manage(request, **kwargs):
 
         for row in student:
             row.student_name = User.objects.filter(id = row.userid.id).first().first_name
-            grade = Score.objects.filter(classid = kwargs['classid'], quizid= kwargs['quizid'], studentid=row.userid).values('studentid').annotate(max_score=Max('Score')).first()
+            grade1 = submit.objects.filter(classid = kwargs['classid'], quizid= kwargs['quizid'], studentid=row.userid, is_pass=True)
+            grade2 = submit.objects.filter(classid = kwargs['classid'], quizid= kwargs['quizid'], studentid=row.userid, is_pass=False)
+            quizcnt = problem.objects.filter(quizid = kwargs['quizid'])
+            if(grade1 or grade2):
+                grade= int(len(grade1)/len(quizcnt)*100)
+            else :
+                grade = 0
+                
             if (grade):
-                row.grade = grade['max_score']
+                row.grade = grade
             else:
                 row.grade = '미제출'
     
@@ -78,8 +85,18 @@ def quizreg_2(request, classid):
                                'tablename':request.POST.get('tablename'),
                                'starttime':request.POST.get('starttime'),
                                }
-           
-        Q1 = OurQuery(table_school, request.POST.get('tablename'), int(request.POST.get('problemnum')))
+        tableObj = None
+        tablename = request.POST.get('tablename')
+        if( tablename== 'table_school'):
+            tableObj = table_school
+        elif tablename== 'parcel':
+            tableObj = parcel
+        elif tablename == 'restorant':
+            tableObj = restorant
+        elif tablename == 'book':
+            tableObj = book
+        
+        Q1 = OurQuery(tableObj, request.POST.get('tablename'), int(request.POST.get('problemnum')))
         sqlkeyword = request.POST.get('sqlkeyword')
         if(sqlkeyword =="select"):
             query = Q1.select_query()
@@ -88,18 +105,21 @@ def quizreg_2(request, classid):
         elif(sqlkeyword =="delete"):
             query = Q1.delete_query()
         elif(sqlkeyword =="insert"):
-            query = Q1.insert_query()        
-        
-        print(query)
-
-        context['makequery'] = []
+            query = Q1.insert_query()
+        elif(sqlkeyword == "join"):
+            query = Q1.join_query(parcel, 'parcel')        
+            
+        makequery = {}
         temp = []
-        
+        print(query)
         for k, v in query.items():
-            context['makequery'].append(k)
-            temp.append('|'.join(v))
-
+            makequery[k] = v[2]
+            temp.append('|'.join(v[0:2]))
+    
+            
         context['contents']= temp
+        context['makequery'] = makequery
+        
         return render(request, 'app/quizreg_2.html', context)
             
     else:
@@ -115,15 +135,19 @@ def quizreg_3(request):
         quiz =addQuiz(request.POST)
         a =quiz.save()
         
-        for i in range(1, int(request.POST.get('problemnum'))):
+        for i in range(1, int(request.POST.get('problemnum'))+1):
+            print(1)
             _class = Class.objects.get(pk = request.POST.get('classid'))
             _proid = User.objects.get(pk = request.POST.get('profid'))
             pro = problem(classid = _class,
                           quizid = a,
                           profid = _proid,
                           sql = request.POST.get('query'+str(i)),
-                          contents = request.POST.get('contents'+str(i))
+                          contents = request.POST.get('contents'+str(i)),
+                          nan = request.POST.get('nan'+str(i))
                           )
+            print(request.POST.get('nan'+str(1)))
+            print(pro)
             pro.save()
 
     return redirect('app:quizreg_view_quiz', request.POST.get('classid'))
@@ -192,7 +216,7 @@ def sqlToDataFrame(sql, upper=False, table=None):
     with connection.cursor() as cursor:
         cursor.execute('begin transaction;')
         cursor.execute(sql)
-        if('SELECT' not in sql.upper()):
+        if('SELECT' not in sql.upper() and ('JOIN' not in sql.upper())):
             cursor.execute('SELECT * FROM {}'.format(table))
         columns = [col[0] for col in cursor.description]
         df = pd.DataFrame([
@@ -210,9 +234,11 @@ def test_exam(request, classid, quizid, problemid):
     _problem = problem.objects.get(pk=problemid)
     context['problem'] = _problem
     context['contents'] = [html.unescape(i) for i in _problem.contents.split('|')]
-    print(context['contents'])
     
+    context['righttable'] = None
     context['origintable'] = sqlToDataFrame('select * from {}'.format(context['quiz'].tablename), upper=False, table=context['quiz'].tablename).to_html()
+    if('JOIN' in _problem.sql.upper()):
+        context['righttable'] = sqlToDataFrame('select * from {}'.format('parcel'), upper=False, table=context['quiz'].tablename).to_html()
     context['modifytable'] = sqlToDataFrame(context['problem'].sql, upper=False, table=context['quiz'].tablename).to_html()
     
     context['sql'] = ""

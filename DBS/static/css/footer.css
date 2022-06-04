@@ -23,7 +23,7 @@
         #footer .footer-info .logo {
             grid-area: logo;
             display: flex;
-            padding-left:50px;
+            padding-left: 50px;
         }
 
             #footer .footer-info .logo .logo-img {

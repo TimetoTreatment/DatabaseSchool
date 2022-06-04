@@ -27,15 +27,6 @@ class RegClass(models.Model):
     classid = models.ForeignKey(Class, on_delete=models.CASCADE) 
     date = models.DateTimeField(null=True)
 
-class table_school(models.Model):
-    name = models.CharField(max_length=100)#학교이름
-    studentnum = models.IntegerField() #학생수
-    classnum = models.IntegerField() #학급수
-    tel = models.CharField(max_length=30)
-    address = models.CharField(max_length=100)
-    
-    class Meta:
-        db_table = "table_school"
     
 class problem(models.Model):
     classid = models.ForeignKey(Class, on_delete=models.CASCADE)
@@ -43,7 +34,7 @@ class problem(models.Model):
     profid = models.ForeignKey(User, on_delete=models.CASCADE)
     contents = models.CharField(max_length=1000)
     sql = models.CharField(max_length=100)
-        
+    nan = models.CharField(max_length=3)
 
 class Score(models.Model):
     studentid=models.ForeignKey(User, on_delete=models.CASCADE)
@@ -58,4 +49,52 @@ class submit(models.Model):
     problemid = models.ForeignKey(problem, on_delete=models.CASCADE)
     quizid=models.ForeignKey(Quiz, on_delete=models.CASCADE)
     is_pass=models.BooleanField(default=False)
+
+class table_school(models.Model):
+    name = models.CharField(max_length=100)#학교이름
+    studentnum = models.IntegerField() #학생수
+    classnum = models.IntegerField() #학급수
+    tel = models.CharField(max_length=30)
+    address = models.CharField(max_length=100)
     
+    class Meta:
+        db_table = "table_school"
+    
+class restorant(models.Model):
+    name = models.CharField(max_length=100)
+    address = models.CharField(max_length=100)
+    latitude = models.FloatField()
+    longitude = models.FloatField()
+    tel = models.CharField(max_length=30)
+    
+    class Meta:
+        db_table = "restorant"
+        
+class restorant(models.Model):
+    name = models.CharField(max_length=100)
+    address = models.CharField(max_length=100)
+    latitude = models.FloatField()
+    longitude = models.FloatField()
+    tel = models.CharField(max_length=30)
+    
+    class Meta:
+        db_table = "restorant"
+        
+class parcel(models.Model):
+    seoul = models.IntegerField()
+    gangwon = models.IntegerField()
+    busan= models.IntegerField()
+    jeonbuk= models.IntegerField()
+    junnam=models.IntegerField()
+    jeju =models.IntegerField()
+    class Meta:
+        db_table = "parcel"
+        
+class book(models.Model):
+    name = models.CharField(max_length=100)
+    writer = models.CharField(max_length=100)
+    publisher = models.CharField(max_length=100)
+    year = models.CharField(max_length=100)
+
+    class Meta:
+        db_table = 'book'

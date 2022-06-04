@@ -1,3 +1,4 @@
+
 import datetime
 from turtle import update
 from pypika import Query, Table, Field, Order
@@ -7,8 +8,11 @@ import numpy as np
 import random
 import datetime as dt
 import string
+from .Queryrecommand import AboutOurQuery
+from collections import defaultdict
 #ALTER: Table 수정
 lowercase_letters = string.ascii_lowercase
+OnAndOff = True
 def lowercase_word():
     word = ''
     random_word_length = random.randint(1,10)
@@ -73,6 +77,12 @@ def update_info(s):
         t += str(i)+ " "
     return t
 
+def insert_col(proper):
+    txt=''
+    for i in range(len(proper)):
+        txt += "<span class='text-attribute'>" + (proper[i]) + "</span>" + " "
+    return txt
+
 class OurQuery:
     def __init__(self, table, tableName, count):
         self.table = table
@@ -117,8 +127,12 @@ class OurQuery:
            result.add(str(q))
            txt1.append(table_info(tableName, proper, proper_type))
            txt1.append(str(tableName) + " 테이블에서 모든 테이블을 조회하는 SQL문을 작성해 주세요. SQL을 실행하면 다음과 같이 출력되어야 합니다")
-           textres.append(txt1)
+           if OnAndOff == True:
+            txt1.append(AboutOurQuery(str(q)).Similar())
+           elif OnAndOff == False:
+            txt1.append("하")
            dic[str(q)]=txt1
+
            txt1=[]
            textres=[]
 
@@ -128,8 +142,11 @@ class OurQuery:
            q = Query.from_(tableName).select(input_proper)
            result.add(str(q))
            txt1.append(table_info(tableName, proper, proper_type))
-           txt1.append(str(tableName) + " 테이블에서 " + str(input_proper) + " column에서 데이터를 조회하는 SQL문을 작성해 주세요. SQL을 실행하면 다음과 같이 출력되어야 합니다.")
-           textres.append(txt1)
+           txt1.append(str(tableName) + " 테이블에서 " + "<span class='text-attribute'>" + str(input_proper) + " column</span>에서 데이터를 조회하는 SQL문을 작성해 주세요. SQL을 실행하면 다음과 같이 출력되어야 합니다.")
+           if OnAndOff == True:
+            txt1.append(AboutOurQuery(str(q)).Similar())
+           elif OnAndOff == False:
+            txt1.append("하")
            dic[str(q)]=txt1
            txt1=[]
            textres=[]
@@ -140,8 +157,11 @@ class OurQuery:
            q = Query.from_(tableName).select(input_proper)
            result.add(str(q))
            txt1.append(table_info(tableName, proper, proper_type))
-           txt1.append(str(tableName) + " 테이블에서 " + str(input_tem) + " column에서 데이터를 중복값 없이 조회하는 SQL문을 작성해 주세요. SQL을 실행하면 다음과 같이 출력되어야 합니다.")
-           textres.append(txt1)
+           txt1.append(str(tableName) + " 테이블에서 " + str(input_tem) + " column에서 데이터를 <span class='text-attribute'>중복값 없이 조회하는</span> SQL문을 작성해 주세요. SQL을 실행하면 다음과 같이 출력되어야 합니다.")
+           if OnAndOff == True:
+            txt1.append(AboutOurQuery(str(q)).Similar())
+           elif OnAndOff == False:
+            txt1.append("하")
            dic[str(q)]=txt1
            txt1=[]
            textres=[]
@@ -153,13 +173,9 @@ class OurQuery:
             tmp = target_table.objects.values(random_proper[0])  # tmp에는 col_type의 모든 테이블 보유중
             for check in tmp:
                 col_type = (check[random_proper[0]])  # 랜덤으로 고른 속성의 값의 변수 type 체크
-                # print(type(col_type))
                 break
 
-            num = pull_table_data(target_table, random_proper[0])  # num에는 현재 랜덤한 int형 테이블값이 들어있다.
-            num2 = pull_table_data(target_table, random_proper[0])  # 숫자 범위자료형을 위한 변수 num2
-            while num == num2:  # 같지않은것이 뽑힐때까지 계속 뽑는다.
-                num2 = pull_table_data(target_table, random_proper[0])
+
             sel_random = random.randint(1, count)
             select_str = ""
             tmp_set = {} #랜덤한 속성명을 담는 set 집합
@@ -172,6 +188,12 @@ class OurQuery:
             r_num = random.randint(0, 16)
             #랜덤으로 고른 속성이 int인 경우? 0속성 인덱스의 0번 -> between, AVG, MAX, MIN,SUM
             if type(col_type) is int or type(col_type) is float:
+                num = pull_table_data(target_table, random_proper[0])  # num에는 현재 랜덤한 int형 테이블값이 들어있다.
+                num2 = pull_table_data(target_table, random_proper[0])  # 숫자 범위자료형을 위한 변수 num2
+                while num == num2:  # 같지않은것이 뽑힐때까지 계속 뽑는다.
+                    num2 = pull_table_data(target_table, random_proper[0])
+
+
                 if r_num == 0:#num 이상인 테이블 출력
                     q = Query.from_(tableName).select(tmp_set)
                     q = str(q)
@@ -179,8 +201,11 @@ class OurQuery:
                     q += " WHERE " + random_proper[0] + " >= " + str(num)
                     result.add(q)
                     txt1.append(table_info(tableName, proper, proper_type))
-                    txt1.append(str(tableName) + " 테이블에서 "+ random_proper[0] + " column에서 " + str(num) + " 이상인 값들을 조회하는 SQL문을 작성해 주세요. SQL을 실행하면 다음과 같이 출력되어야 합니다.")
-                    textres.append(txt1)
+                    txt1.append(str(tableName) + " 테이블에서 "+ random_proper[0] + " column에서 " + "<span class='text-attribute'>" + str(num) + " 이상인 값들을 조회하는</span> SQL문을 작성해 주세요. SQL을 실행하면 다음과 같이 출력되어야 합니다.")
+                    if OnAndOff == True:
+                        txt1.append(AboutOurQuery(str(q)).Similar())
+                    elif OnAndOff == False:
+                        txt1.append("하")
                     dic[str(q)]=txt1
                     textres=[]
                     txt1=[]
@@ -191,8 +216,11 @@ class OurQuery:
                     q += " WHERE " + random_proper[0] + " <= " + str(num)
                     result.add(q)
                     txt1.append(table_info(tableName, proper, proper_type))
-                    txt1.append(str(tableName) + " 테이블에서 " + random_proper[0] + " column에서 " + str(num) + " 이하인 값들을 조회하는 SQL문을 작성해 주세요. SQL을 실행하면 다음과 같이 출력되어야 합니다.")
-                    textres.append(txt1)
+                    txt1.append(str(tableName) + " 테이블에서 " + random_proper[0] + " column에서 " + "<span class='text-attribute'>" + str(num) + " 이하인 값들을 조회하는</span> SQL문을 작성해 주세요. SQL을 실행하면 다음과 같이 출력되어야 합니다.")
+                    if OnAndOff == True:
+                        txt1.append(AboutOurQuery(str(q)).Similar())
+                    elif OnAndOff == False:
+                        txt1.append("하")
                     dic[str(q)]=txt1
                     textres=[]
                     txt1=[]
@@ -203,8 +231,11 @@ class OurQuery:
                     q += " WHERE " + random_proper[0] + " = " + str(num)
                     result.add(q)
                     txt1.append(table_info(tableName, proper, proper_type))
-                    txt1.append(str(tableName) + " 테이블에서 " + random_proper[0] + " column에서 " + str(num) + " 과 같은 값들을 조회하는 SQL문을 작성해 주세요. SQL을 실행하면 다음과 같이 출력되어야 합니다.")
-                    textres.append(txt1)
+                    txt1.append(str(tableName) + " 테이블에서 " + random_proper[0] + " column에서 " + "<span class='text-attribute'>" + str(num) + " 과 같은 값들을 조회하는</span> SQL문을 작성해 주세요. SQL을 실행하면 다음과 같이 출력되어야 합니다.")
+                    if OnAndOff == True:
+                        txt1.append(AboutOurQuery(str(q)).Similar())
+                    elif OnAndOff == False:
+                        txt1.append("하")
                     dic[str(q)]=txt1
                     textres=[]
                     txt1=[]
@@ -215,8 +246,11 @@ class OurQuery:
                     q = q.replace("\"",'')
                     result.add(str(q))
                     txt1.append(table_info(tableName, proper, proper_type))
-                    txt1.append(str(tableName) + " 테이블에서 " + random_proper[0] + " column에서 " + " 최대값을 조회하는 SQL문을 작성해 주세요. SQL을 실행하면 다음과 같이 출력되어야 합니다.")
-                    textres.append(txt1)
+                    txt1.append(str(tableName) + " 테이블에서 " + random_proper[0] + " column에서 " + " <span class='text-attribute'>최대값을 조회하는</span> SQL문을 작성해 주세요. SQL을 실행하면 다음과 같이 출력되어야 합니다.")
+                    if OnAndOff == True:
+                        txt1.append(AboutOurQuery(str(q)).Similar())
+                    elif OnAndOff == False:
+                        txt1.append("하")
                     dic[str(q)]=txt1
                     textres=[]
                     txt1=[]
@@ -228,8 +262,11 @@ class OurQuery:
                     q = q.replace("\"",'')
                     result.add(str(q))
                     txt1.append(table_info(tableName, proper, proper_type))
-                    txt1.append(str(tableName) + " 테이블에서 " + random_proper[0] + " column에서 " + "최솟값을 조회하는 SQL문을 작성해 주세요. SQL을 실행하면 다음과 같이 출력되어야 합니다.")
-                    textres.append(txt1)
+                    txt1.append(str(tableName) + " 테이블에서 " + random_proper[0] + " column에서 " + "<span class='text-attribute'>최솟값을 조회하는</span> SQL문을 작성해 주세요. SQL을 실행하면 다음과 같이 출력되어야 합니다.")
+                    if OnAndOff == True:
+                        txt1.append(AboutOurQuery(str(q)).Similar())
+                    elif OnAndOff == False:
+                        txt1.append("하")
                     dic[str(q)]=txt1
 
                     textres=[]
@@ -242,8 +279,11 @@ class OurQuery:
                     q = q.replace("\"",'')
                     result.add(str(q))
                     txt1.append(table_info(tableName, proper, proper_type))
-                    txt1.append(str(tableName) + " 테이블에서 " + random_proper[0] + " column에서 " + " 최대값과 최솟값의 차이를 나타내는 SQL문을 작성해 주세요. SQL을 실행하면 다음과 같이 출력되어야 합니다.")
-                    textres.append(txt1)
+                    txt1.append(str(tableName) + " 테이블에서 " + random_proper[0] + " column에서 " + " <span class='text-attribute'>최대값과 최솟값의 차이를 나타내는</span> SQL문을 작성해 주세요. SQL을 실행하면 다음과 같이 출력되어야 합니다.")
+                    if OnAndOff == True:
+                        txt1.append(AboutOurQuery(str(q)).Similar())
+                    elif OnAndOff == False:
+                        txt1.append("하")
                     dic[str(q)]=txt1
                     textres=[]
                     txt1=[]
@@ -256,8 +296,11 @@ class OurQuery:
                     q += " WHERE " + random_proper[0] + " BETWEEN " + str(tmp2) + " AND " + str(tmp1)
                     result.add(q)
                     txt1.append(table_info(tableName, proper, proper_type))
-                    txt1.append(str(tableName) + " 테이블에서 " + random_proper[0] + " column에서 " + str(tmp2) + "과" + str(tmp1) + " 사이값들을 조회하는 SQL문을 작성해 주세요. SQL을 실행하면 다음과 같이 출력되어야 합니다.")
-                    textres.append(txt1)
+                    txt1.append(str(tableName) + " 테이블에서 " + random_proper[0] + " column에서 " + "<span class='text-attribute'>" + str(tmp2) + "과" + str(tmp1) + " 사이값들을 조회하는</span> SQL문을 작성해 주세요. SQL을 실행하면 다음과 같이 출력되어야 합니다.")
+                    if OnAndOff == True:
+                        txt1.append(AboutOurQuery(str(q)).Similar())
+                    elif OnAndOff == False:
+                        txt1.append("하")
                     dic[str(q)]=txt1
                     textres=[]
                     txt1=[]
@@ -270,8 +313,11 @@ class OurQuery:
                     q += " WHERE " + random_proper[0] + " NOT BETWEEN " + str(tmp2) + " AND " + str(tmp1)
                     result.add(q)
                     txt1.append(table_info(tableName, proper, proper_type))
-                    txt1.append(str(tableName) + " 테이블에서 " + random_proper[0] + " column에서 " + str(tmp2) + "과" + str(tmp1) + " 사이에 있지 않는 값들을 조회하는 SQL문을 작성해 주세요. SQL을 실행하면 다음과 같이 출력되어야 합니다.")
-                    textres.append(txt1)
+                    txt1.append(str(tableName) + " 테이블에서 " + random_proper[0] + " column에서 " + "<span class='text-attribute'>" + str(tmp2) + "과" + str(tmp1) + " 사이에 있지 않는 값들을 조회하는</span> SQL문을 작성해 주세요. SQL을 실행하면 다음과 같이 출력되어야 합니다.")
+                    if OnAndOff == True:
+                        txt1.append(AboutOurQuery(str(q)).Similar())
+                    elif OnAndOff == False:
+                        txt1.append("하")
                     dic[str(q)]=txt1
                     textres=[]
                     txt1=[]
@@ -282,8 +328,11 @@ class OurQuery:
                     q = q.replace("\"",'')
                     result.add(q)
                     txt1.append(table_info(tableName, proper, proper_type))
-                    txt1.append(str(tableName) + " 테이블에서 " + random_proper[0] + " column에서 " + "데이터들을 내림차순으로 조회하는 SQL문을 작성해 주세요. SQL을 실행하면 다음과 같이 출력되어야 합니다.")
-                    textres.append(txt1)
+                    txt1.append(str(tableName) + " 테이블에서 " + random_proper[0] + " column에서 " + "데이터들을 <span class='text-attribute'>내림차순으로 조회하는</span> SQL문을 작성해 주세요. SQL을 실행하면 다음과 같이 출력되어야 합니다.")
+                    if OnAndOff == True:
+                        txt1.append(AboutOurQuery(str(q)).Similar())
+                    elif OnAndOff == False:
+                        txt1.append("하")
                     dic[str(q)]=txt1
                     textres=[]
                     txt1=[]
@@ -294,8 +343,11 @@ class OurQuery:
                     q = q.replace("\"",'')
                     result.add(q)
                     txt1.append(table_info(tableName, proper, proper_type))
-                    txt1.append(str(tableName) + " 테이블에서 " + random_proper[0] + " column에서 " + "데이터들을 오름차순으로 조회하는 SQL문을 작성해 주세요. SQL을 실행하면 다음과 같이 출력되어야 합니다.")
-                    textres.append(txt1)
+                    txt1.append(str(tableName) + " 테이블에서 " + "<span class='text-attribute'>" +random_proper[0] +"</span>" + " column에서 " + "데이터들을 <span class='text-attribute'>오름차순으로 조회하는</span> SQL문을 작성해 주세요. SQL을 실행하면 다음과 같이 출력되어야 합니다.")
+                    if OnAndOff == True:
+                        txt1.append(AboutOurQuery(str(q)).Similar())
+                    elif OnAndOff == False:
+                        txt1.append("하")
                     dic[str(q)]=txt1
                     textres=[]
                     txt1=[]
@@ -312,8 +364,11 @@ class OurQuery:
                     q = q.replace("\"", "")
                     result.add(q)
                     txt1.append(table_info(tableName, proper, proper_type))
-                    txt1.append(str(tableName) + " 테이블에서 " + random_proper[0] + " column에서 " + "작은수부터 순위를 매기고 " + str(order_type) + "는 사전순으로(오름차순) " + "조회하는 SQL문을 작성해 주세요. " + "SQL을 실행하면 다음과 같이 출력되어야 합니다.")
-                    textres.append(txt1)
+                    txt1.append(str(tableName) + " 테이블에서 " + "<span class='text-attribute'>" + random_proper[0] +"</span>" + " column에서 " + "<span class='text-attribute'>작은수부터 순위를 매기고</span> " + "<span class='text-attribute'>" + str(order_type) +"</span>" + "는 <span class='text-attribute'>사전순으로(오름차순)</span> " + "조회하는 SQL문을 작성해 주세요. " + "SQL을 실행하면 다음과 같이 출력되어야 합니다.")
+                    if OnAndOff == True:
+                        txt1.append(AboutOurQuery(str(q)).Similar())
+                    elif OnAndOff == False:
+                        txt1.append("하")
                     dic[str(q)]=txt1
                     textres=[]
                     txt1=[]
@@ -329,8 +384,11 @@ class OurQuery:
                     q = q.replace("\"", "")
                     result.add(q)
                     txt1.append(table_info(tableName, proper, proper_type))
-                    txt1.append(str(tableName) + " 테이블에서 " + random_proper[0] + " column에서 " + "큰수은것부터 순위를 매기고 " + str(order_type) + "는 사전순으로(오름차순) " + "조회하는 SQL문을 작성해 주세요. " + "SQL을 실행하면 다음과 같이 출력되어야 합니다.")
-                    textres.append(txt1)
+                    txt1.append(str(tableName) + " 테이블에서 " + "<span class='text-attribute'>" + random_proper[0] +"</span>" + " column에서 " + "<span class='text-attribute'>큰수부터 순위를 매기고</span> " + "<span class='text-attribute'>" + str(order_type) +"</span>" + "는 <span class='text-attribute'>사전순으로(오름차순)</span> " + "조회하는 SQL문을 작성해 주세요. " + "SQL을 실행하면 다음과 같이 출력되어야 합니다.")
+                    if OnAndOff == True:
+                        txt1.append(AboutOurQuery(str(q)).Similar())
+                    elif OnAndOff == False:
+                        txt1.append("하")
                     dic[str(q)]=txt1
                     textres=[]
                     txt1=[]
@@ -346,8 +404,11 @@ class OurQuery:
                     q = q.replace("\"", "")
                     result.add(q)
                     txt1.append(table_info(tableName, proper, proper_type))
-                    txt1.append(str(tableName) + " 테이블에서 " + random_proper[0] + " column에서 " + "작은수부터 순위를 매기고 " + str(order_type) + "는 사전역순으로(내림차순) " + "조회하는 SQL문을 작성해 주세요. " + "SQL을 실행하면 다음과 같이 출력되어야 합니다.")
-                    textres.append(txt1)
+                    txt1.append(str(tableName) + " 테이블에서 " + "<span class='text-attribute'>" + random_proper[0] +"</span>" + " column에서 " + "<span class='text-attribute'>작은수부터 순위를 매기고</span> " + "<span class='text-attribute'>" + str(order_type) +"</span>" + "는 <span class='text-attribute'>사전역순으로(내림차순)</span> " + "조회하는 SQL문을 작성해 주세요. " + "SQL을 실행하면 다음과 같이 출력되어야 합니다.")
+                    if OnAndOff == True:
+                        txt1.append(AboutOurQuery(str(q)).Similar())
+                    elif OnAndOff == False:
+                        txt1.append("하")
                     dic[str(q)]=txt1
                     textres=[]
                     txt1=[]
@@ -363,8 +424,11 @@ class OurQuery:
                     q = q.replace("\"", "")
                     result.add(q)
                     txt1.append(table_info(tableName, proper, proper_type))
-                    txt1.append(str(tableName) + " 테이블에서 " + random_proper[0] + " column에서 " + "큰수부터 순위를 매기고 " + str(order_type) + "는 사전역순으로(내림차순) " + "조회하는 SQL문을 작성해 주세요. " + "SQL을 실행하면 다음과 같이 출력되어야 합니다.")
-                    textres.append(txt1)
+                    txt1.append(str(tableName) + " 테이블에서 " + "<span class='text-attribute'>" + random_proper[0] +"</span>" + " column에서 " + "<span class='text-attribute'>큰수부터 순위를 매기고</span> " + "<span class='text-attribute'>" + str(order_type) +"</span>" + "는 <span class='text-attribute'>사전역순으로(내림차순)</span> " + "조회하는 SQL문을 작성해 주세요. " + "SQL을 실행하면 다음과 같이 출력되어야 합니다.")
+                    if OnAndOff == True:
+                        txt1.append(AboutOurQuery(str(q)).Similar())
+                    elif OnAndOff == False:
+                        txt1.append("하")
                     dic[str(q)]=txt1
                     textres=[]
                     txt1=[]
@@ -376,8 +440,11 @@ class OurQuery:
                     q = q.replace("\"", "")
                     result.add(q)
                     txt1.append(table_info(tableName, proper, proper_type))
-                    txt1.append(str(tableName) + " 테이블에서 " + random_proper[0] + " column에서 " + "해당 column의 평균보다 " + "크거나 같은 데이터를 오름차순으로 조회하는 SQL문을 작성해 주세요. " + "SQL을 실행하면 다음과 같이 출력되어야 합니다.")
-                    textres.append(txt1)
+                    txt1.append(str(tableName) + " 테이블에서 " + "<span class='text-attribute'>" + random_proper[0] + "</span>" + " column에서 " + "해당 column의 <span class='text-attribute'>평균보다 " + "크거나 같은</span> 데이터를 <span class='text-attribute'>오름차순으로 조회하는</span> SQL문을 작성해 주세요. " + "SQL을 실행하면 다음과 같이 출력되어야 합니다.")
+                    if OnAndOff == True:
+                        txt1.append(AboutOurQuery(str(q)).Similar())
+                    elif OnAndOff == False:
+                        txt1.append("하")
                     dic[str(q)]=txt1
                     textres=[]
                     txt1=[]
@@ -389,8 +456,11 @@ class OurQuery:
                     q = q.replace("\"", "")
                     result.add(q)
                     txt1.append(table_info(tableName, proper, proper_type))
-                    txt1.append(str(tableName) + " 테이블에서 " + random_proper[0] + " column에서 " + "해당 column의 평균보다 " + "크거나 같은 데이터를 내림차순으로 조회하는 SQL문을 작성해 주세요. " + "SQL을 실행하면 다음과 같이 출력되어야 합니다.")
-                    textres.append(txt1)
+                    txt1.append(str(tableName) + " 테이블에서 " + "<span class='text-attribute'>" +  random_proper[0] + "</span>" + " column에서 " + "해당 column의 <span class='text-attribute'>평균보다 " + "크거나 같은</span> 데이터를 <span class='text-attribute'>내림차순으로 조회하는</span> SQL문을 작성해 주세요. " + "SQL을 실행하면 다음과 같이 출력되어야 합니다.")
+                    if OnAndOff == True:
+                        txt1.append(AboutOurQuery(str(q)).Similar())
+                    elif OnAndOff == False:
+                        txt1.append("하")
                     dic[str(q)]=txt1
                     textres=[]
                     txt1=[]
@@ -403,8 +473,11 @@ class OurQuery:
                     q = q.replace("\"", "")
                     result.add(q)
                     txt1.append(table_info(tableName, proper, proper_type))
-                    txt1.append(str(tableName) + " 테이블에서 " + random_proper[0] + " column에서 " + "해당 column의 평균보다 " + "크거나 같은 테이블의 갯수를 조회하는 SQL문을 작성해 주세요. " + "SQL을 실행하면 다음과 같이 출력되어야 합니다.")
-                    textres.append(txt1)
+                    txt1.append(str(tableName) + " 테이블에서 " + "<span class='text-attribute'>" + random_proper[0] + "</span>" + " column에서 " + "해당 column의 <span class='text-attribute'>평균보다 " + "크거나 같은 테이블의 갯수를 조회하는</span> SQL문을 작성해 주세요. " + "SQL을 실행하면 다음과 같이 출력되어야 합니다.")
+                    if OnAndOff == True:
+                        txt1.append(AboutOurQuery(str(q)).Similar())
+                    elif OnAndOff == False:
+                        txt1.append("하")
                     dic[str(q)]=txt1
                     textres=[]
                     txt1=[]
@@ -418,8 +491,11 @@ class OurQuery:
                     q = q.replace("\"", "")
                     result.add(q)
                     txt1.append(table_info(tableName, proper, proper_type))
-                    txt1.append(str(tableName) + " 테이블에서 " + random_proper[0] + " column에서 " + "내림차순으로 조회하는 SQL문을 작성해 주세요. " + "SQL을 실행하면 다음과 같이 출력되어야 합니다.")
-                    textres.append(txt1)
+                    txt1.append(str(tableName) + " 테이블에서 " + random_proper[0] + " column에서 " + "<span class='text-attribute'>내림차순으로 조회하는</span> SQL문을 작성해 주세요. " + "SQL을 실행하면 다음과 같이 출력되어야 합니다.")
+                    if OnAndOff == True:
+                        txt1.append(AboutOurQuery(str(q)).Similar())
+                    elif OnAndOff == False:
+                        txt1.append("하")
                     dic[str(q)]=txt1
                     textres=[]
                     txt1=[]
@@ -430,8 +506,11 @@ class OurQuery:
                     q = q.replace("\"", "")
                     result.add(q)
                     txt1.append(table_info(tableName, proper, proper_type))
-                    txt1.append(str(tableName) + " 테이블에서 " + random_proper[0] + " column에서 " + "오름차순으로 조회하는 SQL문을 작성해 주세요. " + "SQL을 실행하면 다음과 같이 출력되어야 합니다.")
-                    textres.append(txt1)
+                    txt1.append(str(tableName) + " 테이블에서 " + random_proper[0] + " column에서 " + "<span class='text-attribute'>오름차순으로 조회하는</span> SQL문을 작성해 주세요. " + "SQL을 실행하면 다음과 같이 출력되어야 합니다.")
+                    if OnAndOff == True:
+                        txt1.append(AboutOurQuery(str(q)).Similar())
+                    elif OnAndOff == False:
+                        txt1.append("하")
                     dic[str(q)]=txt1
                     textres=[]
                     txt1=[]
@@ -444,8 +523,11 @@ class OurQuery:
                     q = q.replace("\"", "")
                     result.add(q)
                     txt1.append(table_info(tableName, proper, proper_type))
-                    txt1.append(str(tableName) + " 테이블에서 " + random_proper[0] + " column에서 " + "'" +meta_data[0]+"'" + "인 문자로 시작하는 데이터를 조회하는 SQL문을 작성해 주세요. " + "SQL을 실행하면 다음과 같이 출력되어야 합니다.")
-                    textres.append(txt1)
+                    txt1.append(str(tableName) + " 테이블에서 " + random_proper[0] + " column에서 " + "<span class='text-attribute'>" + "'" +meta_data[0]+"'" + "인 문자로 시작하는 데이터를 조회하는</span> SQL문을 작성해 주세요. " + "SQL을 실행하면 다음과 같이 출력되어야 합니다.")
+                    if OnAndOff == True:
+                        txt1.append(AboutOurQuery(str(q)).Similar())
+                    elif OnAndOff == False:
+                        txt1.append("하")
                     dic[str(q)]=txt1
                     textres=[]
                     txt1=[]
@@ -458,8 +540,11 @@ class OurQuery:
                     q = q.replace("\"", "")
                     result.add(q)
                     txt1.append(table_info(tableName, proper, proper_type))
-                    txt1.append(str(tableName) + " 테이블에서 " + random_proper[0] + " column에서 " + "'" +meta_data[0]+"'" + "인 문자를 포함하는 데이터를 조회하는 SQL문을 작성해 주세요. " + "SQL을 실행하면 다음과 같이 출력되어야 합니다.")
-                    textres.append(txt1)
+                    txt1.append(str(tableName) + " 테이블에서 " + random_proper[0] + " column에서 " + "<span class='text-attribute'>" + "'" +meta_data[0]+"'" + "인 문자를 포함하는 데이터를 조회하는</span> SQL문을 작성해 주세요. " + "SQL을 실행하면 다음과 같이 출력되어야 합니다.")
+                    if OnAndOff == True:
+                        txt1.append(AboutOurQuery(str(q)).Similar())
+                    elif OnAndOff == False:
+                        txt1.append("하")
                     dic[str(q)]=txt1
                     textres=[]
                     txt1=[]
@@ -473,8 +558,11 @@ class OurQuery:
                     q = q.replace("\"", "")
                     result.add(q)
                     txt1.append(table_info(tableName, proper, proper_type))
-                    txt1.append(str(tableName) + " 테이블에서 " + random_proper[0] + " column에서 " + "'" +meta_data[len(meta_data) -1]+"'" + "인 문자로 끝나는 데이터를 조회하는 SQL문을 작성해 주세요. " + "SQL을 실행하면 다음과 같이 출력되어야 합니다.")
-                    textres.append(txt1)
+                    txt1.append(str(tableName) + " 테이블에서 " + random_proper[0] + " column에서 " + "<span class='text-attribute'>" + "'" +meta_data[len(meta_data) -1]+"'" + "인 문자로 끝나는 데이터를 조회하는</span> SQL문을 작성해 주세요. " + "SQL을 실행하면 다음과 같이 출력되어야 합니다.")
+                    if OnAndOff == True:
+                        txt1.append(AboutOurQuery(str(q)).Similar())
+                    elif OnAndOff == False:
+                        txt1.append("하")
                     dic[str(q)]=txt1
                     textres=[]
                     txt1=[]
@@ -490,6 +578,7 @@ class OurQuery:
     def insert_query(self):
         target_table = self.table
         tableName = self.tableName
+        result = []
         #table로 부터 속성의 이름을 알아내는 과정
         Q = target_table.objects.values()
         #table의 속성명 저장
@@ -502,6 +591,48 @@ class OurQuery:
         random_proper = []
         random_proper = random.sample(proper, random.randint(1, count)) #randomNum 리스트에 proper 요소를 랜덤갯수만큼 추출해서 넣기
         tmp = target_table.objects.values(random_proper[0]) #tmp에는 col_type의 모든 테이블 보유중
+        pd_table = pd.DataFrame(Q)
+        table_dict = defaultdict(list)
+        query_proper = []
+        proper_type = []
+        txt1=[]
+        dic = {}
+        dic = dict()
+        for i in range(len(proper)):
+            for data in pd_table[proper[i]]:
+                table_dict[proper[i]].append(data)
+        
+        for i in range(len(proper)):
+                tm = target_table.objects.values(proper[i])
+                for check in tm:
+                    ctype=(check[proper[i]])
+                    proper_type.append(type(ctype))
+                    break
+
+        for p in proper:
+            if p == 'id':
+                query_proper.append(str(len(table_dict[p]) + 1))
+                continue
+            if type(pull_table_data(target_table, p)) is str:
+                query_proper.append("\"" + lowercase_word() + "\"")
+            else:
+                temp1 = max(table_dict[p])
+                temp2 = min(table_dict[p])
+                query_proper.append(str(random.randint(temp1, temp1+(temp1 - temp2))))
+
+        query_proper = ", ".join(query_proper)
+        query = "INSERT INTO " + tableName + " VALUES(" + query_proper + ")"
+        print(query)
+        result.append(query)
+        txt1.append(table_info(tableName, proper, proper_type))
+        txt1.append(str(tableName) + "테이블에서 " + insert_col(proper) + "column에 순차적으로 " + query_proper + "의 데이터를 삽입하는 SQL문을 작성해 주세요." + " SQL을 실행하면 다음과 같이 출력되어야 합니다.")
+        if OnAndOff == True:
+            txt1.append(AboutOurQuery(str(query)).Similar())
+        elif OnAndOff == False:
+            txt1.append("하")
+        dic[str(query)] = txt1
+        txt1=[]
+        return dic
 
     #DELETE
     def delete_query(self):
@@ -540,8 +671,11 @@ class OurQuery:
             #print(random_proper[proper_num], " 속성이 " , update_query[random_proper[proper_num]] , " 에 해당하는 값의 테이블을 삭제")
             result.append(query)
             txt1.append(table_info(tableName, proper, proper_type))
-            txt1.append(str(tableName) +"테이블에서 " + str(random_proper[proper_num]) + "에 해당하는 데이터를 삭제하는" + " SQL문을 작성해주세요." + " SQL을 실행하면 다음과 같이 출력되어야 합니다.")
-            textres.append(txt1)
+            txt1.append(str(tableName) +"테이블에서 " + "<span class='text-attribute'>" + str(random_proper[proper_num]) + "에 해당하는 데이터를 삭제하는</span>" + " SQL문을 작성해주세요." + " SQL을 실행하면 다음과 같이 출력되어야 합니다.")
+            if OnAndOff == True:
+                txt1.append(AboutOurQuery(str(query)).Similar())
+            elif OnAndOff == False:
+                txt1.append("하")
             dic[str(query)]=txt1
             textres=[]
             txt1=[]
@@ -607,44 +741,121 @@ class OurQuery:
                 query = "UPDATE "+ str(tableName) + " SET "+ str(tmp_set) + " WHERE " + mainkey[sel_key] + " = " + str(pull_table_data(target_table, mainkey[sel_key]))
             else:
                 query = "UPDATE " + str(tableName) + " SET " + str(tmp_set) + " WHERE " + mainkey[sel_key] + " = " + "\"" +str(pull_table_data(target_table, mainkey[sel_key])) +"\""
+            k=query.split('WHERE')
+            kk=k[1].split('=')
+            bb=kk[1]
+            bb=bb.replace('\'',"")
+            bb=bb.replace(' ',"")
             query = query.replace('\'',"")
             query = query.replace('[', "")
             query = query.replace(']', "")
             result.add(query)
             txt1.append(table_info(tableName, table_proper, table_proper_type))
-            txt1.append(str(tableName) + "테이블에서 " + str(mainkey[sel_key]) + "필드의 값이 " + "'" +str(pull_table_data(target_table, mainkey[sel_key]))+ "'" + "인 모든 레코드의 " + update_info(a) +"로 변경하는 SQL문을 작성해주세요." + " SQL을 실행하면 다음과 같이 출력되어야 합니다.")
-            textres.append(txt1)
+            txt1.append(str(tableName) + "테이블에서 " + str(mainkey[sel_key]) + "필드의 값이 " + bb + "인 모든 레코드의 " + update_info(a) +"로 변경하는 SQL문을 작성해주세요." + " SQL을 실행하면 다음과 같이 출력되어야 합니다.")
+            if OnAndOff == True:
+                txt1.append(AboutOurQuery(str(query)).Similar())
+            elif OnAndOff == False:
+                txt1.append("하")
             dic[str(query)]=txt1
             textres=[]
             txt1=[]
             #print(update_query, "해당하는 행을 변경하는 쿼리문입니다.")
             
         return dic
-    def join_query(self, right_table):
+    def join_query(self, right_table, right_table_name):
         target_table = self.table
         tablename = self.tableName
         query_count = self.count
-        result = []
-        proper = []
         left_table = target_table.objects.values()
         right_table = right_table.objects.values()
-
+        lproper = []
+        rproper = []
+        lproper_type=[]
+        rproper_type=[]
+        txt1=[]
+        txt2=''
+        dic={}
+        dic=dict()
+        for key in left_table[0]:
+            lproper.append(key)
+        
+        for key in right_table[0]:
+            rproper.append(key)
+        
+        for i in range(len(lproper)):
+            tm = target_table.objects.values(lproper[i])
+            for check in tm:
+                ctype = (check[lproper[i]])
+                lproper_type.append(type(ctype))
+                break
+        for i in range(len(rproper)):
+            tm = right_table.values(rproper[i])
+            for check in tm:
+                ctype = (check[rproper[i]])
+                rproper_type.append(type(ctype))
+                break
+        
         left_table = pd.DataFrame(left_table)
         right_table = pd.DataFrame(right_table)
-        r_num = random.randint(0,3)
-        if r_num == 0:
-            #inner join
-            tmp = pd.merge(left = left_table, right = right_table, how = 'inner', on = 'id')
-            return tmp
-        elif r_num == 1:
-            #LeftOuterJoin
+        if query_count == 1:
+            r_num = random.randint(0, 1)
+            if r_num == 0:
+                #inner join
+                tmp = pd.merge(left = left_table, right = right_table, how = 'inner', on = 'id')
+                query = "SELECT * FROM " + tablename + " INNER JOIN " + right_table_name + " ON " + tablename +".id = " + right_table_name + ".id"
+                txt2 += table_info(tablename, lproper, lproper_type) + table_info(right_table_name, rproper, rproper_type)
+                txt1.append(txt2)
+                txt1.append(str(tablename) + "테이블과 " + str(right_table_name) + "테이블에는 id 속성이 공통으로 있습니다. " + "이 속성을 기준으로 하여 " + insert_col(lproper) + insert_col(rproper) + "데이터들을 조회하는 SQL문을 작성해주세요." + " SQL을 실행하면 다음과 같이 출력되어야 합니다.")
+                if OnAndOff == True:
+                    txt1.append(AboutOurQuery(str(query)).Similar())
+                elif OnAndOff == False:
+                    txt1.append("하")
+                dic[str(query)] = txt1
+                txt1=[]
+                txt2=''
+                return dic
+            elif r_num == 1:
+                #LeftOuterJoin
+                tmp = pd.merge(left=left_table, right=right_table, how='left', on='id')
+                query = "SELECT * FROM " + tablename + " LEFT OUTER JOIN " + right_table_name + " ON " + tablename + ".id = " + right_table_name + ".id"
+                txt2 += table_info(tablename, lproper, lproper_type) + table_info(right_table_name, rproper, rproper_type)
+                txt1.append(txt2)
+                txt1.append(str(tablename) + "테이블과 " + str(
+                    right_table_name) + "테이블에는 id 속성이 공통으로 있습니다. " + "이 속성을 기준으로 하여 " + insert_col(lproper) + insert_col(rproper) + "데이터들을 조회하는 SQL문을 작성해주세요." + " 단, id 값이 존재하지 않다면 NULL값으로 대신합니다." + " SQL을 실행하면 다음과 같이 출력되어야 합니다.")
+
+                if OnAndOff == True:
+                    txt1.append(AboutOurQuery(str(query)).Similar())
+                elif OnAndOff == False:
+                    txt1.append("하")
+                dic[str(query)] = txt1
+                txt1=[]
+                txt2=''
+                return dic
+        else:
+            # inner join
+            tmp = pd.merge(left=left_table, right=right_table, how='inner', on='id')
+            query = "SELECT * FROM " + tablename + " INNER JOIN " + right_table_name + " ON " + tablename + ".id = " + right_table_name + ".id"
+            txt2 += table_info(tablename, lproper, lproper_type) + table_info(right_table_name, rproper, rproper_type)
+            txt1.append(txt2)
+            txt1.append(str(tablename) +"테이블과 " + str(right_table_name) + "테이블에는 id 속성이 공통으로 있습니다. " + "이 속성을 기준으로 하여 " + insert_col(lproper) + insert_col(rproper) + "데이터들을 조회하는 SQL문을 작성해주세요." + " SQL을 실행하면 다음과 같이 출력되어야 합니다.")
+            if OnAndOff == True:
+                txt1.append(AboutOurQuery(str(query)).Similar())
+            elif OnAndOff == False:
+                txt1.append("하")
+            dic[str(query)] = txt1
+            txt1 = []
+            txt2 = ''
+            # LeftOuterJoin
             tmp = pd.merge(left=left_table, right=right_table, how='left', on='id')
-            return tmp
-        elif r_num == 2:
-            #RightOuterJoin
-            tmp = pd.merge(left=left_table, right=right_table, how='right', on='id')
-            return tmp
-        elif r_num == 3:
-            #OuterJoin
-            tmp = pd.merge(left=left_table, right=right_table, how='outer', on='id')
-            return tmp
+            query = "SELECT * FROM " + tablename + " LEFT OUTER JOIN " + right_table_name + " ON " + tablename + ".id = " + right_table_name + ".id"
+            txt2 += table_info(tablename, lproper, lproper_type) + table_info(right_table_name, rproper, rproper_type)
+            txt1.append(txt2)
+            txt1.append(str(tablename) +"테이블과 " + str(right_table_name) + "테이블에는 id 속성이 공통으로 있습니다. " + "이 속성을 기준으로 하여 " + insert_col(lproper) + insert_col(rproper) + "데이터들을 조회하는 SQL문을 작성해주세요." + " 단, id 값이 존재하지 않다면 NULL값으로 대신합니다." + " SQL을 실행하면 다음과 같이 출력되어야 합니다.")
+            if OnAndOff == True:
+                txt1.append(AboutOurQuery(str(query)).Similar())
+            elif OnAndOff == False:
+                txt1.append("하")
+            dic[str(query)] = txt1
+            txt1 = []
+            txt2 = ''
+            return dic
